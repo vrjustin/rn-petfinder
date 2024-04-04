@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Text, View, FlatList, StyleSheet} from 'react-native';
-import getPetTypes from '../services/apiService';
+import apiService from '../services/apiService';
 import PetType from '../models/PetType';
 
 const PetTypes: React.FC = () => {
@@ -9,7 +9,7 @@ const PetTypes: React.FC = () => {
   useEffect(() => {
     const fetchPetTypesData = async () => {
       try {
-        const typesData = await getPetTypes();
+        const typesData = await apiService.getPetTypes();
         setPetTypes(typesData?.types ?? []);
       } catch (error) {
         console.error('Failed to fetch pet types:', error);

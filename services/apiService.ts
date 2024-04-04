@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import PetType from '../models/PetType';
+import Breed from '../models/Breed';
 
 interface AccessTokenResponse {
     access_token: string;
@@ -59,4 +60,29 @@ const getPetTypes = async (): Promise<PetTypesResponse> => {
     }
 };
 
-export default getPetTypes;
+const getPetBreeds = async (type: PetType): Promise<Breed[]> => {
+    if (!jwt_access_token) {
+        await getAccessToken();
+    }
+    try {
+        const response = await axios.get(
+            `https://api.petfinder.com/v2/types/${type}/breeds`,
+            {
+                headers: {
+                    Authorization: `Bearer ${jwt_access_token}`,
+                },
+            },
+        );
+
+        return response.data.breeds;
+    } catch (error) {
+        console.error('Failed to fetch pet breeds:', error);
+        return [];
+    }
+};
+
+export default {
+    getAccessToken,
+    getPetTypes,
+    getPetBreeds,
+};
