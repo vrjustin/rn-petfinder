@@ -1,15 +1,24 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {SafeAreaView, Text, View} from 'react-native';
-import apiConfig from './apiConfig';
+import getAccessToken from './services/apiService';
 
 function App(): React.JSX.Element {
-  const {CLIENT_ID, CLIENT_SECRET} = apiConfig;
+  const [accessToken, setAccessToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchAccessToken = async () => {
+      const token = await getAccessToken();
+      setAccessToken(token);
+    };
+
+    fetchAccessToken();
+  }, []);
+
   return (
     <SafeAreaView>
       <View>
         <Text>PetFinder</Text>
-        <Text>{CLIENT_ID}</Text>
-        <Text>{CLIENT_SECRET}</Text>
+        <Text>Access Token: {accessToken}</Text>
       </View>
     </SafeAreaView>
   );
