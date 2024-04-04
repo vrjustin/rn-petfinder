@@ -4,7 +4,7 @@ import PetTypes from './Views/PetTypes';
 
 function App(): React.JSX.Element {
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1}}>
       <PetTypes />
     </SafeAreaView>
   );
