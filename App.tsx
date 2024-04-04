@@ -11,7 +11,7 @@ function App(): React.JSX.Element {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="PetTypes" component={PetTypes} />
-        <Stack.Screen name="BreedsScreen" component={Breeds} />
+        <Stack.Screen name="Breeds" component={Breeds} />
       </Stack.Navigator>
     </NavigationContainer>
   );

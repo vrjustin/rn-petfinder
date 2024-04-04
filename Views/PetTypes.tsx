@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {Text, View, FlatList, StyleSheet} from 'react-native';
+import {Text, View, FlatList, StyleSheet, TouchableOpacity} from 'react-native';
+import { useNavigation } from '@react-navigation/native'; // Import navigation hook
 import apiService from '../services/apiService';
 import PetType from '../models/PetType';
 
 const PetTypes: React.FC = () => {
   const [petTypes, setPetTypes] = useState<PetType[]>([]);
+  const navigation = useNavigation();
 
   useEffect(() => {
     const fetchPetTypesData = async () => {
@@ -19,10 +21,16 @@ const PetTypes: React.FC = () => {
     fetchPetTypesData();
   }, []);
 
+  const handlePetTypeSelection = (petType: PetType) => {
+    navigation.navigate('Breeds');
+  };
+
   const renderItem = ({item}: {item: PetType}) => (
-    <View style={styles.item}>
-      <Text style={styles.text}>{item.name}</Text>
-    </View>
+    <TouchableOpacity onPress={() => handlePetTypeSelection(item)}>
+      <View style={styles.item}>
+        <Text style={styles.text}>{item.name}</Text>
+      </View>
+    </TouchableOpacity>
   );
 
   if (petTypes.length === 0) {
