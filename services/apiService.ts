@@ -1,9 +1,14 @@
 import axios, { AxiosResponse } from 'axios';
+import PetType from '../models/PetType';
 
 interface AccessTokenResponse {
     access_token: string;
     token_type: string;
     expires_in: number;
+}
+
+interface PetTypesResponse {
+    types: PetType[];
 }
 
 let jwt_access_token: string | null = null;
@@ -32,22 +37,25 @@ const getAccessToken = async (): Promise<string | null> => {
     }
 };
 
-const getPetTypes = async (): Promise<any> => {
+const getPetTypes = async (): Promise<PetTypesResponse> => {
     if (!jwt_access_token) {
         await getAccessToken();
     }
 
     try {
-        const response: AxiosResponse<any> = await axios.get(TYPES_ENDPOINT, {
-            headers: {
-                Authorization: `Bearer ${jwt_access_token}`,
+        const response: AxiosResponse<PetTypesResponse> = await axios.get(
+            TYPES_ENDPOINT,
+            {
+                headers: {
+                    Authorization: `Bearer ${jwt_access_token}`,
+                },
             },
-        });
+        );
 
         return response.data;
     } catch (error) {
         console.error('Failed to get pet types:', error);
-        return [];
+        return { types: [] };
     }
 };
 
