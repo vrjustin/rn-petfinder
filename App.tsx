@@ -1,9 +1,9 @@
 import React from 'react';
 import {SafeAreaView, Text, View} from 'react-native';
-import config from './config';
+import apiConfig from './apiConfig';
 
 function App(): React.JSX.Element {
-  const {CLIENT_ID, CLIENT_SECRET} = config;
+  const {CLIENT_ID, CLIENT_SECRET} = apiConfig;
   return (
     <SafeAreaView>
       <View>
