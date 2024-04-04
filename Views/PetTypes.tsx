@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Text, View, FlatList, StyleSheet, TouchableOpacity} from 'react-native';
-import { useNavigation } from '@react-navigation/native'; // Import navigation hook
+import {useNavigation} from '@react-navigation/native';
 import apiService from '../services/apiService';
 import PetType from '../models/PetType';
 
@@ -22,6 +22,7 @@ const PetTypes: React.FC = () => {
   }, []);
 
   const handlePetTypeSelection = (petType: PetType) => {
+    console.log('Navigate with: ', petType.name);
     navigation.navigate('Breeds');
   };
 
