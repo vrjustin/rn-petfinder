@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Text, View, FlatList, StyleSheet, Image} from 'react-native';
 import {RouteProp} from '@react-navigation/native';
 import Breed from '../models/Breed';
 import PetType from '../models/PetType';
@@ -31,6 +31,7 @@ const AnimalDetails: React.FC<Props> = ({route}) => {
     name,
     description,
     status,
+    photos,
   } = selectedAnimal;
 
   return (
@@ -45,8 +46,24 @@ const AnimalDetails: React.FC<Props> = ({route}) => {
       <Text>Status: {status}</Text>
       <Text>URL: {url}</Text>
       <Text>Age: {age}</Text>
+      <FlatList
+        horizontal
+        data={photos}
+        keyExtractor={(item, index) => `${item.full}_${index}`}
+        renderItem={({item}) => (
+          <Image style={styles.image} source={{uri: item.full}} />
+        )}
+      />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  image: {
+    width: 100,
+    height: 100,
+    margin: 5,
+  },
+});
 
 export default AnimalDetails;
