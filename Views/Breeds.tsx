@@ -20,9 +20,11 @@ type Props = {
 
 const Breeds: React.FC<Props> = ({route}) => {
   const {petTypeName} = route.params;
+  const typeName = petTypeName.toLowerCase();
+
   return (
     <View>
-      <Text>This is the Breeds Screen! :: {petTypeName}</Text>
+      <Text>This is the Breeds Screen! :: {typeName}</Text>
     </View>
   );
 };
