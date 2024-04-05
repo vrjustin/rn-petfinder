@@ -3,6 +3,7 @@ import {Text, View, FlatList, StyleSheet, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import apiService from '../services/apiService';
 import PetType from '../models/PetType';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'; // Import the icon directly
 
 const PetTypes: React.FC = () => {
   const [petTypes, setPetTypes] = useState<PetType[]>([]);
@@ -29,6 +30,12 @@ const PetTypes: React.FC = () => {
   const renderItem = ({item}: {item: PetType}) => (
     <TouchableOpacity onPress={() => handlePetTypeSelection(item)}>
       <View style={styles.item}>
+        <FontAwesomeIcon
+          name="paw"
+          size={20}
+          color="#000"
+          style={styles.icon}
+        />
         <Text style={styles.text}>{item.name}</Text>
       </View>
     </TouchableOpacity>
@@ -62,6 +69,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   item: {
+    flexDirection: 'row',
+    alignItems: 'center',
     backgroundColor: '#fff',
     padding: 15,
     marginBottom: 10,
@@ -70,6 +79,10 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
+    marginLeft: 10,
+  },
+  icon: {
+    marginRight: 10,
   },
 });
 
