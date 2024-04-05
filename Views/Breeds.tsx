@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {FlatList, Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import {RouteProp} from '@react-navigation/native';
-import {StackNavigationProp} from '@react-navigation/stack';
 import {useNavigation} from '@react-navigation/native';
 import Breed from '../models/Breed';
 import apiService from '../services/apiService';
@@ -12,13 +11,9 @@ type RootStackParamList = {
 };
 
 type BreedsScreenRouteProp = RouteProp<RootStackParamList, 'Breeds'>;
-type BreedsScreenNavigationProp = StackNavigationProp<
-  RootStackParamList,
-  'Breeds'
->;
+
 type Props = {
   route: BreedsScreenRouteProp;
-  navigation: BreedsScreenNavigationProp;
 };
 
 const Breeds: React.FC<Props> = ({route}) => {
