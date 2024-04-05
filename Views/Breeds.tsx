@@ -4,6 +4,7 @@ import {RouteProp} from '@react-navigation/native';
 import {useNavigation} from '@react-navigation/native';
 import Breed from '../models/Breed';
 import apiService from '../services/apiService';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 type RootStackParamList = {
   PetTypes: undefined;
@@ -37,12 +38,21 @@ const Breeds: React.FC<Props> = ({route}) => {
   const handleBreedSelection = (breed: Breed) => {
     console.log('Navigate with breed: ', breed.name);
     console.log('Navigate with petType: ', petTypeName);
-    navigation.navigate('Animals', {petType: petTypeName, selectedBreed: breed});
+    navigation.navigate('Animals', {
+      petType: petTypeName,
+      selectedBreed: breed,
+    });
   };
 
   const renderItem = ({item}: {item: Breed}) => (
     <TouchableOpacity onPress={() => handleBreedSelection(item)}>
       <View style={styles.item}>
+        <FontAwesomeIcon
+          name="paw"
+          size={20}
+          color="#000"
+          style={styles.icon}
+        />
         <Text style={styles.text}>{item.name}</Text>
       </View>
     </TouchableOpacity>
@@ -74,6 +84,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   item: {
+    flexDirection: 'row',
+    alignItems: 'center',
     backgroundColor: '#fff',
     padding: 15,
     marginBottom: 10,
@@ -82,6 +94,9 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
+  },
+  icon: {
+    marginRight: 10,
   },
 });
 
