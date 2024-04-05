@@ -60,7 +60,7 @@ const getPetTypes = async (): Promise<PetTypesResponse> => {
     }
 };
 
-const getPetBreeds = async (type: PetType): Promise<Breed[]> => {
+const getPetBreeds = async (type: string): Promise<Breed[]> => {
     if (!jwt_access_token) {
         await getAccessToken();
     }
