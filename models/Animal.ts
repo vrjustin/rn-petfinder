@@ -9,7 +9,6 @@ interface Animal {
     name: string;
     description: string;
     status: string;
-    tags: [string];
 }
 
 export default Animal;
