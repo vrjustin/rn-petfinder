@@ -20,14 +20,13 @@ type Props = {
 
 const Animals: React.FC<Props> = ({route}) => {
   const [animals, setAnimals] = useState<Animal[]>([]);
-  const {selectedBreed} = route.params;
-  const hardCodedType = 'dog';
+  const {petType, selectedBreed} = route.params;
 
   useEffect(() => {
     const fetchAnimalsData = async () => {
       try {
         const animalsData = await apiService.getAnimals(
-          hardCodedType,
+          petType,
           selectedBreed.name,
         );
         setAnimals(animalsData);
@@ -36,7 +35,7 @@ const Animals: React.FC<Props> = ({route}) => {
       }
     };
     fetchAnimalsData();
-  }, [selectedBreed]);
+  }, [petType, selectedBreed]);
 
   const renderItem = ({item}: {item: Animal}) => (
     <View style={styles.item}>
