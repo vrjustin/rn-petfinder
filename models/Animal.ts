@@ -6,3 +6,5 @@ interface Animal {
     name: string;
     description: string;
 }
+
+export default Animal;

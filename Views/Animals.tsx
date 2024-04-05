@@ -4,11 +4,12 @@ import {RouteProp} from '@react-navigation/native';
 import Animal from '../models/Animal';
 import Breed from '../models/Breed';
 import apiService from '../services/apiService';
+import PetType from '../models/PetType';
 
 type RootStackParamList = {
   PetTypes: undefined;
-  Breeds: {petTypeName: string};
-  Animals: {selectedBreed: Breed};
+  Breeds: {petType: PetType};
+  Animals: {petType: string; selectedBreed: Breed};
 };
 
 type AnimalsScreenRouteProp = RouteProp<RootStackParamList, 'Animals'>;
@@ -45,10 +46,11 @@ const Animals: React.FC<Props> = ({route}) => {
 
   return (
     <View style={styles.container}>
+      <Text>Selected Breed: {selectedBreed.name}</Text>
       <FlatList
         data={animals}
         renderItem={renderItem}
-        keyExtractor={item => item.id}
+        keyExtractor={item => item.id.toString()}
       />
     </View>
   );
