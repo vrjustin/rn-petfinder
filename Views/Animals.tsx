@@ -1,19 +1,33 @@
 import React, {useState, useEffect} from 'react';
-import {Text, View, FlatList} from 'react-native';
+import {Text, View, FlatList, StyleSheet} from 'react-native';
+import {RouteProp} from '@react-navigation/native';
 import Animal from '../models/Animal';
+import Breed from '../models/Breed';
 import apiService from '../services/apiService';
 
-const Animals: React.FC = () => {
+type RootStackParamList = {
+  PetTypes: undefined;
+  Breeds: {petTypeName: string};
+  Animals: {selectedBreed: Breed};
+};
+
+type AnimalsScreenRouteProp = RouteProp<RootStackParamList, 'Animals'>;
+
+type Props = {
+  route: AnimalsScreenRouteProp;
+};
+
+const Animals: React.FC<Props> = ({route}) => {
   const [animals, setAnimals] = useState<Animal[]>([]);
+  const {selectedBreed} = route.params;
   const hardCodedType = 'dog';
-  const hardCodedBreed = 'akita';
 
   useEffect(() => {
     const fetchAnimalsData = async () => {
       try {
         const animalsData = await apiService.getAnimals(
           hardCodedType,
-          hardCodedBreed,
+          selectedBreed.name,
         );
         setAnimals(animalsData);
       } catch (error) {
@@ -21,16 +35,16 @@ const Animals: React.FC = () => {
       }
     };
     fetchAnimalsData();
-  }, []);
+  }, [selectedBreed]);
 
   const renderItem = ({item}: {item: Animal}) => (
-    <View>
-      <Text>{item.name}</Text>
+    <View style={styles.item}>
+      <Text style={styles.text}>{item.name}</Text>
     </View>
   );
 
   return (
-    <View>
+    <View style={styles.container}>
       <FlatList
         data={animals}
         renderItem={renderItem}
@@ -39,5 +53,28 @@ const Animals: React.FC = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#f0f0f0',
+  },
+  header: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  item: {
+    backgroundColor: '#fff',
+    padding: 15,
+    marginBottom: 10,
+    borderRadius: 5,
+    elevation: 3,
+  },
+  text: {
+    fontSize: 16,
+  },
+});
 
 export default Animals;

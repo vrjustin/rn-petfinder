@@ -36,7 +36,7 @@ const Breeds: React.FC<Props> = ({route}) => {
 
   const handleBreedSelection = (breed: Breed) => {
     console.log('Navigate with: ', breed.name);
-    navigation.navigate('Animals', {breed: breed});
+    navigation.navigate('Animals', {selectedBreed: breed});
   };
 
   const renderItem = ({item}: {item: Breed}) => (
