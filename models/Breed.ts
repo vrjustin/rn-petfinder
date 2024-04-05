@@ -1,10 +1,10 @@
 interface Breed {
-    name: string;
-    _links: {
-        type: {
-            href: string;
-        };
+  name: string;
+  _links: {
+    type: {
+      href: string;
     };
+  };
 }
 
 export default Breed;
