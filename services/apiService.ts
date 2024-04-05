@@ -81,8 +81,30 @@ const getPetBreeds = async (type: string): Promise<Breed[]> => {
     }
 };
 
+const getAnimals = async (type: string, breed: string): Promise<Animal[]> => {
+    if (!jwt_access_token) {
+        await getAccessToken();
+    }
+    try {
+        const response = await axios.get(
+            `https://api.petfinder.com/v2/animals?type=${type}&breed=${breed}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${jwt_access_token}`,
+                },
+            },
+        );
+
+        return response.data.animals;
+    } catch (error) {
+        console.error('Failed to fetch animals from type & breed:', error);
+        return [];
+    }
+};
+
 export default {
     getAccessToken,
     getPetTypes,
     getPetBreeds,
+    getAnimals,
 };
