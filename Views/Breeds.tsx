@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, Text, View, StyleSheet} from 'react-native';
+import {FlatList, Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import {RouteProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {useNavigation} from '@react-navigation/native';
 import Breed from '../models/Breed';
 import apiService from '../services/apiService';
 
@@ -24,6 +25,7 @@ const Breeds: React.FC<Props> = ({route}) => {
   const [typeBreeds, setTypeBreeds] = useState<Breed[]>([]);
   const {petTypeName} = route.params;
   const typeName = petTypeName.toLowerCase();
+  const navigation = useNavigation();
 
   useEffect(() => {
     const fetchTypeBreedsData = async () => {
@@ -37,10 +39,17 @@ const Breeds: React.FC<Props> = ({route}) => {
     fetchTypeBreedsData();
   }, []);
 
+  const handleBreedSelection = (breed: Breed) => {
+    console.log('Navigate with: ', breed.name);
+    navigation.navigate('Animals', {breed: breed});
+  };
+
   const renderItem = ({item}: {item: Breed}) => (
-    <View style={styles.item}>
-      <Text style={styles.text}>{item.name}</Text>
-    </View>
+    <TouchableOpacity onPress={() => handleBreedSelection(item)}>
+      <View style={styles.item}>
+        <Text style={styles.text}>{item.name}</Text>
+      </View>
+    </TouchableOpacity>
   );
 
   return (
