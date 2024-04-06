@@ -56,7 +56,7 @@ const Animals: React.FC<Props> = ({route}) => {
 
   return (
     <View style={styles.container}>
-      <Text>Selected Breed: {selectedBreed.name}</Text>
+      <Text style={styles.header}>{selectedBreed.name} Pets</Text>
       <FlatList
         data={animals}
         renderItem={renderItem}
