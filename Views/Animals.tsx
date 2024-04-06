@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Text, View, FlatList, StyleSheet, TouchableOpacity, ScrollView} from 'react-native';
+import {Text, View, FlatList, StyleSheet, TouchableOpacity} from 'react-native';
 import {RouteProp} from '@react-navigation/native';
 import {useNavigation} from '@react-navigation/native';
 import Animal from '../models/Animal';
@@ -19,21 +19,6 @@ type AnimalsScreenRouteProp = RouteProp<RootStackParamList, 'Animals'>;
 type Props = {
   route: AnimalsScreenRouteProp;
 };
-
-const GridView: React.FC<{data: Animal[]}> = ({data}) => (
-  <View style={styles.gridContainer}>
-    {data.map(animal => (
-      <TouchableOpacity
-        key={animal.id}
-        onPress={() => console.log('Pressed on an animal')}
-        style={styles.gridItem}>
-        <Text style={styles.text}>
-          {animal.name} :: {animal.id}
-        </Text>
-      </TouchableOpacity>
-    ))}
-  </View>
-);
 
 const Animals: React.FC<Props> = ({route}) => {
   const [animals, setAnimals] = useState<Animal[]>([]);
@@ -99,9 +84,7 @@ const Animals: React.FC<Props> = ({route}) => {
         </View>
       </View>
       {isGridView ? (
-        <ScrollView>
-          <GridView data={animals} />
-        </ScrollView>
+        <Text>Placeholder for GridView</Text>
       ) : (
         <FlatList
           data={animals}
@@ -146,20 +129,6 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 8,
-  },
-  gridContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between', // Adjust as needed
-    paddingHorizontal: 10, // Add some padding
-  },
-  gridItem: {
-    width: '48%', // Two items per row with a small gap
-    backgroundColor: '#fff',
-    padding: 15,
-    marginBottom: 10,
-    borderRadius: 5,
-    elevation: 3,
   },
 });
 
