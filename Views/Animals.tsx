@@ -84,7 +84,14 @@ const Animals: React.FC<Props> = ({route}) => {
         </View>
       </View>
       {isGridView ? (
-        <Text>Placeholder for GridView</Text>
+        <>
+          <Text>Placeholder for GridView</Text>
+          <FlatList
+            data={animals}
+            renderItem={renderItem}
+            keyExtractor={item => item.id.toString()}
+          />
+        </>
       ) : (
         <FlatList
           data={animals}
