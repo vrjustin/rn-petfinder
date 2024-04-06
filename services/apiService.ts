@@ -1,6 +1,7 @@
-import axios, {AxiosResponse} from 'axios';
+import axios, {AxiosResponse, AxiosError} from 'axios';
 import PetType from '../models/PetType';
 import Breed from '../models/Breed';
+import Animal from '../models/Animal';
 
 interface AccessTokenResponse {
   access_token: string;
@@ -96,8 +97,17 @@ const getAnimals = async (type: string, breed: string): Promise<Animal[]> => {
     );
 
     return response.data.animals;
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Failed to fetch animals from type & breed:', error);
+    if (axios.isAxiosError(error)) {
+      const axiosError = error as AxiosError;
+      if (axiosError.response?.status === 401) {
+        console.log('Received 401 error, refreshing token...');
+        await getAccessToken();
+        return getAnimals(type, breed);
+      }
+    }
+    console.error('Failed to fetch animals from type & breed: ', error);
     return [];
   }
 };
