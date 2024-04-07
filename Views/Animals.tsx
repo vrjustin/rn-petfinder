@@ -1,5 +1,13 @@
 import React, {useState, useEffect} from 'react';
-import {Text, View, FlatList, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  Text,
+  View,
+  FlatList,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+  SafeAreaView,
+} from 'react-native';
 import {RouteProp} from '@react-navigation/native';
 import {useNavigation} from '@react-navigation/native';
 import Animal from '../models/Animal';
@@ -19,6 +27,8 @@ type AnimalsScreenRouteProp = RouteProp<RootStackParamList, 'Animals'>;
 type Props = {
   route: AnimalsScreenRouteProp;
 };
+
+const screenWidth = Dimensions.get('window').width;
 
 const Animals: React.FC<Props> = ({route}) => {
   const [animals, setAnimals] = useState<Animal[]>([]);
@@ -60,6 +70,18 @@ const Animals: React.FC<Props> = ({route}) => {
     </TouchableOpacity>
   );
 
+  const gridItem = ({item}: {item: Animal}) => (
+    <TouchableOpacity onPress={() => handleAnimalSelection(item)}>
+      <View style={styles.gridItemContainer}>
+        <View style={styles.gridItem}>
+          <Text style={styles.text}>
+            {item.name} :: {item.id}
+          </Text>
+        </View>
+      </View>
+    </TouchableOpacity>
+  );
+
   return (
     <View style={styles.container}>
       <View style={styles.headerRow}>
@@ -84,20 +106,25 @@ const Animals: React.FC<Props> = ({route}) => {
         </View>
       </View>
       {isGridView ? (
-        <>
-          <Text>Placeholder for GridView</Text>
+        <SafeAreaView style={styles.safeArea}>
+          <View>
+            <FlatList
+              data={animals}
+              renderItem={gridItem}
+              keyExtractor={item => item.id.toString()}
+              numColumns={2}
+              contentContainerStyle={styles.flatListContent}
+            />
+          </View>
+        </SafeAreaView>
+      ) : (
+        <SafeAreaView style={styles.safeArea}>
           <FlatList
             data={animals}
             renderItem={renderItem}
             keyExtractor={item => item.id.toString()}
           />
-        </>
-      ) : (
-        <FlatList
-          data={animals}
-          renderItem={renderItem}
-          keyExtractor={item => item.id.toString()}
-        />
+        </SafeAreaView>
       )}
     </View>
   );
@@ -106,8 +133,8 @@ const Animals: React.FC<Props> = ({route}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    backgroundColor: '#f0f0f0',
+    padding: 8,
+    backgroundColor: 'yellow',
   },
   headerRow: {
     flexDirection: 'row',
@@ -123,6 +150,24 @@ const styles = StyleSheet.create({
   },
   flatListContent: {
     flexGrow: 1,
+  },
+  safeArea: {
+    flex: 1,
+  },
+  gridItemContainer: {
+    flex: 1,
+    aspectRatio: 1,
+    margin: 4,
+    width: (screenWidth - 32) / 2,
+  },
+  gridItem: {
+    flex: 1,
+    backgroundColor: '#f9c2ff',
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 16,
+    margin: 4,
   },
   item: {
     backgroundColor: '#fff',
