@@ -78,12 +78,12 @@ const Animals: React.FC<Props> = ({route}) => {
           source={
             item.photos.length > 0
               ? {uri: item.photos[0].medium}
-              : require('../resources/dog-listening-big-ear-27392035.jpg')
+              : require('../resources/black-1869685_1280.jpg')
           }
           style={styles.gridItemBackground}
           imageStyle={styles.gridItemImage}>
           <View style={styles.gridItem}>
-            <Text style={styles.text}>
+            <Text style={styles.gridText}>
               {item.name} :: {item.id}
             </Text>
           </View>
@@ -197,6 +197,10 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
+  },
+  gridText: {
+    fontSize: 16,
+    color: 'white',
   },
   icon: {
     marginRight: 8,
