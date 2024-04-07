@@ -83,14 +83,22 @@ const Animals: React.FC<Props> = ({route}) => {
           style={styles.gridItemBackground}
           imageStyle={styles.gridItemImage}>
           <View style={styles.gridItem}>
-            <View
-              style={{
-                flexDirection: 'row',
-                position: 'absolute',
-                bottom: 8,
-              }}>
-              <Text style={styles.gridTextName}>{item.name},</Text>
-              <Text style={styles.gridTextAge}> {item.age}</Text>
+            <View style={{position: 'absolute', bottom: 4}}>
+              <View style={{flexDirection: 'row'}}>
+                <Text style={styles.gridTextName}>{item.name},</Text>
+                <Text style={styles.gridTextAge}> {item.age}</Text>
+              </View>
+              <View style={{flexDirection: 'row'}}>
+                <FontAwesomeIcon
+                  name="globe"
+                  size={20}
+                  color={'white'}
+                  style={styles.icon}
+                />
+                <Text style={styles.gridTextAge}>
+                  {item.contact.address.city},{item.contact.address.state}
+                </Text>
+              </View>
             </View>
           </View>
         </ImageBackground>
