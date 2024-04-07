@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Dimensions,
   SafeAreaView,
+  ImageBackground,
 } from 'react-native';
 import {RouteProp} from '@react-navigation/native';
 import {useNavigation} from '@react-navigation/native';
@@ -73,11 +74,20 @@ const Animals: React.FC<Props> = ({route}) => {
   const gridItem = ({item}: {item: Animal}) => (
     <TouchableOpacity onPress={() => handleAnimalSelection(item)}>
       <View style={styles.gridItemContainer}>
-        <View style={styles.gridItem}>
-          <Text style={styles.text}>
-            {item.name} :: {item.id}
-          </Text>
-        </View>
+        <ImageBackground
+          source={
+            item.photos.length > 0
+              ? {uri: item.photos[0].medium}
+              : require('../resources/dog-listening-big-ear-27392035.jpg')
+          }
+          style={styles.gridItemBackground}
+          imageStyle={styles.gridItemImage}>
+          <View style={styles.gridItem}>
+            <Text style={styles.text}>
+              {item.name} :: {item.id}
+            </Text>
+          </View>
+        </ImageBackground>
       </View>
     </TouchableOpacity>
   );
@@ -134,7 +144,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 8,
-    backgroundColor: 'yellow',
+    backgroundColor: 'white',
   },
   headerRow: {
     flexDirection: 'row',
@@ -162,12 +172,21 @@ const styles = StyleSheet.create({
   },
   gridItem: {
     flex: 1,
-    backgroundColor: '#f9c2ff',
+    // backgroundColor: '#f9c2ff',
     borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
     margin: 4,
+  },
+  gridItemBackground: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  gridItemImage: {
+    borderRadius: 8, // Add border radius to round the corners of the image
   },
   item: {
     backgroundColor: '#fff',
