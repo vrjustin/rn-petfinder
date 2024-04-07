@@ -33,7 +33,7 @@ const screenWidth = Dimensions.get('window').width;
 
 const Animals: React.FC<Props> = ({route}) => {
   const [animals, setAnimals] = useState<Animal[]>([]);
-  const [isGridView, setIsGridView] = useState(false);
+  const [isGridView, setIsGridView] = useState(true);
   const {petType, selectedBreed} = route.params;
   const navigation = useNavigation();
 
@@ -83,9 +83,15 @@ const Animals: React.FC<Props> = ({route}) => {
           style={styles.gridItemBackground}
           imageStyle={styles.gridItemImage}>
           <View style={styles.gridItem}>
-            <Text style={styles.gridText}>
-              {item.name} :: {item.id}
-            </Text>
+            <View
+              style={{
+                flexDirection: 'row',
+                position: 'absolute',
+                bottom: 8,
+              }}>
+              <Text style={styles.gridTextName}>{item.name},</Text>
+              <Text style={styles.gridTextAge}> {item.age}</Text>
+            </View>
           </View>
         </ImageBackground>
       </View>
@@ -172,7 +178,6 @@ const styles = StyleSheet.create({
   },
   gridItem: {
     flex: 1,
-    // backgroundColor: '#f9c2ff',
     borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
@@ -186,7 +191,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   gridItemImage: {
-    borderRadius: 8, // Add border radius to round the corners of the image
+    borderRadius: 8,
   },
   item: {
     backgroundColor: '#fff',
@@ -198,7 +203,12 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
   },
-  gridText: {
+  gridTextName: {
+    fontSize: 16,
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  gridTextAge: {
     fontSize: 16,
     color: 'white',
   },
