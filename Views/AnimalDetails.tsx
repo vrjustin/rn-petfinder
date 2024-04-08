@@ -57,7 +57,7 @@ const AnimalDetails: React.FC<Props> = ({route}) => {
             </TouchableOpacity>
           </View>
           <View style={{position: 'absolute', bottom: 8, left: 8}}>
-            <View style={{flexDirection: 'row'}}>
+            <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
               <Text style={styles.nameText}>{name}, </Text>
               <Text style={styles.ageText}>{age}</Text>
             </View>
