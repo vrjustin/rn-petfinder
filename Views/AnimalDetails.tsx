@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Text,
   View,
@@ -30,6 +30,7 @@ type Props = {
 const AnimalDetails: React.FC<Props> = ({route}) => {
   const {selectedAnimal} = route.params;
   const {age, name, description, photos, contact} = selectedAnimal;
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const handleFavorite = (animal: Animal) => {
     console.log('Favoriting Animal: ', animal.name);
@@ -41,7 +42,7 @@ const AnimalDetails: React.FC<Props> = ({route}) => {
         <ImageBackground
           source={
             photos.length > 0
-              ? {uri: photos[0].medium}
+              ? {uri: photos[currentImageIndex].medium}
               : require('../resources/black-1869685_1280.jpg')
           }
           style={{flex: 1}}>
@@ -85,8 +86,12 @@ const AnimalDetails: React.FC<Props> = ({route}) => {
         horizontal
         data={photos}
         keyExtractor={(item, index) => `${item.full}_${index}`}
-        renderItem={({item}) => (
-          <Image style={styles.image} source={{uri: item.full}} />
+        renderItem={({item, index}) => (
+          <View>
+            <TouchableOpacity onPress={() => setCurrentImageIndex(index)}>
+              <Image style={styles.image} source={{uri: item.full}} />
+            </TouchableOpacity>
+          </View>
         )}
       />
     </View>
