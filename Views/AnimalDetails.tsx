@@ -29,27 +29,10 @@ type Props = {
 
 const AnimalDetails: React.FC<Props> = ({route}) => {
   const {selectedAnimal} = route.params;
-  const {
-    id,
-    organization_id,
-    url,
-    age,
-    gender,
-    size,
-    coat,
-    name,
-    description,
-    status,
-    photos,
-    contact,
-  } = selectedAnimal;
+  const {age, name, description, photos, contact} = selectedAnimal;
 
   const handleFavorite = (animal: Animal) => {
     console.log('Favoriting Animal: ', animal.name);
-    // const updatedAnimals = animals.map(a =>
-    //   a.id === animal.id ? {...a, isFavorite: true} : a,
-    // );
-    // setAnimals(updatedAnimals);
   };
 
   return (
