@@ -75,29 +75,41 @@ const AnimalDetails: React.FC<Props> = ({route}) => {
           </View>
         </ImageBackground>
       </View>
-      <Text style={styles.sectionHeaderText}>Introduction</Text>
-      <Text style={{padding: 8, fontSize: 14}}>{description}</Text>
-      <Text style={styles.sectionHeaderText}>Tags</Text>
-      <View style={{flexDirection: 'row', flexWrap: 'wrap', padding: 8}}>
-        {tags.map((tag, index) => (
-          <View key={index} style={styles.tag}>
-            <Text style={{color: 'white'}}>{tag}</Text>
+      {description && (
+        <>
+          <Text style={styles.sectionHeaderText}>Introduction</Text>
+          <Text style={{padding: 8, fontSize: 14}}>{description}</Text>
+        </>
+      )}
+      {tags.length > 0 && (
+        <>
+          <Text style={styles.sectionHeaderText}>Tags</Text>
+          <View style={{flexDirection: 'row', flexWrap: 'wrap', padding: 8}}>
+            {tags.map((tag, index) => (
+              <View key={index} style={styles.tag}>
+                <Text style={{color: 'white'}}>{tag}</Text>
+              </View>
+            ))}
           </View>
-        ))}
-      </View>
-      <Text style={styles.sectionHeaderText}>Gallery</Text>
-      <FlatList
-        horizontal
-        data={photos}
-        keyExtractor={(item, index) => `${item.full}_${index}`}
-        renderItem={({item, index}) => (
-          <View>
-            <TouchableOpacity onPress={() => setCurrentImageIndex(index)}>
-              <Image style={styles.image} source={{uri: item.full}} />
-            </TouchableOpacity>
-          </View>
-        )}
-      />
+        </>
+      )}
+      {photos.length > 0 && (
+        <>
+          <Text style={styles.sectionHeaderText}>Gallery</Text>
+          <FlatList
+            horizontal
+            data={photos}
+            keyExtractor={(item, index) => `${item.full}_${index}`}
+            renderItem={({item, index}) => (
+              <View>
+                <TouchableOpacity onPress={() => setCurrentImageIndex(index)}>
+                  <Image style={styles.image} source={{uri: item.full}} />
+                </TouchableOpacity>
+              </View>
+            )}
+          />
+        </>
+      )}
     </View>
   );
 };
