@@ -41,6 +41,7 @@ const AnimalDetails: React.FC<Props> = ({route}) => {
     description,
     status,
     photos,
+    contact,
   } = selectedAnimal;
 
   const handleFavorite = (animal: Animal) => {
@@ -71,9 +72,25 @@ const AnimalDetails: React.FC<Props> = ({route}) => {
               />
             </TouchableOpacity>
           </View>
+          <View style={{position: 'absolute', bottom: 8, left: 8}}>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={styles.nameText}>{name}, </Text>
+              <Text style={styles.ageText}>{age}</Text>
+            </View>
+            <View style={{flexDirection: 'row'}}>
+              <FontAwesomeIcon
+                name="globe"
+                size={20}
+                color={'white'}
+                style={{marginRight: 8}}
+              />
+              <Text style={styles.ageText}>
+                {contact.address.city}, {contact.address.state}
+              </Text>
+            </View>
+          </View>
         </ImageBackground>
       </View>
-      <Text>Name: {name}</Text>
       <Text>ID: {id}</Text>
       <Text>OrgID: {organization_id}</Text>
       <Text>Gender: {gender}</Text>
@@ -82,7 +99,6 @@ const AnimalDetails: React.FC<Props> = ({route}) => {
       <Text>Description: {description}</Text>
       <Text>Status: {status}</Text>
       <Text>URL: {url}</Text>
-      <Text>Age: {age}</Text>
       <Text style={{fontSize: 16, fontWeight: 'bold'}}>Gallery</Text>
       <FlatList
         horizontal
@@ -101,6 +117,15 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     margin: 5,
+  },
+  nameText: {
+    fontSize: 24,
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  ageText: {
+    fontSize: 16,
+    color: 'white',
   },
 });
 
