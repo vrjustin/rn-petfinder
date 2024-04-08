@@ -23,7 +23,6 @@ const PetTypes: React.FC = () => {
   }, []);
 
   const handlePetTypeSelection = (petType: PetType) => {
-    console.log('Navigate with: ', petType.name);
     navigation.navigate('Breeds', {petTypeName: petType.name});
   };
 

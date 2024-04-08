@@ -57,7 +57,6 @@ const Animals: React.FC<Props> = ({route}) => {
   }, [petType, selectedBreed]);
 
   const handleAnimalSelection = (animal: Animal) => {
-    console.log('Navigate to Animal Details : passed in is: ', animal);
     navigation.navigate('AnimalDetails', {selectedAnimal: animal});
   };
 

@@ -74,10 +74,10 @@ const AnimalDetails: React.FC<Props> = ({route}) => {
           </View>
         </ImageBackground>
       </View>
-      <Text style={{padding: 8, fontWeight: 'bold', fontSize: '16'}}>
+      <Text style={{padding: 8, fontWeight: 'bold', fontSize: 16}}>
         Introduction
       </Text>
-      <Text style={{padding: 8, fontSize: '14'}}>{description}</Text>
+      <Text style={{padding: 8, fontSize: 14}}>{description}</Text>
       <Text style={{padding: 8, fontSize: 16, fontWeight: 'bold'}}>
         Gallery
       </Text>
