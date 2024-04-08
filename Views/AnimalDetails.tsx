@@ -1,5 +1,12 @@
 import React from 'react';
-import {Text, View, FlatList, StyleSheet, Image} from 'react-native';
+import {
+  Text,
+  View,
+  FlatList,
+  StyleSheet,
+  Image,
+  ImageBackground,
+} from 'react-native';
 import {RouteProp} from '@react-navigation/native';
 import Breed from '../models/Breed';
 import PetType from '../models/PetType';
@@ -35,7 +42,17 @@ const AnimalDetails: React.FC<Props> = ({route}) => {
   } = selectedAnimal;
 
   return (
-    <View>
+    <View style={{flex: 1}}>
+      <View style={{height: '50%', overflow: 'hidden'}}>
+        <ImageBackground
+          source={
+            photos.length > 0
+              ? {uri: photos[0].medium}
+              : require('../resources/black-1869685_1280.jpg')
+          }
+          style={{flex: 1, resizeMode: 'cover'}}
+        />
+      </View>
       <Text>Name: {name}</Text>
       <Text>ID: {id}</Text>
       <Text>OrgID: {organization_id}</Text>
