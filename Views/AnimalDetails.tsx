@@ -79,7 +79,7 @@ const AnimalDetails: React.FC<Props> = ({route}) => {
       <Text style={{padding: 8, fontSize: 14}}>{description}</Text>
       <Text style={styles.sectionHeaderText}>Tags</Text>
       <View style={{flexDirection: 'row', flexWrap: 'wrap', padding: 8}}>
-        {tags.slice(0, 4).map((tag, index) => (
+        {tags.map((tag, index) => (
           <View key={index} style={styles.tag}>
             <Text style={{color: 'white'}}>{tag}</Text>
           </View>
