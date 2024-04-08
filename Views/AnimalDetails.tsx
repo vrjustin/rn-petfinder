@@ -6,11 +6,13 @@ import {
   StyleSheet,
   Image,
   ImageBackground,
+  TouchableOpacity,
 } from 'react-native';
 import {RouteProp} from '@react-navigation/native';
 import Breed from '../models/Breed';
 import PetType from '../models/PetType';
 import Animal from '../models/Animal';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 type RootStackParamList = {
   PetTypes: undefined;
@@ -41,6 +43,14 @@ const AnimalDetails: React.FC<Props> = ({route}) => {
     photos,
   } = selectedAnimal;
 
+  const handleFavorite = (animal: Animal) => {
+    console.log('Favoriting Animal: ', animal.name);
+    // const updatedAnimals = animals.map(a =>
+    //   a.id === animal.id ? {...a, isFavorite: true} : a,
+    // );
+    // setAnimals(updatedAnimals);
+  };
+
   return (
     <View style={{flex: 1}}>
       <View style={{height: '50%', overflow: 'hidden'}}>
@@ -50,8 +60,18 @@ const AnimalDetails: React.FC<Props> = ({route}) => {
               ? {uri: photos[0].medium}
               : require('../resources/black-1869685_1280.jpg')
           }
-          style={{flex: 1, resizeMode: 'cover'}}
-        />
+          style={{flex: 1}}>
+          <View style={{position: 'absolute', top: 8, right: 8}}>
+            <TouchableOpacity onPress={() => handleFavorite(selectedAnimal)}>
+              <FontAwesomeIcon
+                name={selectedAnimal.isFavorite ? 'heart' : 'heart-o'}
+                size={20}
+                color={'white'}
+                style={{marginRight: 8}}
+              />
+            </TouchableOpacity>
+          </View>
+        </ImageBackground>
       </View>
       <Text>Name: {name}</Text>
       <Text>ID: {id}</Text>
@@ -63,6 +83,7 @@ const AnimalDetails: React.FC<Props> = ({route}) => {
       <Text>Status: {status}</Text>
       <Text>URL: {url}</Text>
       <Text>Age: {age}</Text>
+      <Text style={{fontSize: 16, fontWeight: 'bold'}}>Gallery</Text>
       <FlatList
         horizontal
         data={photos}
