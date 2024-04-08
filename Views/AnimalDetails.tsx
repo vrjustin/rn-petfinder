@@ -29,7 +29,7 @@ type Props = {
 
 const AnimalDetails: React.FC<Props> = ({route}) => {
   const {selectedAnimal} = route.params;
-  const {age, name, description, photos, contact} = selectedAnimal;
+  const {age, name, description, photos, contact, tags} = selectedAnimal;
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const handleFavorite = (animal: Animal) => {
@@ -75,13 +75,17 @@ const AnimalDetails: React.FC<Props> = ({route}) => {
           </View>
         </ImageBackground>
       </View>
-      <Text style={{padding: 8, fontWeight: 'bold', fontSize: 16}}>
-        Introduction
-      </Text>
+      <Text style={styles.sectionHeaderText}>Introduction</Text>
       <Text style={{padding: 8, fontSize: 14}}>{description}</Text>
-      <Text style={{padding: 8, fontSize: 16, fontWeight: 'bold'}}>
-        Gallery
-      </Text>
+      <Text style={styles.sectionHeaderText}>Tags</Text>
+      <View style={{flexDirection: 'row', flexWrap: 'wrap', padding: 8}}>
+        {tags.slice(0, 4).map((tag, index) => (
+          <View key={index} style={styles.tag}>
+            <Text style={{color: 'white'}}>{tag}</Text>
+          </View>
+        ))}
+      </View>
+      <Text style={styles.sectionHeaderText}>Gallery</Text>
       <FlatList
         horizontal
         data={photos}
@@ -112,6 +116,19 @@ const styles = StyleSheet.create({
   ageText: {
     fontSize: 16,
     color: 'white',
+  },
+  sectionHeaderText: {
+    padding: 8,
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  tag: {
+    backgroundColor: 'gray',
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    borderRadius: 8,
+    marginRight: 8,
+    marginBottom: 8,
   },
 });
 
