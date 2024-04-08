@@ -61,6 +61,14 @@ const Animals: React.FC<Props> = ({route}) => {
     navigation.navigate('AnimalDetails', {selectedAnimal: animal});
   };
 
+  const handleFavorite = (animal: Animal) => {
+    console.log('Favoriting Animal: ', animal.name);
+    const updatedAnimals = animals.map(a =>
+      a.id === animal.id ? {...a, isFavorite: true} : a,
+    );
+    setAnimals(updatedAnimals);
+  };
+
   const renderItem = ({item}: {item: Animal}) => (
     <TouchableOpacity onPress={() => handleAnimalSelection(item)}>
       <View style={styles.item}>
@@ -83,6 +91,21 @@ const Animals: React.FC<Props> = ({route}) => {
           style={styles.gridItemBackground}
           imageStyle={styles.gridItemImage}>
           <View style={styles.gridItem}>
+            <View
+              style={{
+                position: 'absolute',
+                top: 8,
+                right: -68,
+              }}>
+              <TouchableOpacity onPress={() => handleFavorite(item)}>
+                <FontAwesomeIcon
+                  name={item.isFavorite ? 'heart' : 'heart-o'}
+                  size={20}
+                  color={'white'}
+                  style={styles.icon}
+                />
+              </TouchableOpacity>
+            </View>
             <View style={{position: 'absolute', bottom: 4}}>
               <View style={{flexDirection: 'row'}}>
                 <Text style={styles.gridTextName}>{item.name},</Text>

@@ -30,7 +30,6 @@ const getAccessToken = async (): Promise<string | null> => {
     );
 
     const {access_token} = response.data;
-    // You can store the access_token for future use here
     jwt_access_token = access_token;
     return access_token;
   } catch (error) {
