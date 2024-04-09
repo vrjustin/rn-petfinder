@@ -3,7 +3,7 @@ import {Text, View, FlatList, StyleSheet, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import apiService from '../services/apiService';
 import PetType from '../models/PetType';
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'; // Import the icon directly
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 const PetTypes: React.FC = () => {
   const [petTypes, setPetTypes] = useState<PetType[]>([]);
