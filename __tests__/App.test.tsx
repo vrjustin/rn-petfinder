@@ -12,6 +12,8 @@ import {it} from '@jest/globals';
 // Note: test renderer must be required after react-native.
 import renderer from 'react-test-renderer';
 
+jest.mock('../Views/PetTypes.tsx');
+
 it('renders correctly', () => {
   renderer.create(<App />);
 });
