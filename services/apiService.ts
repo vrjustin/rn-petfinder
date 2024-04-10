@@ -76,7 +76,6 @@ const getPetBreeds = async (type: string): Promise<Breed[]> => {
 
     return response.data.breeds;
   } catch (error) {
-    console.error('Failed to fetch pet breeds:', error);
     return [];
   }
 };
@@ -97,16 +96,13 @@ const getAnimals = async (type: string, breed: string): Promise<Animal[]> => {
 
     return response.data.animals;
   } catch (error: unknown) {
-    console.error('Failed to fetch animals from type & breed:', error);
     if (axios.isAxiosError(error)) {
       const axiosError = error as AxiosError;
       if (axiosError.response?.status === 401) {
-        console.log('Received 401 error, refreshing token...');
         await getAccessToken();
         return getAnimals(type, breed);
       }
     }
-    console.error('Failed to fetch animals from type & breed: ', error);
     return [];
   }
 };
