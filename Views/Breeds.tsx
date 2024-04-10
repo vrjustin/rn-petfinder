@@ -1,23 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {FlatList, Text, View, StyleSheet, TouchableOpacity} from 'react-native';
-import {RouteProp} from '@react-navigation/native';
 import {useNavigation} from '@react-navigation/native';
+import {BreedsProps} from '../types/NavigationTypes';
 import Breed from '../models/Breed';
 import apiService from '../services/apiService';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
-type RootStackParamList = {
-  PetTypes: undefined;
-  Breeds: {petTypeName: string};
-};
-
-type BreedsScreenRouteProp = RouteProp<RootStackParamList, 'Breeds'>;
-
-type Props = {
-  route: BreedsScreenRouteProp;
-};
-
-const Breeds: React.FC<Props> = ({route}) => {
+const Breeds: React.FC<BreedsProps> = ({route}) => {
   const [typeBreeds, setTypeBreeds] = useState<Breed[]>([]);
   const {petTypeName} = route.params;
   const typeName = petTypeName.toLowerCase();

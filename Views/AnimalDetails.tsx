@@ -8,26 +8,11 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from 'react-native';
-import {RouteProp} from '@react-navigation/native';
-import Breed from '../models/Breed';
-import PetType from '../models/PetType';
 import Animal from '../models/Animal';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import {AnimalProps} from '../types/NavigationTypes';
 
-type RootStackParamList = {
-  PetTypes: undefined;
-  Breeds: {petType: PetType};
-  Animals: {petType: string; selectedBreed: Breed};
-  Animal: {selectedAnimal: Animal};
-};
-
-type AnimalScreenRouteProp = RouteProp<RootStackParamList, 'Animal'>;
-
-type Props = {
-  route: AnimalScreenRouteProp;
-};
-
-const AnimalDetails: React.FC<Props> = ({route}) => {
+const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
   const {selectedAnimal} = route.params;
   const {age, name, description, photos, contact, tags} = selectedAnimal;
   const [currentImageIndex, setCurrentImageIndex] = useState(0);

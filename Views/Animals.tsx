@@ -9,29 +9,15 @@ import {
   SafeAreaView,
   ImageBackground,
 } from 'react-native';
-import {RouteProp} from '@react-navigation/native';
 import {useNavigation} from '@react-navigation/native';
 import Animal from '../models/Animal';
-import Breed from '../models/Breed';
 import apiService from '../services/apiService';
-import PetType from '../models/PetType';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-
-type RootStackParamList = {
-  PetTypes: undefined;
-  Breeds: {petType: PetType};
-  Animals: {petType: string; selectedBreed: Breed};
-};
-
-type AnimalsScreenRouteProp = RouteProp<RootStackParamList, 'Animals'>;
-
-type Props = {
-  route: AnimalsScreenRouteProp;
-};
+import {AnimalsProps} from '../types/NavigationTypes';
 
 const screenWidth = Dimensions.get('window').width;
 
-const Animals: React.FC<Props> = ({route}) => {
+const Animals: React.FC<AnimalsProps> = ({route}) => {
   const [animals, setAnimals] = useState<Animal[]>([]);
   const [isGridView, setIsGridView] = useState(true);
   const {petType, selectedBreed} = route.params;
