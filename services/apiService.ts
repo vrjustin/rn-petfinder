@@ -33,9 +33,6 @@ const getAccessToken = async (): Promise<string | null> => {
     jwt_access_token = access_token;
     return access_token;
   } catch (error) {
-    console.log('-----------');
-    console.log(error);
-    console.log('-----------');
     console.error(error);
     return null;
   }
