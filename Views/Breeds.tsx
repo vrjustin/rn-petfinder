@@ -1,44 +1,47 @@
-import React, {useEffect, useState, useLayoutEffect} from 'react';
-import {FlatList, Text, View, StyleSheet, TouchableOpacity} from 'react-native';
+import React, {useEffect, useState, useRef} from 'react';
+import {
+  FlatList,
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  TextInput,
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {BreedsProps} from '../types/NavigationTypes';
 import Breed from '../models/Breed';
 import apiService from '../services/apiService';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
-const FilterButton: React.FC<{onPress: () => void}> = ({onPress}) => (
-  <TouchableOpacity onPress={onPress} style={{marginRight: 20}}>
-    <FontAwesomeIcon name="filter" size={20} color="#000" style={styles.icon} />
-  </TouchableOpacity>
-);
-
 const Breeds: React.FC<BreedsProps> = ({route}) => {
   const [typeBreeds, setTypeBreeds] = useState<Breed[]>([]);
+  const [filteredBreeds, setFilteredBreeds] = useState<Breed[]>([]);
+  const [searchText, setSearchText] = useState<string>('');
   const {petTypeName} = route.params;
   const typeName = petTypeName.toLowerCase();
   const navigation = useNavigation();
-
-  const handleFilterPress = () => {
-    console.log('hello filter');
-  };
-
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => <FilterButton onPress={handleFilterPress} />,
-    });
-  }, [navigation]);
+  const searchInputRef = useRef<TextInput>(null);
 
   useEffect(() => {
     const fetchTypeBreedsData = async () => {
       try {
         const breedsData = await apiService.getPetBreeds(typeName);
         setTypeBreeds(breedsData);
+        setFilteredBreeds(breedsData);
       } catch (error) {
         console.error('Failed top fetch Breeds data: ', error);
       }
     };
     fetchTypeBreedsData();
   }, []);
+
+  useEffect(() => {
+    setFilteredBreeds(
+      typeBreeds.filter(breed =>
+        breed.name.toLowerCase().includes(searchText.toLowerCase()),
+      ),
+    );
+  }, [searchText, typeBreeds]);
 
   const handleBreedSelection = (breed: Breed) => {
     navigation.navigate('Animals', {
@@ -66,8 +69,15 @@ const Breeds: React.FC<BreedsProps> = ({route}) => {
       <Text style={styles.header}>
         Select your {typeName} breed, to learn more!
       </Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Search breeds..."
+        value={searchText}
+        onChangeText={setSearchText}
+        ref={searchInputRef}
+      />
       <FlatList
-        data={typeBreeds}
+        data={filteredBreeds}
         renderItem={renderItem}
         keyExtractor={item => item.name}
       />
@@ -100,6 +110,14 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 10,
+  },
+  input: {
+    height: 40,
+    borderColor: '#ddd',
+    borderWidth: 1,
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 10,
   },
 });
 

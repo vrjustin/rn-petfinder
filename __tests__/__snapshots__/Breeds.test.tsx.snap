@@ -23,6 +23,21 @@ exports[`Breeds renders correctly 1`] = `
     dog
      breed, to learn more!
   </Text>
+  <TextInput
+    onChangeText={[Function]}
+    placeholder="Search breeds..."
+    style={
+      {
+        "borderColor": "#ddd",
+        "borderRadius": 5,
+        "borderWidth": 1,
+        "height": 40,
+        "marginBottom": 10,
+        "padding": 10,
+      }
+    }
+    value=""
+  />
   <RCTScrollView
     data={
       [
