@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useLayoutEffect} from 'react';
 import {FlatList, Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {BreedsProps} from '../types/NavigationTypes';
@@ -6,11 +6,27 @@ import Breed from '../models/Breed';
 import apiService from '../services/apiService';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
+const FilterButton: React.FC<{onPress: () => void}> = ({onPress}) => (
+  <TouchableOpacity onPress={onPress} style={{marginRight: 20}}>
+    <FontAwesomeIcon name="filter" size={20} color="#000" style={styles.icon} />
+  </TouchableOpacity>
+);
+
 const Breeds: React.FC<BreedsProps> = ({route}) => {
   const [typeBreeds, setTypeBreeds] = useState<Breed[]>([]);
   const {petTypeName} = route.params;
   const typeName = petTypeName.toLowerCase();
   const navigation = useNavigation();
+
+  const handleFilterPress = () => {
+    console.log('hello filter');
+  };
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => <FilterButton onPress={handleFilterPress} />,
+    });
+  }, [navigation]);
 
   useEffect(() => {
     const fetchTypeBreedsData = async () => {
