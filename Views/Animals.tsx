@@ -14,6 +14,7 @@ import Animal from '../models/Animal';
 import apiService from '../services/apiService';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import {AnimalsProps} from '../types/NavigationTypes';
+import GlobalStyles from './Styles/GlobalStyles';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -115,7 +116,7 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
   );
 
   return (
-    <View style={styles.container}>
+    <View style={GlobalStyles.container}>
       <View style={styles.headerRow}>
         <Text style={styles.header}>{selectedBreed.name} Pets</Text>
         <View style={styles.headerIconContainer}>
@@ -163,11 +164,6 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 8,
-    backgroundColor: 'white',
-  },
   headerRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',

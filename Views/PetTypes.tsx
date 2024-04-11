@@ -11,6 +11,7 @@ import {useNavigation} from '@react-navigation/native';
 import apiService from '../services/apiService';
 import {PetType, petTypeImages} from '../models/PetType';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import GlobalStyles from './Styles/GlobalStyles';
 
 const PetTypes: React.FC = () => {
   const [petTypes, setPetTypes] = useState<PetType[]>([]);
@@ -57,7 +58,7 @@ const PetTypes: React.FC = () => {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={GlobalStyles.container}>
       <Text style={styles.header}>Select an Animal Type to Get Started:</Text>
       <FlatList
         data={petTypes}
@@ -70,11 +71,6 @@ const PetTypes: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: '#f0f0f0',
-  },
   header: {
     fontSize: 20,
     fontWeight: 'bold',
