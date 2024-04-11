@@ -4,9 +4,9 @@ exports[`PetTypes renders correctly 1`] = `
 <View
   style={
     {
-      "backgroundColor": "#f0f0f0",
+      "backgroundColor": "white",
       "flex": 1,
-      "padding": 20,
+      "padding": 0,
     }
   }
 >
@@ -148,87 +148,98 @@ exports[`PetTypes renders correctly 1`] = `
             }
           >
             <View
-              accessibilityIgnoresInvertColors={true}
               style={
                 {
-                  "borderRadius": 10,
+                  "aspectRatio": 1,
                   "flex": 1,
-                  "height": 150,
-                  "justifyContent": "center",
-                  "margin": 10,
-                  "overflow": "hidden",
+                  "margin": 4,
+                  "width": 359,
                 }
               }
             >
-              <Image
-                source={
-                  {
-                    "default": "",
-                  }
-                }
-                style={
-                  [
-                    {
-                      "bottom": 0,
-                      "left": 0,
-                      "position": "absolute",
-                      "right": 0,
-                      "top": 0,
-                    },
-                    {
-                      "height": 150,
-                      "width": undefined,
-                    },
-                    {
-                      "resizeMode": "cover",
-                    },
-                  ]
-                }
-              />
               <View
+                accessibilityIgnoresInvertColors={true}
                 style={
                   {
-                    "alignItems": "center",
-                    "backgroundColor": "rgba(0, 0, 0, 0.5)",
-                    "flexDirection": "row",
-                    "padding": 15,
+                    "borderRadius": 10,
+                    "flex": 1,
+                    "height": 150,
+                    "justifyContent": "center",
+                    "margin": 10,
+                    "overflow": "hidden",
                   }
                 }
               >
-                <Text
-                  allowFontScaling={false}
-                  selectable={false}
+                <Image
+                  source={
+                    {
+                      "default": "",
+                    }
+                  }
                   style={
                     [
                       {
-                        "color": "#fff",
-                        "fontSize": 20,
+                        "bottom": 0,
+                        "left": 0,
+                        "position": "absolute",
+                        "right": 0,
+                        "top": 0,
                       },
                       {
-                        "marginRight": 10,
+                        "height": 150,
+                        "width": undefined,
                       },
                       {
-                        "fontFamily": "FontAwesome",
-                        "fontStyle": "normal",
-                        "fontWeight": "normal",
+                        "borderRadius": 8,
                       },
-                      {},
                     ]
                   }
-                >
-                  
-                </Text>
-                <Text
+                />
+                <View
                   style={
                     {
-                      "color": "#fff",
-                      "fontSize": 16,
-                      "marginLeft": 10,
+                      "alignItems": "center",
+                      "backgroundColor": "rgba(0, 0, 0, 0.5)",
+                      "flexDirection": "row",
+                      "padding": 15,
                     }
                   }
                 >
-                  Dog
-                </Text>
+                  <Text
+                    allowFontScaling={false}
+                    selectable={false}
+                    style={
+                      [
+                        {
+                          "color": "#fff",
+                          "fontSize": 20,
+                        },
+                        {
+                          "marginRight": 10,
+                        },
+                        {
+                          "fontFamily": "FontAwesome",
+                          "fontStyle": "normal",
+                          "fontWeight": "normal",
+                        },
+                        {},
+                      ]
+                    }
+                  >
+                    
+                  </Text>
+                  <Text
+                    style={
+                      {
+                        "color": "#fff",
+                        "fontSize": 16,
+                        "marginLeft": 10,
+                      }
+                    }
+                  >
+                    Dog
+                  </Text>
+                </View>
               </View>
             </View>
           </View>
@@ -267,87 +278,98 @@ exports[`PetTypes renders correctly 1`] = `
             }
           >
             <View
-              accessibilityIgnoresInvertColors={true}
               style={
                 {
-                  "borderRadius": 10,
+                  "aspectRatio": 1,
                   "flex": 1,
-                  "height": 150,
-                  "justifyContent": "center",
-                  "margin": 10,
-                  "overflow": "hidden",
+                  "margin": 4,
+                  "width": 359,
                 }
               }
             >
-              <Image
-                source={
-                  {
-                    "default": "",
-                  }
-                }
-                style={
-                  [
-                    {
-                      "bottom": 0,
-                      "left": 0,
-                      "position": "absolute",
-                      "right": 0,
-                      "top": 0,
-                    },
-                    {
-                      "height": 150,
-                      "width": undefined,
-                    },
-                    {
-                      "resizeMode": "cover",
-                    },
-                  ]
-                }
-              />
               <View
+                accessibilityIgnoresInvertColors={true}
                 style={
                   {
-                    "alignItems": "center",
-                    "backgroundColor": "rgba(0, 0, 0, 0.5)",
-                    "flexDirection": "row",
-                    "padding": 15,
+                    "borderRadius": 10,
+                    "flex": 1,
+                    "height": 150,
+                    "justifyContent": "center",
+                    "margin": 10,
+                    "overflow": "hidden",
                   }
                 }
               >
-                <Text
-                  allowFontScaling={false}
-                  selectable={false}
+                <Image
+                  source={
+                    {
+                      "default": "",
+                    }
+                  }
                   style={
                     [
                       {
-                        "color": "#fff",
-                        "fontSize": 20,
+                        "bottom": 0,
+                        "left": 0,
+                        "position": "absolute",
+                        "right": 0,
+                        "top": 0,
                       },
                       {
-                        "marginRight": 10,
+                        "height": 150,
+                        "width": undefined,
                       },
                       {
-                        "fontFamily": "FontAwesome",
-                        "fontStyle": "normal",
-                        "fontWeight": "normal",
+                        "borderRadius": 8,
                       },
-                      {},
                     ]
                   }
-                >
-                  
-                </Text>
-                <Text
+                />
+                <View
                   style={
                     {
-                      "color": "#fff",
-                      "fontSize": 16,
-                      "marginLeft": 10,
+                      "alignItems": "center",
+                      "backgroundColor": "rgba(0, 0, 0, 0.5)",
+                      "flexDirection": "row",
+                      "padding": 15,
                     }
                   }
                 >
-                  Cat
-                </Text>
+                  <Text
+                    allowFontScaling={false}
+                    selectable={false}
+                    style={
+                      [
+                        {
+                          "color": "#fff",
+                          "fontSize": 20,
+                        },
+                        {
+                          "marginRight": 10,
+                        },
+                        {
+                          "fontFamily": "FontAwesome",
+                          "fontStyle": "normal",
+                          "fontWeight": "normal",
+                        },
+                        {},
+                      ]
+                    }
+                  >
+                    
+                  </Text>
+                  <Text
+                    style={
+                      {
+                        "color": "#fff",
+                        "fontSize": 16,
+                        "marginLeft": 10,
+                      }
+                    }
+                  >
+                    Cat
+                  </Text>
+                </View>
               </View>
             </View>
           </View>
@@ -400,87 +422,98 @@ exports[`PetTypes renders correctly 1`] = `
             }
           >
             <View
-              accessibilityIgnoresInvertColors={true}
               style={
                 {
-                  "borderRadius": 10,
+                  "aspectRatio": 1,
                   "flex": 1,
-                  "height": 150,
-                  "justifyContent": "center",
-                  "margin": 10,
-                  "overflow": "hidden",
+                  "margin": 4,
+                  "width": 359,
                 }
               }
             >
-              <Image
-                source={
-                  {
-                    "default": "",
-                  }
-                }
-                style={
-                  [
-                    {
-                      "bottom": 0,
-                      "left": 0,
-                      "position": "absolute",
-                      "right": 0,
-                      "top": 0,
-                    },
-                    {
-                      "height": 150,
-                      "width": undefined,
-                    },
-                    {
-                      "resizeMode": "cover",
-                    },
-                  ]
-                }
-              />
               <View
+                accessibilityIgnoresInvertColors={true}
                 style={
                   {
-                    "alignItems": "center",
-                    "backgroundColor": "rgba(0, 0, 0, 0.5)",
-                    "flexDirection": "row",
-                    "padding": 15,
+                    "borderRadius": 10,
+                    "flex": 1,
+                    "height": 150,
+                    "justifyContent": "center",
+                    "margin": 10,
+                    "overflow": "hidden",
                   }
                 }
               >
-                <Text
-                  allowFontScaling={false}
-                  selectable={false}
+                <Image
+                  source={
+                    {
+                      "default": "",
+                    }
+                  }
                   style={
                     [
                       {
-                        "color": "#fff",
-                        "fontSize": 20,
+                        "bottom": 0,
+                        "left": 0,
+                        "position": "absolute",
+                        "right": 0,
+                        "top": 0,
                       },
                       {
-                        "marginRight": 10,
+                        "height": 150,
+                        "width": undefined,
                       },
                       {
-                        "fontFamily": "FontAwesome",
-                        "fontStyle": "normal",
-                        "fontWeight": "normal",
+                        "borderRadius": 8,
                       },
-                      {},
                     ]
                   }
-                >
-                  
-                </Text>
-                <Text
+                />
+                <View
                   style={
                     {
-                      "color": "#fff",
-                      "fontSize": 16,
-                      "marginLeft": 10,
+                      "alignItems": "center",
+                      "backgroundColor": "rgba(0, 0, 0, 0.5)",
+                      "flexDirection": "row",
+                      "padding": 15,
                     }
                   }
                 >
-                  Bird
-                </Text>
+                  <Text
+                    allowFontScaling={false}
+                    selectable={false}
+                    style={
+                      [
+                        {
+                          "color": "#fff",
+                          "fontSize": 20,
+                        },
+                        {
+                          "marginRight": 10,
+                        },
+                        {
+                          "fontFamily": "FontAwesome",
+                          "fontStyle": "normal",
+                          "fontWeight": "normal",
+                        },
+                        {},
+                      ]
+                    }
+                  >
+                    
+                  </Text>
+                  <Text
+                    style={
+                      {
+                        "color": "#fff",
+                        "fontSize": 16,
+                        "marginLeft": 10,
+                      }
+                    }
+                  >
+                    Bird
+                  </Text>
+                </View>
               </View>
             </View>
           </View>

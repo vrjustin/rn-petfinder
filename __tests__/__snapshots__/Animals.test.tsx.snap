@@ -6,7 +6,7 @@ exports[`Animals renders correctly 1`] = `
     {
       "backgroundColor": "white",
       "flex": 1,
-      "padding": 8,
+      "padding": 0,
     }
   }
 >
