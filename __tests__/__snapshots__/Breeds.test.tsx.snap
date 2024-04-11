@@ -24,6 +24,8 @@ exports[`Breeds renders correctly 1`] = `
      breed, or start typing below to learn more!
   </Text>
   <TextInput
+    clearButtonMode="while-editing"
+    clearTextOnFocus={true}
     onChangeText={[Function]}
     placeholder="Start typing to filter breeds..."
     style={

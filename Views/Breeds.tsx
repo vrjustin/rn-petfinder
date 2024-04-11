@@ -75,6 +75,8 @@ const Breeds: React.FC<BreedsProps> = ({route}) => {
         value={searchText}
         onChangeText={setSearchText}
         ref={searchInputRef}
+        clearButtonMode="while-editing"
+        clearTextOnFocus={true}
       />
       <FlatList
         data={filteredBreeds}
