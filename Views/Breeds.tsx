@@ -12,6 +12,7 @@ import {BreedsProps} from '../types/NavigationTypes';
 import Breed from '../models/Breed';
 import apiService from '../services/apiService';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import GlobalStyles from './Styles/GlobalStyles';
 
 const Breeds: React.FC<BreedsProps> = ({route}) => {
   const [typeBreeds, setTypeBreeds] = useState<Breed[]>([]);
@@ -65,7 +66,7 @@ const Breeds: React.FC<BreedsProps> = ({route}) => {
   );
 
   return (
-    <View style={styles.container}>
+    <View style={GlobalStyles.container}>
       <Text style={styles.header}>
         Select your {typeName} breed, or start typing below to learn more!
       </Text>
@@ -88,11 +89,6 @@ const Breeds: React.FC<BreedsProps> = ({route}) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: '#f0f0f0',
-  },
   header: {
     fontSize: 20,
     fontWeight: 'bold',
