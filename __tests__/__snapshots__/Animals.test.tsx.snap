@@ -1,0 +1,514 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Animals renders correctly 1`] = `
+<View
+  style={
+    {
+      "backgroundColor": "white",
+      "flex": 1,
+      "padding": 8,
+    }
+  }
+>
+  <View
+    style={
+      {
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+      }
+    }
+  >
+    <Text
+      style={
+        {
+          "fontSize": 20,
+          "fontWeight": "bold",
+          "marginBottom": 20,
+        }
+      }
+    >
+      Poodle
+       Pets
+    </Text>
+    <View
+      style={
+        {
+          "flexDirection": "row",
+        }
+      }
+    >
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "opacity": 1,
+          }
+        }
+      >
+        <Text
+          allowFontScaling={false}
+          selectable={false}
+          style={
+            [
+              {
+                "color": "black",
+                "fontSize": 20,
+              },
+              {
+                "marginRight": 8,
+              },
+              {
+                "fontFamily": "FontAwesome",
+                "fontStyle": "normal",
+                "fontWeight": "normal",
+              },
+              {},
+            ]
+          }
+        >
+          
+        </Text>
+      </View>
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "opacity": 1,
+          }
+        }
+      >
+        <Text
+          allowFontScaling={false}
+          selectable={false}
+          style={
+            [
+              {
+                "color": "gray",
+                "fontSize": 20,
+              },
+              {
+                "marginRight": 8,
+              },
+              {
+                "fontFamily": "FontAwesome",
+                "fontStyle": "normal",
+                "fontWeight": "normal",
+              },
+              {},
+            ]
+          }
+        >
+          
+        </Text>
+      </View>
+    </View>
+  </View>
+  <RCTSafeAreaView
+    style={
+      {
+        "flex": 1,
+      }
+    }
+  >
+    <View>
+      <RCTScrollView
+        contentContainerStyle={
+          {
+            "flexGrow": 1,
+          }
+        }
+        data={
+          [
+            {
+              "age": "Young",
+              "breeds": {
+                "mixed": false,
+                "primary": "Poodle",
+                "secondary": null,
+                "unknown": false,
+              },
+              "coat": "Short",
+              "colors": {
+                "primary": "White",
+                "secondary": null,
+                "tertiary": null,
+              },
+              "contact": {
+                "address": {
+                  "address1": "123 Main St",
+                  "address2": null,
+                  "city": "Anytown",
+                  "country": "USA",
+                  "postcode": "12345",
+                  "state": "NY",
+                },
+                "email": "email@example.com",
+                "phone": "555-123-4567",
+              },
+              "description": "A fluffy dog",
+              "gender": "Female",
+              "id": 1,
+              "isFavorite": false,
+              "name": "Fluffy",
+              "organization_id": "org1",
+              "photos": [
+                {
+                  "full": "https://example.com/full.jpg",
+                  "large": "https://example.com/large.jpg",
+                  "medium": "https://example.com/medium.jpg",
+                  "small": "https://example.com/small.jpg",
+                },
+              ],
+              "primary_photo_cropped": {
+                "full": "https://example.com/full.jpg",
+                "large": "https://example.com/large.jpg",
+                "medium": "https://example.com/medium.jpg",
+                "small": "https://example.com/small.jpg",
+              },
+              "size": "Medium",
+              "species": "Dog",
+              "status": "Available",
+              "tags": [
+                "Friendly",
+                "Playful",
+              ],
+              "url": "https://example.com",
+            },
+          ]
+        }
+        getItem={[Function]}
+        getItemCount={[Function]}
+        keyExtractor={[Function]}
+        onContentSizeChange={[Function]}
+        onLayout={[Function]}
+        onMomentumScrollBegin={[Function]}
+        onMomentumScrollEnd={[Function]}
+        onScroll={[Function]}
+        onScrollBeginDrag={[Function]}
+        onScrollEndDrag={[Function]}
+        removeClippedSubviews={false}
+        renderItem={[Function]}
+        scrollEventThrottle={0.0001}
+        stickyHeaderIndices={[]}
+        viewabilityConfigCallbackPairs={[]}
+      >
+        <View>
+          <View
+            onFocusCapture={[Function]}
+            onLayout={[Function]}
+            style={null}
+          >
+            <View
+              style={
+                {
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <View
+                accessibilityState={
+                  {
+                    "busy": undefined,
+                    "checked": undefined,
+                    "disabled": undefined,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <View
+                  style={
+                    {
+                      "aspectRatio": 1,
+                      "flex": 1,
+                      "margin": 4,
+                      "width": 359,
+                    }
+                  }
+                >
+                  <View
+                    accessibilityIgnoresInvertColors={true}
+                    style={
+                      {
+                        "alignItems": "center",
+                        "flex": 1,
+                        "justifyContent": "center",
+                        "resizeMode": "cover",
+                      }
+                    }
+                  >
+                    <Image
+                      source={
+                        {
+                          "uri": "https://example.com/medium.jpg",
+                        }
+                      }
+                      style={
+                        [
+                          {
+                            "bottom": 0,
+                            "left": 0,
+                            "position": "absolute",
+                            "right": 0,
+                            "top": 0,
+                          },
+                          {
+                            "height": undefined,
+                            "width": undefined,
+                          },
+                          {
+                            "borderRadius": 8,
+                          },
+                        ]
+                      }
+                    />
+                    <View
+                      style={
+                        {
+                          "alignItems": "center",
+                          "borderRadius": 8,
+                          "flex": 1,
+                          "justifyContent": "center",
+                          "margin": 4,
+                          "padding": 16,
+                        }
+                      }
+                    >
+                      <View
+                        style={
+                          {
+                            "position": "absolute",
+                            "right": -68,
+                            "top": 8,
+                          }
+                        }
+                      >
+                        <View
+                          accessibilityState={
+                            {
+                              "busy": undefined,
+                              "checked": undefined,
+                              "disabled": undefined,
+                              "expanded": undefined,
+                              "selected": undefined,
+                            }
+                          }
+                          accessibilityValue={
+                            {
+                              "max": undefined,
+                              "min": undefined,
+                              "now": undefined,
+                              "text": undefined,
+                            }
+                          }
+                          accessible={true}
+                          collapsable={false}
+                          focusable={true}
+                          onClick={[Function]}
+                          onResponderGrant={[Function]}
+                          onResponderMove={[Function]}
+                          onResponderRelease={[Function]}
+                          onResponderTerminate={[Function]}
+                          onResponderTerminationRequest={[Function]}
+                          onStartShouldSetResponder={[Function]}
+                          style={
+                            {
+                              "opacity": 1,
+                            }
+                          }
+                        >
+                          <Text
+                            allowFontScaling={false}
+                            selectable={false}
+                            style={
+                              [
+                                {
+                                  "color": "white",
+                                  "fontSize": 20,
+                                },
+                                {
+                                  "marginRight": 8,
+                                },
+                                {
+                                  "fontFamily": "FontAwesome",
+                                  "fontStyle": "normal",
+                                  "fontWeight": "normal",
+                                },
+                                {},
+                              ]
+                            }
+                          >
+                            
+                          </Text>
+                        </View>
+                      </View>
+                      <View
+                        style={
+                          {
+                            "bottom": 4,
+                            "position": "absolute",
+                          }
+                        }
+                      >
+                        <View
+                          style={
+                            {
+                              "flexDirection": "row",
+                            }
+                          }
+                        >
+                          <Text
+                            style={
+                              {
+                                "color": "white",
+                                "fontSize": 16,
+                                "fontWeight": "bold",
+                              }
+                            }
+                          >
+                            Fluffy
+                            ,
+                          </Text>
+                          <Text
+                            style={
+                              {
+                                "color": "white",
+                                "fontSize": 16,
+                              }
+                            }
+                          >
+                             
+                            Young
+                          </Text>
+                        </View>
+                        <View
+                          style={
+                            {
+                              "flexDirection": "row",
+                            }
+                          }
+                        >
+                          <Text
+                            allowFontScaling={false}
+                            selectable={false}
+                            style={
+                              [
+                                {
+                                  "color": "white",
+                                  "fontSize": 20,
+                                },
+                                {
+                                  "marginRight": 8,
+                                },
+                                {
+                                  "fontFamily": "FontAwesome",
+                                  "fontStyle": "normal",
+                                  "fontWeight": "normal",
+                                },
+                                {},
+                              ]
+                            }
+                          >
+                            
+                          </Text>
+                          <Text
+                            style={
+                              {
+                                "color": "white",
+                                "fontSize": 16,
+                              }
+                            }
+                          >
+                            Anytown
+                            ,
+                            NY
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+      </RCTScrollView>
+    </View>
+  </RCTSafeAreaView>
+</View>
+`;

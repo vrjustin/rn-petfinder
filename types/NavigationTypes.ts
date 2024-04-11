@@ -8,9 +8,9 @@ type RootStackParamList = {
   Animal: {selectedAnimal: Animal};
 };
 
-type BreedsScreenRouteProp = RouteProp<RootStackParamList, 'Breeds'>;
-type AnimalsScreenRouteProp = RouteProp<RootStackParamList, 'Animals'>;
-type AnimalScreenRouteProp = RouteProp<RootStackParamList, 'Animal'>;
+export type BreedsScreenRouteProp = RouteProp<RootStackParamList, 'Breeds'>;
+export type AnimalsScreenRouteProp = RouteProp<RootStackParamList, 'Animals'>;
+export type AnimalScreenRouteProp = RouteProp<RootStackParamList, 'Animal'>;
 
 export type BreedsProps = {
   route: BreedsScreenRouteProp;
