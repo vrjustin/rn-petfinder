@@ -107,85 +107,249 @@ exports[`PetTypes renders correctly 1`] = `
         style={null}
       >
         <View
-          accessibilityState={
-            {
-              "busy": undefined,
-              "checked": undefined,
-              "disabled": undefined,
-              "expanded": undefined,
-              "selected": undefined,
-            }
-          }
-          accessibilityValue={
-            {
-              "max": undefined,
-              "min": undefined,
-              "now": undefined,
-              "text": undefined,
-            }
-          }
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
           style={
             {
-              "opacity": 1,
+              "flexDirection": "row",
             }
           }
         >
           <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             style={
               {
-                "alignItems": "center",
-                "backgroundColor": "#fff",
-                "borderRadius": 5,
-                "elevation": 3,
-                "flexDirection": "row",
-                "marginBottom": 10,
-                "padding": 15,
+                "opacity": 1,
               }
             }
           >
-            <Text
-              allowFontScaling={false}
-              selectable={false}
-              style={
-                [
-                  {
-                    "color": "#000",
-                    "fontSize": 20,
-                  },
-                  {
-                    "marginRight": 10,
-                  },
-                  {
-                    "fontFamily": "FontAwesome",
-                    "fontStyle": "normal",
-                    "fontWeight": "normal",
-                  },
-                  {},
-                ]
-              }
-            >
-              
-            </Text>
-            <Text
+            <View
+              accessibilityIgnoresInvertColors={true}
               style={
                 {
-                  "fontSize": 16,
-                  "marginLeft": 10,
+                  "borderRadius": 10,
+                  "flex": 1,
+                  "height": 150,
+                  "justifyContent": "center",
+                  "margin": 10,
+                  "overflow": "hidden",
                 }
               }
             >
-              Dog
-            </Text>
+              <Image
+                source={
+                  {
+                    "default": "",
+                  }
+                }
+                style={
+                  [
+                    {
+                      "bottom": 0,
+                      "left": 0,
+                      "position": "absolute",
+                      "right": 0,
+                      "top": 0,
+                    },
+                    {
+                      "height": 150,
+                      "width": undefined,
+                    },
+                    {
+                      "resizeMode": "cover",
+                    },
+                  ]
+                }
+              />
+              <View
+                style={
+                  {
+                    "alignItems": "center",
+                    "backgroundColor": "rgba(0, 0, 0, 0.5)",
+                    "flexDirection": "row",
+                    "padding": 15,
+                  }
+                }
+              >
+                <Text
+                  allowFontScaling={false}
+                  selectable={false}
+                  style={
+                    [
+                      {
+                        "color": "#fff",
+                        "fontSize": 20,
+                      },
+                      {
+                        "marginRight": 10,
+                      },
+                      {
+                        "fontFamily": "FontAwesome",
+                        "fontStyle": "normal",
+                        "fontWeight": "normal",
+                      },
+                      {},
+                    ]
+                  }
+                >
+                  
+                </Text>
+                <Text
+                  style={
+                    {
+                      "color": "#fff",
+                      "fontSize": 16,
+                      "marginLeft": 10,
+                    }
+                  }
+                >
+                  Dog
+                </Text>
+              </View>
+            </View>
+          </View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+              }
+            }
+          >
+            <View
+              accessibilityIgnoresInvertColors={true}
+              style={
+                {
+                  "borderRadius": 10,
+                  "flex": 1,
+                  "height": 150,
+                  "justifyContent": "center",
+                  "margin": 10,
+                  "overflow": "hidden",
+                }
+              }
+            >
+              <Image
+                source={
+                  {
+                    "default": "",
+                  }
+                }
+                style={
+                  [
+                    {
+                      "bottom": 0,
+                      "left": 0,
+                      "position": "absolute",
+                      "right": 0,
+                      "top": 0,
+                    },
+                    {
+                      "height": 150,
+                      "width": undefined,
+                    },
+                    {
+                      "resizeMode": "cover",
+                    },
+                  ]
+                }
+              />
+              <View
+                style={
+                  {
+                    "alignItems": "center",
+                    "backgroundColor": "rgba(0, 0, 0, 0.5)",
+                    "flexDirection": "row",
+                    "padding": 15,
+                  }
+                }
+              >
+                <Text
+                  allowFontScaling={false}
+                  selectable={false}
+                  style={
+                    [
+                      {
+                        "color": "#fff",
+                        "fontSize": 20,
+                      },
+                      {
+                        "marginRight": 10,
+                      },
+                      {
+                        "fontFamily": "FontAwesome",
+                        "fontStyle": "normal",
+                        "fontWeight": "normal",
+                      },
+                      {},
+                    ]
+                  }
+                >
+                  
+                </Text>
+                <Text
+                  style={
+                    {
+                      "color": "#fff",
+                      "fontSize": 16,
+                      "marginLeft": 10,
+                    }
+                  }
+                >
+                  Cat
+                </Text>
+              </View>
+            </View>
           </View>
         </View>
       </View>
@@ -195,173 +359,130 @@ exports[`PetTypes renders correctly 1`] = `
         style={null}
       >
         <View
-          accessibilityState={
-            {
-              "busy": undefined,
-              "checked": undefined,
-              "disabled": undefined,
-              "expanded": undefined,
-              "selected": undefined,
-            }
-          }
-          accessibilityValue={
-            {
-              "max": undefined,
-              "min": undefined,
-              "now": undefined,
-              "text": undefined,
-            }
-          }
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
           style={
             {
-              "opacity": 1,
+              "flexDirection": "row",
             }
           }
         >
           <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             style={
               {
-                "alignItems": "center",
-                "backgroundColor": "#fff",
-                "borderRadius": 5,
-                "elevation": 3,
-                "flexDirection": "row",
-                "marginBottom": 10,
-                "padding": 15,
+                "opacity": 1,
               }
             }
           >
-            <Text
-              allowFontScaling={false}
-              selectable={false}
-              style={
-                [
-                  {
-                    "color": "#000",
-                    "fontSize": 20,
-                  },
-                  {
-                    "marginRight": 10,
-                  },
-                  {
-                    "fontFamily": "FontAwesome",
-                    "fontStyle": "normal",
-                    "fontWeight": "normal",
-                  },
-                  {},
-                ]
-              }
-            >
-              
-            </Text>
-            <Text
+            <View
+              accessibilityIgnoresInvertColors={true}
               style={
                 {
-                  "fontSize": 16,
-                  "marginLeft": 10,
+                  "borderRadius": 10,
+                  "flex": 1,
+                  "height": 150,
+                  "justifyContent": "center",
+                  "margin": 10,
+                  "overflow": "hidden",
                 }
               }
             >
-              Cat
-            </Text>
-          </View>
-        </View>
-      </View>
-      <View
-        onFocusCapture={[Function]}
-        onLayout={[Function]}
-        style={null}
-      >
-        <View
-          accessibilityState={
-            {
-              "busy": undefined,
-              "checked": undefined,
-              "disabled": undefined,
-              "expanded": undefined,
-              "selected": undefined,
-            }
-          }
-          accessibilityValue={
-            {
-              "max": undefined,
-              "min": undefined,
-              "now": undefined,
-              "text": undefined,
-            }
-          }
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            {
-              "opacity": 1,
-            }
-          }
-        >
-          <View
-            style={
-              {
-                "alignItems": "center",
-                "backgroundColor": "#fff",
-                "borderRadius": 5,
-                "elevation": 3,
-                "flexDirection": "row",
-                "marginBottom": 10,
-                "padding": 15,
-              }
-            }
-          >
-            <Text
-              allowFontScaling={false}
-              selectable={false}
-              style={
-                [
+              <Image
+                source={
                   {
-                    "color": "#000",
-                    "fontSize": 20,
-                  },
-                  {
-                    "marginRight": 10,
-                  },
-                  {
-                    "fontFamily": "FontAwesome",
-                    "fontStyle": "normal",
-                    "fontWeight": "normal",
-                  },
-                  {},
-                ]
-              }
-            >
-              
-            </Text>
-            <Text
-              style={
-                {
-                  "fontSize": 16,
-                  "marginLeft": 10,
+                    "default": "",
+                  }
                 }
-              }
-            >
-              Bird
-            </Text>
+                style={
+                  [
+                    {
+                      "bottom": 0,
+                      "left": 0,
+                      "position": "absolute",
+                      "right": 0,
+                      "top": 0,
+                    },
+                    {
+                      "height": 150,
+                      "width": undefined,
+                    },
+                    {
+                      "resizeMode": "cover",
+                    },
+                  ]
+                }
+              />
+              <View
+                style={
+                  {
+                    "alignItems": "center",
+                    "backgroundColor": "rgba(0, 0, 0, 0.5)",
+                    "flexDirection": "row",
+                    "padding": 15,
+                  }
+                }
+              >
+                <Text
+                  allowFontScaling={false}
+                  selectable={false}
+                  style={
+                    [
+                      {
+                        "color": "#fff",
+                        "fontSize": 20,
+                      },
+                      {
+                        "marginRight": 10,
+                      },
+                      {
+                        "fontFamily": "FontAwesome",
+                        "fontStyle": "normal",
+                        "fontWeight": "normal",
+                      },
+                      {},
+                    ]
+                  }
+                >
+                  
+                </Text>
+                <Text
+                  style={
+                    {
+                      "color": "#fff",
+                      "fontSize": 16,
+                      "marginLeft": 10,
+                    }
+                  }
+                >
+                  Bird
+                </Text>
+              </View>
+            </View>
           </View>
         </View>
       </View>

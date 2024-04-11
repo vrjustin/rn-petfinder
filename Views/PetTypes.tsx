@@ -1,8 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import {Text, View, FlatList, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  Text,
+  View,
+  FlatList,
+  StyleSheet,
+  TouchableOpacity,
+  ImageBackground,
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import apiService from '../services/apiService';
-import PetType from '../models/PetType';
+import {PetType, petTypeImages} from '../models/PetType';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 const PetTypes: React.FC = () => {
@@ -26,17 +33,22 @@ const PetTypes: React.FC = () => {
     navigation.navigate('Breeds', {petTypeName: petType.name});
   };
 
-  const renderItem = ({item}: {item: PetType}) => (
+  const renderPetType = ({item}: {item: PetType}) => (
     <TouchableOpacity onPress={() => handlePetTypeSelection(item)}>
-      <View style={styles.item}>
-        <FontAwesomeIcon
-          name="paw"
-          size={20}
-          color="#000"
-          style={styles.icon}
-        />
-        <Text style={styles.text}>{item.name}</Text>
-      </View>
+      <ImageBackground
+        source={petTypeImages[item.name]}
+        style={styles.itemBackground}
+        imageStyle={styles.imageStyle}>
+        <View style={styles.item}>
+          <FontAwesomeIcon
+            name="paw"
+            size={20}
+            color="#fff"
+            style={styles.icon}
+          />
+          <Text style={styles.text}>{item.name}</Text>
+        </View>
+      </ImageBackground>
     </TouchableOpacity>
   );
 
@@ -49,8 +61,9 @@ const PetTypes: React.FC = () => {
       <Text style={styles.header}>Select an Animal Type to Get Started:</Text>
       <FlatList
         data={petTypes}
-        renderItem={renderItem}
+        renderItem={renderPetType}
         keyExtractor={item => item.name}
+        numColumns={2} // Display in two columns
       />
     </View>
   );
@@ -67,21 +80,30 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 20,
   },
+  itemBackground: {
+    flex: 1,
+    margin: 10,
+    height: 150,
+    justifyContent: 'center',
+    borderRadius: 10,
+    overflow: 'hidden',
+  },
   item: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#fff',
     padding: 15,
-    marginBottom: 10,
-    borderRadius: 5,
-    elevation: 3,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
   },
   text: {
     fontSize: 16,
+    color: '#fff',
     marginLeft: 10,
   },
   icon: {
     marginRight: 10,
+  },
+  imageStyle: {
+    resizeMode: 'cover',
   },
 });
 
