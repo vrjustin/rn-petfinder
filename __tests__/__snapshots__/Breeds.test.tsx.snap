@@ -21,11 +21,11 @@ exports[`Breeds renders correctly 1`] = `
   >
     Select your 
     dog
-     breed, to learn more!
+     breed, or start typing below to learn more!
   </Text>
   <TextInput
     onChangeText={[Function]}
-    placeholder="Search breeds..."
+    placeholder="Start typing to filter breeds..."
     style={
       {
         "borderColor": "#ddd",

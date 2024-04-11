@@ -67,11 +67,11 @@ const Breeds: React.FC<BreedsProps> = ({route}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>
-        Select your {typeName} breed, to learn more!
+        Select your {typeName} breed, or start typing below to learn more!
       </Text>
       <TextInput
         style={styles.input}
-        placeholder="Search breeds..."
+        placeholder="Start typing to filter breeds..."
         value={searchText}
         onChangeText={setSearchText}
         ref={searchInputRef}
