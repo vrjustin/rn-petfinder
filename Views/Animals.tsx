@@ -140,7 +140,7 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
       </View>
       {isGridView ? (
         <SafeAreaView style={styles.safeArea}>
-          <View>
+          <View style={{margin: 8}}>
             <FlatList
               data={animals}
               renderItem={gridItem}
@@ -167,6 +167,7 @@ const styles = StyleSheet.create({
   headerRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    margin: 20,
   },
   header: {
     fontSize: 20,
