@@ -1,5 +1,5 @@
 import axios, {AxiosResponse, AxiosError} from 'axios';
-import PetType from '../models/PetType';
+import {PetType} from '../models/PetType';
 import Breed from '../models/Breed';
 import Animal from '../models/Animal';
 

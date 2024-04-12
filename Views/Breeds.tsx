@@ -12,6 +12,7 @@ import {BreedsProps} from '../types/NavigationTypes';
 import Breed from '../models/Breed';
 import apiService from '../services/apiService';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import GlobalStyles from './Styles/GlobalStyles';
 
 const Breeds: React.FC<BreedsProps> = ({route}) => {
   const [typeBreeds, setTypeBreeds] = useState<Breed[]>([]);
@@ -65,12 +66,12 @@ const Breeds: React.FC<BreedsProps> = ({route}) => {
   );
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>
+    <View style={GlobalStyles.container}>
+      <Text style={GlobalStyles.header}>
         Select your {typeName} breed, or start typing below to learn more!
       </Text>
       <TextInput
-        style={styles.input}
+        style={GlobalStyles.textInput}
         placeholder="Start typing to filter breeds..."
         value={searchText}
         onChangeText={setSearchText}
@@ -88,22 +89,13 @@ const Breeds: React.FC<BreedsProps> = ({route}) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: '#f0f0f0',
-  },
-  header: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
   item: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#fff',
     padding: 15,
     marginBottom: 10,
+    marginHorizontal: 20,
     borderRadius: 5,
     elevation: 3,
   },
@@ -112,14 +104,6 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 10,
-  },
-  input: {
-    height: 40,
-    borderColor: '#ddd',
-    borderWidth: 1,
-    borderRadius: 5,
-    padding: 10,
-    marginBottom: 10,
   },
 });
 
