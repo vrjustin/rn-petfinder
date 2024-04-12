@@ -7,6 +7,8 @@ import {
   Image,
   ImageBackground,
   TouchableOpacity,
+  ScrollView,
+  SafeAreaView,
 } from 'react-native';
 import Animal from '../models/Animal';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
@@ -22,7 +24,7 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
   };
 
   return (
-    <View style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1}}>
       <View style={{height: '50%', overflow: 'hidden'}}>
         <ImageBackground
           source={
@@ -60,42 +62,44 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
           </View>
         </ImageBackground>
       </View>
-      {description && (
-        <>
-          <Text style={styles.sectionHeaderText}>Introduction</Text>
-          <Text style={{padding: 8, fontSize: 14}}>{description}</Text>
-        </>
-      )}
-      {tags.length > 0 && (
-        <>
-          <Text style={styles.sectionHeaderText}>Tags</Text>
-          <View style={{flexDirection: 'row', flexWrap: 'wrap', padding: 8}}>
-            {tags.map((tag, index) => (
-              <View key={index} style={styles.tag}>
-                <Text style={{color: 'white'}}>{tag}</Text>
-              </View>
-            ))}
-          </View>
-        </>
-      )}
-      {photos.length > 0 && (
-        <>
-          <Text style={styles.sectionHeaderText}>Gallery</Text>
-          <FlatList
-            horizontal
-            data={photos}
-            keyExtractor={(item, index) => `${item.full}_${index}`}
-            renderItem={({item, index}) => (
-              <View>
-                <TouchableOpacity onPress={() => setCurrentImageIndex(index)}>
-                  <Image style={styles.image} source={{uri: item.full}} />
-                </TouchableOpacity>
-              </View>
-            )}
-          />
-        </>
-      )}
-    </View>
+      <ScrollView>
+        {description && (
+          <>
+            <Text style={styles.sectionHeaderText}>Introduction</Text>
+            <Text style={{padding: 8, fontSize: 14}}>{description}</Text>
+          </>
+        )}
+        {tags.length > 0 && (
+          <>
+            <Text style={styles.sectionHeaderText}>Tags</Text>
+            <View style={{flexDirection: 'row', flexWrap: 'wrap', padding: 8}}>
+              {tags.map((tag, index) => (
+                <View key={index} style={styles.tag}>
+                  <Text style={{color: 'white'}}>{tag}</Text>
+                </View>
+              ))}
+            </View>
+          </>
+        )}
+        {photos.length > 0 && (
+          <>
+            <Text style={styles.sectionHeaderText}>Gallery</Text>
+            <FlatList
+              horizontal
+              data={photos}
+              keyExtractor={(item, index) => `${item.full}_${index}`}
+              renderItem={({item, index}) => (
+                <View>
+                  <TouchableOpacity onPress={() => setCurrentImageIndex(index)}>
+                    <Image style={styles.image} source={{uri: item.full}} />
+                  </TouchableOpacity>
+                </View>
+              )}
+            />
+          </>
+        )}
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
