@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {
   Text,
   View,
@@ -9,6 +9,8 @@ import {
   Dimensions,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {useSelector, useDispatch} from 'react-redux';
+import {setPetTypes, selectPetTypes} from '../reducers/petTypesReducer';
 import apiService from '../services/apiService';
 import {PetType, petTypeImages} from '../models/PetType';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
@@ -17,21 +19,21 @@ import GlobalStyles from './Styles/GlobalStyles';
 const screenWidth = Dimensions.get('window').width;
 
 const PetTypes: React.FC = () => {
-  const [petTypes, setPetTypes] = useState<PetType[]>([]);
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const petTypes = useSelector(selectPetTypes);
 
   useEffect(() => {
     const fetchPetTypesData = async () => {
       try {
         const typesData = await apiService.getPetTypes();
-        setPetTypes(typesData?.types ?? []);
+        dispatch(setPetTypes(typesData?.types ?? []));
       } catch (error) {
         console.error('Failed to fetch pet types:', error);
       }
     };
-
     fetchPetTypesData();
-  }, []);
+  }, [dispatch]);
 
   const handlePetTypeSelection = (petType: PetType) => {
     navigation.navigate('Breeds', {petTypeName: petType.name});

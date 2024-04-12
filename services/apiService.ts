@@ -52,7 +52,6 @@ const getPetTypes = async (): Promise<PetTypesResponse> => {
         },
       },
     );
-
     return response.data;
   } catch (error) {
     console.error('Failed to get pet types:', error);
