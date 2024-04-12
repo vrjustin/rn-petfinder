@@ -68,23 +68,20 @@ const PetTypes: React.FC = () => {
 
   return (
     <View style={GlobalStyles.container}>
-      <Text style={styles.header}>Select an Animal Type to Get Started:</Text>
+      <Text style={GlobalStyles.header}>
+        Select an Animal Type to Get Started:
+      </Text>
       <FlatList
         data={petTypes}
         renderItem={renderPetType}
         keyExtractor={item => item.name}
-        numColumns={2} // Display in two columns
+        numColumns={2}
       />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  header: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
   itemBackground: {
     flex: 1,
     margin: 10,

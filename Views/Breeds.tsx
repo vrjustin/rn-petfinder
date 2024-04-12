@@ -67,11 +67,11 @@ const Breeds: React.FC<BreedsProps> = ({route}) => {
 
   return (
     <View style={GlobalStyles.container}>
-      <Text style={styles.header}>
+      <Text style={GlobalStyles.header}>
         Select your {typeName} breed, or start typing below to learn more!
       </Text>
       <TextInput
-        style={styles.input}
+        style={GlobalStyles.textInput}
         placeholder="Start typing to filter breeds..."
         value={searchText}
         onChangeText={setSearchText}
@@ -89,11 +89,6 @@ const Breeds: React.FC<BreedsProps> = ({route}) => {
 };
 
 const styles = StyleSheet.create({
-  header: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
   item: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -108,14 +103,6 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 10,
-  },
-  input: {
-    height: 40,
-    borderColor: '#ddd',
-    borderWidth: 1,
-    borderRadius: 5,
-    padding: 10,
-    marginBottom: 10,
   },
 });
 
