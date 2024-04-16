@@ -8,6 +8,8 @@ import {
   TextInput,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {useSelector, useDispatch} from 'react-redux';
+import {setBreeds, selectPetBreeds} from '../reducers/petBreedsReducer';
 import {BreedsProps} from '../types/NavigationTypes';
 import Breed from '../models/Breed';
 import apiService from '../services/apiService';
@@ -15,26 +17,26 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import GlobalStyles from './Styles/GlobalStyles';
 
 const Breeds: React.FC<BreedsProps> = ({route}) => {
-  const [typeBreeds, setTypeBreeds] = useState<Breed[]>([]);
-  const [filteredBreeds, setFilteredBreeds] = useState<Breed[]>([]);
-  const [searchText, setSearchText] = useState<string>('');
   const {petTypeName} = route.params;
   const typeName = petTypeName.toLowerCase();
+  const [filteredBreeds, setFilteredBreeds] = useState<Breed[]>([]);
+  const [searchText, setSearchText] = useState<string>('');
   const navigation = useNavigation();
   const searchInputRef = useRef<TextInput>(null);
+  const dispatch = useDispatch();
+  const typeBreeds = useSelector(selectPetBreeds);
 
   useEffect(() => {
     const fetchTypeBreedsData = async () => {
       try {
         const breedsData = await apiService.getPetBreeds(typeName);
-        setTypeBreeds(breedsData);
-        setFilteredBreeds(breedsData);
+        dispatch(setBreeds(breedsData));
       } catch (error) {
         console.error('Failed to fetch Breeds data: ', error);
       }
     };
     fetchTypeBreedsData();
-  }, []);
+  }, [dispatch, typeName]);
 
   useEffect(() => {
     setFilteredBreeds(
