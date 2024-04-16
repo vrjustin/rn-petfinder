@@ -1,4 +1,6 @@
 import React from 'react';
+import {Provider} from 'react-redux';
+import store from '../stores/store';
 import renderer, {act} from 'react-test-renderer';
 import Breeds from '../Views/Breeds';
 import {BreedsScreenRouteProp} from '../types/NavigationTypes';
@@ -31,9 +33,11 @@ describe('Breeds', () => {
     let renderedBreedsTree: any;
     await act(async () => {
       renderedBreedsTree = renderer.create(
-        <Breeds
-          route={{params: {petTypeName: 'Dog'}} as BreedsScreenRouteProp}
-        />,
+        <Provider store={store}>
+          <Breeds
+            route={{params: {petTypeName: 'Dog'}} as BreedsScreenRouteProp}
+          />
+        </Provider>,
       );
     });
     expect(renderedBreedsTree.toJSON()).toMatchSnapshot();
