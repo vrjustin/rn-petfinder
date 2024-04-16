@@ -1,4 +1,6 @@
 import React from 'react';
+import {Provider} from 'react-redux';
+import store from '../stores/store';
 import renderer, {act} from 'react-test-renderer';
 import Animals from '../Views/Animals';
 
@@ -71,9 +73,16 @@ describe('Animals', () => {
   it('renders correctly', async () => {
     await act(async () => {
       renderedAnimalsTree = renderer.create(
-        <Animals
-          route={{params: {petType: 'Dog', selectedBreed: {name: 'Poodle'}}}}
-        />,
+        <Provider store={store}>
+          <Animals
+            route={{
+              params: {
+                petType: 'Dog',
+                selectedBreed: {name: 'Poodle'},
+              },
+            }}
+          />
+        </Provider>,
       );
     });
     expect(renderedAnimalsTree.toJSON()).toMatchSnapshot();

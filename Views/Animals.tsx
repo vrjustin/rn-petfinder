@@ -10,6 +10,8 @@ import {
   ImageBackground,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {useSelector, useDispatch} from 'react-redux';
+import {setAnimals, selectAnimals} from '../reducers/animalsReducer';
 import Animal from '../models/Animal';
 import apiService from '../services/apiService';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
@@ -19,10 +21,11 @@ import GlobalStyles from './Styles/GlobalStyles';
 const screenWidth = Dimensions.get('window').width;
 
 const Animals: React.FC<AnimalsProps> = ({route}) => {
-  const [animals, setAnimals] = useState<Animal[]>([]);
   const [isGridView, setIsGridView] = useState(true);
   const {petType, selectedBreed} = route.params;
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const animals = useSelector(selectAnimals);
 
   const toggleGridView = () => {
     setIsGridView(prevState => !prevState);
@@ -35,13 +38,13 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
           petType,
           selectedBreed.name,
         );
-        setAnimals(animalsData);
+        dispatch(setAnimals(animalsData));
       } catch (error) {
         console.error('Failed top fetch Breeds data: ', error);
       }
     };
     fetchAnimalsData();
-  }, [petType, selectedBreed]);
+  }, [dispatch, petType, selectedBreed.name]);
 
   const handleAnimalSelection = (animal: Animal) => {
     navigation.navigate('AnimalDetails', {selectedAnimal: animal});
