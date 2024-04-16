@@ -30,7 +30,7 @@ const Breeds: React.FC<BreedsProps> = ({route}) => {
         setTypeBreeds(breedsData);
         setFilteredBreeds(breedsData);
       } catch (error) {
-        console.error('Failed top fetch Breeds data: ', error);
+        console.error('Failed to fetch Breeds data: ', error);
       }
     };
     fetchTypeBreedsData();
