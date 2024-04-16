@@ -53,9 +53,9 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
   const handleFavorite = (animal: Animal) => {
     console.log('Favoriting Animal: ', animal.name);
     const updatedAnimals = animals.map(a =>
-      a.id === animal.id ? {...a, isFavorite: true} : a,
+      a.id === animal.id ? {...a, isFavorite: !animal.isFavorite} : a,
     );
-    setAnimals(updatedAnimals);
+    dispatch(setAnimals(updatedAnimals));
   };
 
   const renderItem = ({item}: {item: Animal}) => (
