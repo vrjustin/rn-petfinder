@@ -60,13 +60,14 @@ const getPetTypes = async (): Promise<PetTypesResponse> => {
   }
 };
 
-const getPetBreeds = async (type: string): Promise<Breed[]> => {
+const getPetBreeds = async (type: PetType): Promise<Breed[]> => {
   if (!jwt_access_token) {
     await getAccessToken();
   }
   try {
+    const typeName = type.name.toLowerCase();
     const response = await axios.get(
-      `https://api.petfinder.com/v2/types/${type}/breeds`,
+      `https://api.petfinder.com/v2/types/${typeName}/breeds`,
       {
         headers: {
           Authorization: `Bearer ${jwt_access_token}`,

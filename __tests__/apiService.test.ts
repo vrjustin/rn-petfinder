@@ -1,5 +1,6 @@
 import axios from 'axios';
 import apiService from '../services/apiService';
+import { PetType } from '../models/PetType';
 
 jest.mock('axios');
 
@@ -102,7 +103,16 @@ describe('apiService', () => {
       (axios.post as jest.Mock).mockResolvedValue(mockTokenResponse);
       await apiService.getAccessToken();
 
-      const mockType = 'Dog'; // Mocked type from getPetTypes
+      const mockType: PetType = {
+        name: 'Dog',
+        coats: [],
+        colors: [],
+        genders: [],
+        _links: {
+          self: {href: ''},
+          breeds: {href: ''},
+        },
+      };
       const mockBreeds = [
         {id: 1, name: 'Bulldog'},
         {id: 2, name: 'Labrador'},
@@ -111,10 +121,11 @@ describe('apiService', () => {
       (axios.get as jest.Mock).mockResolvedValue(mockResponse);
 
       const breeds = await apiService.getPetBreeds(mockType);
+      const mockTypeName = mockType.name.toLowerCase();
 
       expect(breeds).toEqual(mockBreeds);
       expect(axios.get).toHaveBeenCalledWith(
-        `https://api.petfinder.com/v2/types/${mockType}/breeds`,
+        `https://api.petfinder.com/v2/types/${mockTypeName}/breeds`,
         {
           headers: {
             Authorization: `Bearer ${mockAccessToken}`,
