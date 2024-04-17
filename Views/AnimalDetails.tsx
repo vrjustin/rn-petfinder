@@ -10,17 +10,30 @@ import {
   ScrollView,
   SafeAreaView,
 } from 'react-native';
+import {useSelector, useDispatch} from 'react-redux';
 import Animal from '../models/Animal';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import {AnimalProps} from '../types/NavigationTypes';
+import {setAnimals, selectAnimals} from '../reducers/animalsReducer';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
   const {selectedAnimal} = route.params;
   const {age, name, description, photos, contact, tags} = selectedAnimal;
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isFavorite, setIsFavorite] = useState(selectedAnimal.isFavorite);
+  const animals = useSelector(selectAnimals);
+  const dispatch = useDispatch();
 
-  const handleFavorite = (animal: Animal) => {
+  const handleFavorite = async (animal: Animal) => {
     console.log('Favoriting Animal: ', animal.name);
+    const isFavoriteValToggle = !animal.isFavorite;
+    const updatedAnimals = animals.map(a =>
+      a.id === animal.id ? {...a, isFavorite: isFavoriteValToggle} : a,
+    );
+    setIsFavorite(isFavoriteValToggle);
+    dispatch(setAnimals(updatedAnimals));
+    await AsyncStorage.setItem('animals', JSON.stringify(updatedAnimals));
   };
 
   return (
@@ -36,7 +49,7 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
           <View style={{position: 'absolute', top: 8, right: 8}}>
             <TouchableOpacity onPress={() => handleFavorite(selectedAnimal)}>
               <FontAwesomeIcon
-                name={selectedAnimal.isFavorite ? 'heart' : 'heart-o'}
+                name={isFavorite ? 'heart' : 'heart-o'}
                 size={20}
                 color={'white'}
                 style={{marginRight: 8}}

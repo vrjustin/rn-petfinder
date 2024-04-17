@@ -2,6 +2,7 @@ import axios, {AxiosResponse, AxiosError} from 'axios';
 import {PetType} from '../models/PetType';
 import Breed from '../models/Breed';
 import Animal from '../models/Animal';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface AccessTokenResponse {
   access_token: string;
@@ -84,6 +85,10 @@ const getAnimals = async (type: string, breed: string): Promise<Animal[]> => {
     await getAccessToken();
   }
   try {
+    //First grab any locally stored Animals we already have:
+    const localAnimalsJson = await AsyncStorage.getItem('animals');
+    const storedAnimals = localAnimalsJson ? JSON.parse(localAnimalsJson) : [];
+
     const response = await axios.get(
       `https://api.petfinder.com/v2/animals?type=${type}&breed=${breed}`,
       {
@@ -93,7 +98,17 @@ const getAnimals = async (type: string, breed: string): Promise<Animal[]> => {
       },
     );
 
-    return response.data.animals;
+    const animals = response.data.animals.map((animal: Animal) => {
+      const storedAnimal = storedAnimals.find(
+        (a: Animal) => a.id === animal.id,
+      );
+      return {
+        ...animal,
+        isFavorite: storedAnimal ? storedAnimal.isFavorite : false,
+      };
+    });
+    return animals;
+    // return response.data.animals;
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
       const axiosError = error as AxiosError;

@@ -3,6 +3,11 @@ import apiService from '../services/apiService';
 
 jest.mock('axios');
 
+jest.mock('@react-native-async-storage/async-storage', () => ({
+  setItem: jest.fn(),
+  getItem: jest.fn(),
+}));
+
 describe('apiService', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -150,8 +155,8 @@ describe('apiService', () => {
       const mockType = 'Dog'; // Mocked type from getPetTypes
       const mockBreed = 'Labrador'; // Mocked breed from getPetBreeds
       const mockAnimals = [
-        {id: 1, name: 'Buddy'},
-        {id: 2, name: 'Max'},
+        {id: 1, name: 'Buddy', isFavorite: false},
+        {id: 2, name: 'Max', isFavorite: false},
       ];
       const mockResponse = {data: {animals: mockAnimals}};
       (axios.get as jest.Mock).mockResolvedValue(mockResponse);

@@ -10,6 +10,11 @@ jest.mock('@react-navigation/native', () => ({
   }),
 }));
 
+jest.mock('@react-native-async-storage/async-storage', () => ({
+  setItem: jest.fn(),
+  getItem: jest.fn(),
+}));
+
 jest.mock('../services/apiService', () => ({
   getAnimals: jest.fn(() => [
     {
