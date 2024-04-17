@@ -4,6 +4,7 @@ import store from '../stores/store';
 import renderer, {act} from 'react-test-renderer';
 import Breeds from '../Views/Breeds';
 import {BreedsScreenRouteProp} from '../types/NavigationTypes';
+import { PetType } from '../models/PetType';
 
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({
@@ -31,11 +32,22 @@ jest.mock('../services/apiService', () => ({
 describe('Breeds', () => {
   it('renders correctly', async () => {
     let renderedBreedsTree: any;
+    let mockedPetType: PetType = {
+      name: 'Dog',
+      coats: [],
+      colors: [],
+      genders: [],
+      _links: {
+        self: {href: ''},
+        breeds: {href: ''},
+      },
+    };
+
     await act(async () => {
       renderedBreedsTree = renderer.create(
         <Provider store={store}>
           <Breeds
-            route={{params: {petTypeName: 'Dog'}} as BreedsScreenRouteProp}
+            route={{params: {petType: mockedPetType}} as BreedsScreenRouteProp}
           />
         </Provider>,
       );

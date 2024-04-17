@@ -17,8 +17,8 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import GlobalStyles from './Styles/GlobalStyles';
 
 const Breeds: React.FC<BreedsProps> = ({route}) => {
-  const {petTypeName} = route.params;
-  const typeName = petTypeName.toLowerCase();
+  const {petType} = route.params;
+  const typeName = petType.name;
   const [filteredBreeds, setFilteredBreeds] = useState<Breed[]>([]);
   const [searchText, setSearchText] = useState<string>('');
   const navigation = useNavigation();
@@ -29,14 +29,14 @@ const Breeds: React.FC<BreedsProps> = ({route}) => {
   useEffect(() => {
     const fetchTypeBreedsData = async () => {
       try {
-        const breedsData = await apiService.getPetBreeds(typeName);
+        const breedsData = await apiService.getPetBreeds(petType);
         dispatch(setBreeds(breedsData));
       } catch (error) {
         console.error('Failed to fetch Breeds data: ', error);
       }
     };
     fetchTypeBreedsData();
-  }, [dispatch, typeName]);
+  }, [dispatch, petType]);
 
   useEffect(() => {
     setFilteredBreeds(
@@ -48,7 +48,7 @@ const Breeds: React.FC<BreedsProps> = ({route}) => {
 
   const handleBreedSelection = (breed: Breed) => {
     navigation.navigate('Animals', {
-      petType: petTypeName,
+      petType: petType,
       selectedBreed: breed,
     });
   };
