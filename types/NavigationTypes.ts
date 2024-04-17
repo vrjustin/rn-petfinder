@@ -1,6 +1,7 @@
 import {RouteProp} from '@react-navigation/native';
 import Breed from '../models/Breed';
 import {PetType} from '../models/PetType';
+import Animal from '../models/Animal';
 
 type RootStackParamList = {
   PetTypes: undefined;
