@@ -20,7 +20,7 @@ exports[`Breeds renders correctly 1`] = `
     }
   >
     Select your 
-    dog
+    Dog
      breed, or start typing below to learn more!
   </Text>
   <TextInput

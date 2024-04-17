@@ -1,10 +1,12 @@
 import {RouteProp} from '@react-navigation/native';
 import Breed from '../models/Breed';
+import {PetType} from '../models/PetType';
+import Animal from '../models/Animal';
 
 type RootStackParamList = {
   PetTypes: undefined;
-  Breeds: {petTypeName: string};
-  Animals: {petType: string; selectedBreed: Breed};
+  Breeds: {petType: PetType};
+  Animals: {petType: PetType; selectedBreed: Breed};
   Animal: {selectedAnimal: Animal};
 };
 

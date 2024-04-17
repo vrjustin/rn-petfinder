@@ -35,17 +35,14 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
   useEffect(() => {
     const fetchAnimalsData = async () => {
       try {
-        const animalsData = await apiService.getAnimals(
-          petType,
-          selectedBreed.name,
-        );
+        const animalsData = await apiService.getAnimals(petType, selectedBreed);
         dispatch(setAnimals(animalsData));
       } catch (error) {
         console.error('Failed top fetch Breeds data: ', error);
       }
     };
     fetchAnimalsData();
-  }, [dispatch, petType, selectedBreed.name]);
+  }, [dispatch, petType, selectedBreed]);
 
   const handleAnimalSelection = (animal: Animal) => {
     navigation.navigate('AnimalDetails', {selectedAnimal: animal});
