@@ -86,7 +86,6 @@ const getAnimals = async (type: PetType, breed: Breed): Promise<Animal[]> => {
     await getAccessToken();
   }
   try {
-    //First grab any locally stored Animals we already have:
     const localAnimalsJson = await AsyncStorage.getItem('animals');
     const storedAnimals = localAnimalsJson ? JSON.parse(localAnimalsJson) : [];
     const typeName = type.name;
@@ -110,7 +109,6 @@ const getAnimals = async (type: PetType, breed: Breed): Promise<Animal[]> => {
       };
     });
     return animals;
-    // return response.data.animals;
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
       const axiosError = error as AxiosError;
