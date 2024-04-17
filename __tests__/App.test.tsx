@@ -14,6 +14,11 @@ import renderer from 'react-test-renderer';
 
 jest.mock('../Views/PetTypes.tsx');
 
+jest.mock('@react-native-async-storage/async-storage', () => ({
+  setItem: jest.fn(),
+  getItem: jest.fn(),
+}));
+
 it('renders correctly', () => {
   renderer.create(<App />);
 });

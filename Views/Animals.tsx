@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector, useDispatch} from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {setAnimals, selectAnimals} from '../reducers/animalsReducer';
 import Animal from '../models/Animal';
 import apiService from '../services/apiService';
@@ -50,12 +51,13 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
     navigation.navigate('AnimalDetails', {selectedAnimal: animal});
   };
 
-  const handleFavorite = (animal: Animal) => {
+  const handleFavorite = async (animal: Animal) => {
     console.log('Favoriting Animal: ', animal.name);
     const updatedAnimals = animals.map(a =>
       a.id === animal.id ? {...a, isFavorite: !animal.isFavorite} : a,
     );
     dispatch(setAnimals(updatedAnimals));
+    await AsyncStorage.setItem('animals', JSON.stringify(updatedAnimals));
   };
 
   const renderItem = ({item}: {item: Animal}) => (
