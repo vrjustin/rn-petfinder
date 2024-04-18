@@ -1,16 +1,31 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {Text, View, TextInput, StyleSheet} from 'react-native';
-import {selectSearchParameters} from '../reducers/searchParamsReducer';
+import {
+  selectSearchParameters,
+  setLocationZip,
+} from '../reducers/searchParamsReducer';
 
 const Options: React.FC = () => {
+  const dispatch = useDispatch();
   const searchParameters = useSelector(selectSearchParameters);
   const {zipCode} = searchParameters.location;
+
+  const handleZipCodeChange = (newZip: string) => {
+    dispatch(
+      setLocationZip({...searchParameters, location: {zipCode: newZip}}),
+    );
+  };
 
   return (
     <View style={{flexDirection: 'row'}}>
       <Text style={styles.label}>Zip</Text>
-      <TextInput style={styles.input} value={zipCode} keyboardType="numeric" />
+      <TextInput
+        style={styles.input}
+        value={zipCode}
+        onChangeText={handleZipCodeChange}
+        keyboardType="numeric"
+      />
     </View>
   );
 };

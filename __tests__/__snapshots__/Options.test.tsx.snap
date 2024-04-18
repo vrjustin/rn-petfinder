@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Options renders correctly 1`] = `
+<View
+  style={
+    {
+      "flexDirection": "row",
+    }
+  }
+>
+  <Text
+    style={
+      {
+        "fontSize": 18,
+        "marginBottom": 8,
+      }
+    }
+  >
+    Zip
+  </Text>
+  <TextInput
+    keyboardType="numeric"
+    onChangeText={[Function]}
+    style={
+      {
+        "borderColor": "#ccc",
+        "borderRadius": 5,
+        "borderWidth": 1,
+        "fontSize": 16,
+        "padding": 8,
+      }
+    }
+    value="90210"
+  />
+</View>
+`;
