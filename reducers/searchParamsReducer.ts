@@ -7,14 +7,19 @@ interface SearchParametersState {
 }
 
 const initialState: SearchParametersState = {
-  searchParameters: {location: {zipCode: '90210'}},
+  searchParameters: {
+    location: {
+      zipCode: '90210',
+    },
+    distance: 500, //in miles
+  },
 };
 
 const searchParametersSlice = createSlice({
   name: 'searchParameters',
   initialState,
   reducers: {
-    setLocationZip(state, action: PayloadAction<SearchParameters>) {
+    setSearchParameters(state, action: PayloadAction<SearchParameters>) {
       state.searchParameters = action.payload;
     },
   },
@@ -23,5 +28,5 @@ const searchParametersSlice = createSlice({
 export const selectSearchParameters = (state: RootState) =>
   state.searchParameters.searchParameters;
 
-export const {setLocationZip} = searchParametersSlice.actions;
+export const {setSearchParameters} = searchParametersSlice.actions;
 export default searchParametersSlice.reducer;

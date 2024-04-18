@@ -1,7 +1,8 @@
 import axios from 'axios';
 import apiService from '../services/apiService';
-import { PetType } from '../models/PetType';
+import {PetType} from '../models/PetType';
 import Breed from '../models/Breed';
+import SearchParameters from '../models/SearchParameters';
 
 jest.mock('axios');
 
@@ -196,13 +197,25 @@ describe('apiService', () => {
       const mockResponse = {data: {animals: mockAnimals}};
       (axios.get as jest.Mock).mockResolvedValue(mockResponse);
 
-      const animals = await apiService.getAnimals(mockType, mockBreed, '90210');
+      const searchParameters: SearchParameters = {
+        location: {
+          zipCode: '90210',
+        },
+        distance: 500,
+      };
+
+      const animals = await apiService.getAnimals(
+        mockType,
+        mockBreed,
+        searchParameters.location.zipCode,
+        searchParameters.distance,
+      );
       const lcTypeName = mockType.name.toLowerCase();
       const lcBreedName = mockBreed.name.toLowerCase();
 
       expect(animals).toEqual(mockAnimals);
       expect(axios.get).toHaveBeenCalledWith(
-        `https://api.petfinder.com/v2/animals?type=${lcTypeName}&breed=${lcBreedName}&location=90210`,
+        `https://api.petfinder.com/v2/animals?type=${lcTypeName}&breed=${lcBreedName}&location=90210&distance=500`,
         {
           headers: {
             Authorization: `Bearer ${mockAccessToken}`,

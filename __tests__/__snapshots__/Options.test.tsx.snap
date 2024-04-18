@@ -32,10 +32,38 @@ exports[`Options renders correctly 1`] = `
         "borderRadius": 5,
         "borderWidth": 1,
         "fontSize": 16,
+        "marginBottom": 16,
         "padding": 8,
       }
     }
     value="90210"
+  />
+  <Text
+    style={
+      {
+        "color": "#333",
+        "fontSize": 18,
+        "marginBottom": 8,
+      }
+    }
+  >
+    Enter Search Distance:
+  </Text>
+  <TextInput
+    keyboardType="numeric"
+    onChangeText={[Function]}
+    style={
+      {
+        "backgroundColor": "#fff",
+        "borderColor": "#ccc",
+        "borderRadius": 5,
+        "borderWidth": 1,
+        "fontSize": 16,
+        "marginBottom": 16,
+        "padding": 8,
+      }
+    }
+    value="500"
   />
 </View>
 `;

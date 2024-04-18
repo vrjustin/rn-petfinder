@@ -3,17 +3,26 @@ import {useSelector, useDispatch} from 'react-redux';
 import {Text, View, TextInput, StyleSheet} from 'react-native';
 import {
   selectSearchParameters,
-  setLocationZip,
+  setSearchParameters,
 } from '../reducers/searchParamsReducer';
 
 const Options: React.FC = () => {
   const dispatch = useDispatch();
   const searchParameters = useSelector(selectSearchParameters);
-  const {zipCode} = searchParameters.location;
+  const {distance, location} = searchParameters;
 
   const handleZipCodeChange = (newZip: string) => {
     dispatch(
-      setLocationZip({...searchParameters, location: {zipCode: newZip}}),
+      setSearchParameters({...searchParameters, location: {zipCode: newZip}}),
+    );
+  };
+
+  const handleDistanceChange = (newDistance: string) => {
+    dispatch(
+      setSearchParameters({
+        ...searchParameters,
+        distance: parseInt(newDistance, 10),
+      }),
     );
   };
 
@@ -22,8 +31,15 @@ const Options: React.FC = () => {
       <Text style={styles.label}>Enter ZIP Code:</Text>
       <TextInput
         style={styles.input}
-        value={zipCode}
+        value={location.zipCode}
         onChangeText={handleZipCodeChange}
+        keyboardType="numeric"
+      />
+      <Text style={styles.label}>Enter Search Distance:</Text>
+      <TextInput
+        style={styles.input}
+        value={distance.toString()}
+        onChangeText={handleDistanceChange}
         keyboardType="numeric"
       />
     </View>
@@ -47,6 +63,7 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderRadius: 5,
     padding: 8,
+    marginBottom: 16,
     fontSize: 16,
     backgroundColor: '#fff',
   },

@@ -43,7 +43,7 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
   const dispatch = useDispatch();
   const animals = useSelector(selectAnimals);
   const searchParameters = useSelector(selectSearchParameters);
-  const {zipCode} = searchParameters.location;
+  const {location, distance} = searchParameters;
 
   const toggleGridView = () => {
     setIsGridView(prevState => !prevState);
@@ -65,7 +65,8 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
         const animalsData = await apiService.getAnimals(
           petType,
           selectedBreed,
-          zipCode,
+          location.zipCode,
+          distance,
         );
         dispatch(setAnimals(animalsData));
       } catch (error) {
@@ -73,7 +74,7 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
       }
     };
     fetchAnimalsData();
-  }, [dispatch, petType, selectedBreed, zipCode]);
+  }, [dispatch, petType, selectedBreed, location.zipCode, distance]);
 
   const handleAnimalSelection = (animal: Animal) => {
     navigation.navigate('AnimalDetails', {selectedAnimal: animal});
