@@ -18,8 +18,8 @@ const Options: React.FC = () => {
   };
 
   return (
-    <View style={{flexDirection: 'row'}}>
-      <Text style={styles.label}>Zip</Text>
+    <View style={styles.container}>
+      <Text style={styles.label}>Enter ZIP Code:</Text>
       <TextInput
         style={styles.input}
         value={zipCode}
@@ -31,9 +31,16 @@ const Options: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#f9f9f9',
+    padding: 16,
+    borderRadius: 8,
+    marginVertical: 8,
+  },
   label: {
     fontSize: 18,
     marginBottom: 8,
+    color: '#333',
   },
   input: {
     borderWidth: 1,
@@ -41,6 +48,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 8,
     fontSize: 16,
+    backgroundColor: '#fff',
   },
 });
 
