@@ -49,6 +49,7 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
   useLayoutEffect(() => {
     const handleOptionsPress = () => {
       console.log('Settings Icon Pressed');
+      navigation.navigate('Options');
     };
     navigation.setOptions({
       headerRight: () => <UserOptions onPress={handleOptionsPress} />,
