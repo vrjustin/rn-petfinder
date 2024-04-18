@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Options renders correctly 1`] = `
+<View
+  style={
+    {
+      "backgroundColor": "#f9f9f9",
+      "borderRadius": 8,
+      "marginVertical": 8,
+      "padding": 16,
+    }
+  }
+>
+  <Text
+    style={
+      {
+        "color": "#333",
+        "fontSize": 18,
+        "marginBottom": 8,
+      }
+    }
+  >
+    Enter ZIP Code:
+  </Text>
+  <TextInput
+    keyboardType="numeric"
+    onChangeText={[Function]}
+    style={
+      {
+        "backgroundColor": "#fff",
+        "borderColor": "#ccc",
+        "borderRadius": 5,
+        "borderWidth": 1,
+        "fontSize": 16,
+        "padding": 8,
+      }
+    }
+    value="90210"
+  />
+</View>
+`;

@@ -3,10 +3,13 @@ import {Provider} from 'react-redux';
 import store from '../stores/store';
 import renderer, {act} from 'react-test-renderer';
 import Animals from '../Views/Animals';
+import {PetType} from '../models/PetType';
+import Breed from '../models/Breed';
 
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({
     navigate: jest.fn(),
+    setOptions: jest.fn(),
   }),
 }));
 
@@ -72,6 +75,24 @@ jest.mock('../services/apiService', () => ({
   ]),
 }));
 
+let mockedPetType: PetType = {
+  name: 'Dog',
+  coats: [],
+  colors: [],
+  genders: [],
+  _links: {
+    self: {href: ''},
+    breeds: {href: ''},
+  },
+};
+
+const mockBreed: Breed = {
+  name: 'Poodle',
+  _links: {
+    type: {href: ''},
+  },
+};
+
 let renderedAnimalsTree: any;
 
 describe('Animals', () => {
@@ -82,8 +103,8 @@ describe('Animals', () => {
           <Animals
             route={{
               params: {
-                petType: 'Dog',
-                selectedBreed: {name: 'Poodle'},
+                petType: mockedPetType,
+                selectedBreed: mockBreed,
               },
             }}
           />

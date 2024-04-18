@@ -81,17 +81,21 @@ const getPetBreeds = async (type: PetType): Promise<Breed[]> => {
   }
 };
 
-const getAnimals = async (type: PetType, breed: Breed): Promise<Animal[]> => {
+const getAnimals = async (
+  type: PetType,
+  breed: Breed,
+  location: string,
+): Promise<Animal[]> => {
   if (!jwt_access_token) {
     await getAccessToken();
   }
   try {
     const localAnimalsJson = await AsyncStorage.getItem('animals');
     const storedAnimals = localAnimalsJson ? JSON.parse(localAnimalsJson) : [];
-    const typeName = type.name;
-    const breedName = breed.name;
+    const typeName = type.name.toLowerCase();
+    const breedName = breed.name.toLowerCase();
     const response = await axios.get(
-      `https://api.petfinder.com/v2/animals?type=${typeName}&breed=${breedName}`,
+      `https://api.petfinder.com/v2/animals?type=${typeName}&breed=${breedName}&location=${location}`,
       {
         headers: {
           Authorization: `Bearer ${jwt_access_token}`,

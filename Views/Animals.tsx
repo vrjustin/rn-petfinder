@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useLayoutEffect} from 'react';
 import {
   Text,
   View,
@@ -13,6 +13,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useSelector, useDispatch} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {setAnimals, selectAnimals} from '../reducers/animalsReducer';
+import {selectSearchParameters} from '../reducers/searchParamsReducer';
 import Animal from '../models/Animal';
 import apiService from '../services/apiService';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
@@ -21,28 +22,58 @@ import GlobalStyles from './Styles/GlobalStyles';
 
 const screenWidth = Dimensions.get('window').width;
 
+const UserOptions = ({onPress}: {onPress: () => void}) => {
+  return (
+    <>
+      <FontAwesomeIcon
+        name="gear"
+        size={20}
+        color="#000"
+        style={{marginRight: 20}}
+        onPress={onPress}
+      />
+    </>
+  );
+};
+
 const Animals: React.FC<AnimalsProps> = ({route}) => {
   const [isGridView, setIsGridView] = useState(true);
   const {petType, selectedBreed} = route.params;
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const animals = useSelector(selectAnimals);
+  const searchParameters = useSelector(selectSearchParameters);
+  const {zipCode} = searchParameters.location;
 
   const toggleGridView = () => {
     setIsGridView(prevState => !prevState);
   };
 
+  useLayoutEffect(() => {
+    const handleOptionsPress = () => {
+      console.log('Settings Icon Pressed');
+      navigation.navigate('Options');
+    };
+    navigation.setOptions({
+      headerRight: () => <UserOptions onPress={handleOptionsPress} />,
+    });
+  }, [navigation]);
+
   useEffect(() => {
     const fetchAnimalsData = async () => {
       try {
-        const animalsData = await apiService.getAnimals(petType, selectedBreed);
+        const animalsData = await apiService.getAnimals(
+          petType,
+          selectedBreed,
+          zipCode,
+        );
         dispatch(setAnimals(animalsData));
       } catch (error) {
         console.error('Failed top fetch Breeds data: ', error);
       }
     };
     fetchAnimalsData();
-  }, [dispatch, petType, selectedBreed]);
+  }, [dispatch, petType, selectedBreed, zipCode]);
 
   const handleAnimalSelection = (animal: Animal) => {
     navigation.navigate('AnimalDetails', {selectedAnimal: animal});
@@ -55,6 +86,14 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
     );
     dispatch(setAnimals(updatedAnimals));
     await AsyncStorage.setItem('animals', JSON.stringify(updatedAnimals));
+  };
+
+  const noData = () => {
+    return (
+      <View style={styles.gridItemBackground}>
+        <Text>No Data Found...</Text>
+      </View>
+    );
   };
 
   const renderItem = ({item}: {item: Animal}) => (
@@ -140,26 +179,32 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
           </TouchableOpacity>
         </View>
       </View>
-      {isGridView ? (
-        <SafeAreaView style={styles.safeArea}>
-          <View style={{margin: 8}}>
-            <FlatList
-              data={animals}
-              renderItem={gridItem}
-              keyExtractor={item => item.id.toString()}
-              numColumns={2}
-              contentContainerStyle={styles.flatListContent}
-            />
-          </View>
-        </SafeAreaView>
+      {animals.length > 0 ? (
+        <>
+          {isGridView ? (
+            <SafeAreaView style={styles.safeArea}>
+              <View style={{margin: 8}}>
+                <FlatList
+                  data={animals}
+                  renderItem={gridItem}
+                  keyExtractor={item => item.id.toString()}
+                  numColumns={2}
+                  contentContainerStyle={styles.flatListContent}
+                />
+              </View>
+            </SafeAreaView>
+          ) : (
+            <SafeAreaView style={styles.safeArea}>
+              <FlatList
+                data={animals}
+                renderItem={renderItem}
+                keyExtractor={item => item.id.toString()}
+              />
+            </SafeAreaView>
+          )}
+        </>
       ) : (
-        <SafeAreaView style={styles.safeArea}>
-          <FlatList
-            data={animals}
-            renderItem={renderItem}
-            keyExtractor={item => item.id.toString()}
-          />
-        </SafeAreaView>
+        noData()
       )}
     </View>
   );
