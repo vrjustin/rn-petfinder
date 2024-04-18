@@ -85,6 +85,7 @@ const getAnimals = async (
   type: PetType,
   breed: Breed,
   location: string,
+  searchDistance: number,
 ): Promise<Animal[]> => {
   if (!jwt_access_token) {
     await getAccessToken();
@@ -95,7 +96,7 @@ const getAnimals = async (
     const typeName = type.name.toLowerCase();
     const breedName = breed.name.toLowerCase();
     const response = await axios.get(
-      `https://api.petfinder.com/v2/animals?type=${typeName}&breed=${breedName}&location=${location}`,
+      `https://api.petfinder.com/v2/animals?type=${typeName}&breed=${breedName}&location=${location}&distance=${searchDistance}`,
       {
         headers: {
           Authorization: `Bearer ${jwt_access_token}`,
