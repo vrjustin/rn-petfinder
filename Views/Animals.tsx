@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useLayoutEffect} from 'react';
 import {
   Text,
   View,
@@ -21,6 +21,20 @@ import GlobalStyles from './Styles/GlobalStyles';
 
 const screenWidth = Dimensions.get('window').width;
 
+const UserOptions = ({onPress}: {onPress: () => void}) => {
+  return (
+    <>
+      <FontAwesomeIcon
+        name="gear"
+        size={20}
+        color="#000"
+        style={{marginRight: 20}}
+        onPress={onPress}
+      />
+    </>
+  );
+};
+
 const Animals: React.FC<AnimalsProps> = ({route}) => {
   const [isGridView, setIsGridView] = useState(true);
   const {petType, selectedBreed} = route.params;
@@ -31,6 +45,15 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
   const toggleGridView = () => {
     setIsGridView(prevState => !prevState);
   };
+
+  useLayoutEffect(() => {
+    const handleOptionsPress = () => {
+      console.log('Settings Icon Pressed');
+    };
+    navigation.setOptions({
+      headerRight: () => <UserOptions onPress={handleOptionsPress} />,
+    });
+  }, [navigation]);
 
   useEffect(() => {
     const fetchAnimalsData = async () => {
