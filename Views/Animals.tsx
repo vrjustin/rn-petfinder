@@ -35,7 +35,11 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
   useEffect(() => {
     const fetchAnimalsData = async () => {
       try {
-        const animalsData = await apiService.getAnimals(petType, selectedBreed);
+        const animalsData = await apiService.getAnimals(
+          petType,
+          selectedBreed,
+          '48334',
+        );
         dispatch(setAnimals(animalsData));
       } catch (error) {
         console.error('Failed top fetch Breeds data: ', error);
@@ -55,6 +59,14 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
     );
     dispatch(setAnimals(updatedAnimals));
     await AsyncStorage.setItem('animals', JSON.stringify(updatedAnimals));
+  };
+
+  const noData = () => {
+    return (
+      <View style={styles.gridItemBackground}>
+        <Text>No Data Found...</Text>
+      </View>
+    );
   };
 
   const renderItem = ({item}: {item: Animal}) => (
@@ -140,26 +152,32 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
           </TouchableOpacity>
         </View>
       </View>
-      {isGridView ? (
-        <SafeAreaView style={styles.safeArea}>
-          <View style={{margin: 8}}>
-            <FlatList
-              data={animals}
-              renderItem={gridItem}
-              keyExtractor={item => item.id.toString()}
-              numColumns={2}
-              contentContainerStyle={styles.flatListContent}
-            />
-          </View>
-        </SafeAreaView>
+      {animals.length > 0 ? (
+        <>
+          {isGridView ? (
+            <SafeAreaView style={styles.safeArea}>
+              <View style={{margin: 8}}>
+                <FlatList
+                  data={animals}
+                  renderItem={gridItem}
+                  keyExtractor={item => item.id.toString()}
+                  numColumns={2}
+                  contentContainerStyle={styles.flatListContent}
+                />
+              </View>
+            </SafeAreaView>
+          ) : (
+            <SafeAreaView style={styles.safeArea}>
+              <FlatList
+                data={animals}
+                renderItem={renderItem}
+                keyExtractor={item => item.id.toString()}
+              />
+            </SafeAreaView>
+          )}
+        </>
       ) : (
-        <SafeAreaView style={styles.safeArea}>
-          <FlatList
-            data={animals}
-            renderItem={renderItem}
-            keyExtractor={item => item.id.toString()}
-          />
-        </SafeAreaView>
+        noData()
       )}
     </View>
   );
