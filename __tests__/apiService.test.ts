@@ -196,11 +196,13 @@ describe('apiService', () => {
       const mockResponse = {data: {animals: mockAnimals}};
       (axios.get as jest.Mock).mockResolvedValue(mockResponse);
 
-      const animals = await apiService.getAnimals(mockType, mockBreed);
+      const animals = await apiService.getAnimals(mockType, mockBreed, '90210');
+      const lcTypeName = mockType.name.toLowerCase();
+      const lcBreedName = mockBreed.name.toLowerCase();
 
       expect(animals).toEqual(mockAnimals);
       expect(axios.get).toHaveBeenCalledWith(
-        `https://api.petfinder.com/v2/animals?type=${mockType.name}&breed=${mockBreed.name}`,
+        `https://api.petfinder.com/v2/animals?type=${lcTypeName}&breed=${lcBreedName}&location=90210`,
         {
           headers: {
             Authorization: `Bearer ${mockAccessToken}`,
