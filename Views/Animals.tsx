@@ -13,6 +13,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useSelector, useDispatch} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {setAnimals, selectAnimals} from '../reducers/animalsReducer';
+import {selectSearchParameters} from '../reducers/searchParamsReducer';
 import Animal from '../models/Animal';
 import apiService from '../services/apiService';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
@@ -41,6 +42,8 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const animals = useSelector(selectAnimals);
+  const searchParameters = useSelector(selectSearchParameters);
+  const {zipCode} = searchParameters.location;
 
   const toggleGridView = () => {
     setIsGridView(prevState => !prevState);
@@ -62,7 +65,7 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
         const animalsData = await apiService.getAnimals(
           petType,
           selectedBreed,
-          '48334',
+          zipCode,
         );
         dispatch(setAnimals(animalsData));
       } catch (error) {
@@ -70,7 +73,7 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
       }
     };
     fetchAnimalsData();
-  }, [dispatch, petType, selectedBreed]);
+  }, [dispatch, petType, selectedBreed, zipCode]);
 
   const handleAnimalSelection = (animal: Animal) => {
     navigation.navigate('AnimalDetails', {selectedAnimal: animal});
