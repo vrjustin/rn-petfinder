@@ -245,48 +245,118 @@ exports[`AnimalDetails renders correctly 1`] = `
         }
       >
         <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
           style={
             {
-              "backgroundColor": "gray",
-              "borderRadius": 8,
-              "marginBottom": 8,
-              "marginRight": 8,
-              "paddingHorizontal": 8,
-              "paddingVertical": 4,
+              "opacity": 1,
             }
           }
         >
-          <Text
+          <View
             style={
               {
-                "color": "white",
+                "backgroundColor": "gray",
+                "borderRadius": 8,
+                "marginBottom": 8,
+                "marginRight": 8,
+                "paddingHorizontal": 8,
+                "paddingVertical": 4,
               }
             }
           >
-            Friendly
-          </Text>
+            <Text
+              style={
+                {
+                  "color": "white",
+                }
+              }
+            >
+              Friendly
+            </Text>
+          </View>
         </View>
         <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
           style={
             {
-              "backgroundColor": "gray",
-              "borderRadius": 8,
-              "marginBottom": 8,
-              "marginRight": 8,
-              "paddingHorizontal": 8,
-              "paddingVertical": 4,
+              "opacity": 1,
             }
           }
         >
-          <Text
+          <View
             style={
               {
-                "color": "white",
+                "backgroundColor": "gray",
+                "borderRadius": 8,
+                "marginBottom": 8,
+                "marginRight": 8,
+                "paddingHorizontal": 8,
+                "paddingVertical": 4,
               }
             }
           >
-            Playful
-          </Text>
+            <Text
+              style={
+                {
+                  "color": "white",
+                }
+              }
+            >
+              Playful
+            </Text>
+          </View>
         </View>
       </View>
       <Text

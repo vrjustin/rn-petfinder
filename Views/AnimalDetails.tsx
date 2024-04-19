@@ -15,6 +15,10 @@ import Animal from '../models/Animal';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import {AnimalProps} from '../types/NavigationTypes';
 import {setAnimals, selectAnimals} from '../reducers/animalsReducer';
+import {
+  setSearchParameters,
+  selectSearchParameters,
+} from '../reducers/searchParamsReducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
@@ -23,15 +27,25 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isFavorite, setIsFavorite] = useState(selectedAnimal.isFavorite);
   const animals = useSelector(selectAnimals);
+  const searchParameters = useSelector(selectSearchParameters);
+  const {tagsPreffered} = searchParameters;
   const dispatch = useDispatch();
-  //todo: change this to use redux reducer & selector instead for now just local
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   const handleTagPress = (tag: string) => {
-    if (!selectedTags.includes(tag)) {
-      setSelectedTags([...selectedTags, tag]);
+    if (!tagsPreffered.includes(tag)) {
+      dispatch(
+        setSearchParameters({
+          ...searchParameters,
+          tagsPreffered: [...tagsPreffered, tag],
+        }),
+      );
     } else {
-      setSelectedTags(selectedTags.filter(t => t !== tag));
+      dispatch(
+        setSearchParameters({
+          ...searchParameters,
+          tagsPreffered: tagsPreffered.filter(t => t !== tag),
+        }),
+      );
     }
   };
 
@@ -103,7 +117,7 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
                   <View
                     key={index}
                     style={
-                      !selectedTags.includes(tag)
+                      !tagsPreffered.includes(tag)
                         ? styles.tag
                         : styles.activeTag
                     }>
