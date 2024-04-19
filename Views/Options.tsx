@@ -18,10 +18,13 @@ const Options: React.FC = () => {
   };
 
   const handleDistanceChange = (newDistance: string) => {
+    let distanceValue =
+      newDistance.trim() !== '' ? parseInt(newDistance, 10) : 1;
+    distanceValue = Math.max(1, Math.min(500, distanceValue));
     dispatch(
       setSearchParameters({
         ...searchParameters,
-        distance: parseInt(newDistance, 10),
+        distance: distanceValue,
       }),
     );
   };
