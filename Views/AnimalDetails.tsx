@@ -15,6 +15,10 @@ import Animal from '../models/Animal';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import {AnimalProps} from '../types/NavigationTypes';
 import {setAnimals, selectAnimals} from '../reducers/animalsReducer';
+import {
+  setSearchParameters,
+  selectSearchParameters,
+} from '../reducers/searchParamsReducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
@@ -23,7 +27,27 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isFavorite, setIsFavorite] = useState(selectedAnimal.isFavorite);
   const animals = useSelector(selectAnimals);
+  const searchParameters = useSelector(selectSearchParameters);
+  const {tagsPreffered} = searchParameters;
   const dispatch = useDispatch();
+
+  const handleTagPress = (tag: string) => {
+    if (!tagsPreffered.includes(tag)) {
+      dispatch(
+        setSearchParameters({
+          ...searchParameters,
+          tagsPreffered: [...tagsPreffered, tag],
+        }),
+      );
+    } else {
+      dispatch(
+        setSearchParameters({
+          ...searchParameters,
+          tagsPreffered: tagsPreffered.filter(t => t !== tag),
+        }),
+      );
+    }
+  };
 
   const handleFavorite = async (animal: Animal) => {
     console.log('Favoriting Animal: ', animal.name);
@@ -87,9 +111,19 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
             <Text style={styles.sectionHeaderText}>Tags</Text>
             <View style={{flexDirection: 'row', flexWrap: 'wrap', padding: 8}}>
               {tags.map((tag, index) => (
-                <View key={index} style={styles.tag}>
-                  <Text style={{color: 'white'}}>{tag}</Text>
-                </View>
+                <TouchableOpacity
+                  key={index}
+                  onPress={() => handleTagPress(tag)}>
+                  <View
+                    key={index}
+                    style={
+                      !tagsPreffered.includes(tag)
+                        ? styles.tag
+                        : styles.activeTag
+                    }>
+                    <Text style={{color: 'white'}}>{tag}</Text>
+                  </View>
+                </TouchableOpacity>
               ))}
             </View>
           </>
@@ -138,6 +172,14 @@ const styles = StyleSheet.create({
   },
   tag: {
     backgroundColor: 'gray',
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    borderRadius: 8,
+    marginRight: 8,
+    marginBottom: 8,
+  },
+  activeTag: {
+    backgroundColor: 'red',
     paddingVertical: 4,
     paddingHorizontal: 8,
     borderRadius: 8,

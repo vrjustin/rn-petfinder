@@ -1,6 +1,12 @@
 import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {Text, View, TextInput, StyleSheet} from 'react-native';
+import {
+  Text,
+  View,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import {
   selectSearchParameters,
   setSearchParameters,
@@ -9,7 +15,7 @@ import {
 const Options: React.FC = () => {
   const dispatch = useDispatch();
   const searchParameters = useSelector(selectSearchParameters);
-  const {distance, location} = searchParameters;
+  const {distance, location, tagsPreffered} = searchParameters;
 
   const handleZipCodeChange = (newZip: string) => {
     dispatch(
@@ -29,6 +35,24 @@ const Options: React.FC = () => {
     );
   };
 
+  const handleTagPress = (tag: string) => {
+    if (!tagsPreffered.includes(tag)) {
+      dispatch(
+        setSearchParameters({
+          ...searchParameters,
+          tagsPreffered: [...tagsPreffered, tag],
+        }),
+      );
+    } else {
+      dispatch(
+        setSearchParameters({
+          ...searchParameters,
+          tagsPreffered: tagsPreffered.filter(t => t !== tag),
+        }),
+      );
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.label}>Enter ZIP Code:</Text>
@@ -45,6 +69,24 @@ const Options: React.FC = () => {
         onChangeText={handleDistanceChange}
         keyboardType="numeric"
       />
+      {tagsPreffered.length > 0 && (
+        <>
+          <Text style={styles.label}>Preferred Tags:</Text>
+          <View style={{flexDirection: 'row', flexWrap: 'wrap', padding: 8}}>
+            {tagsPreffered.map((tag, index) => (
+              <TouchableOpacity key={index} onPress={() => handleTagPress(tag)}>
+                <View
+                  key={index}
+                  style={
+                    !tagsPreffered.includes(tag) ? styles.tag : styles.activeTag
+                  }>
+                  <Text style={{color: 'white'}}>{tag}</Text>
+                </View>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </>
+      )}
     </View>
   );
 };
@@ -69,6 +111,22 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     fontSize: 16,
     backgroundColor: '#fff',
+  },
+  tag: {
+    backgroundColor: 'gray',
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    borderRadius: 8,
+    marginRight: 8,
+    marginBottom: 8,
+  },
+  activeTag: {
+    backgroundColor: 'red',
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    borderRadius: 8,
+    marginRight: 8,
+    marginBottom: 8,
   },
 });
 
