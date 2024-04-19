@@ -24,6 +24,16 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
   const [isFavorite, setIsFavorite] = useState(selectedAnimal.isFavorite);
   const animals = useSelector(selectAnimals);
   const dispatch = useDispatch();
+  //todo: change this to use redux reducer & selector instead for now just local
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+
+  const handleTagPress = (tag: string) => {
+    if (!selectedTags.includes(tag)) {
+      setSelectedTags([...selectedTags, tag]);
+    } else {
+      setSelectedTags(selectedTags.filter(t => t !== tag));
+    }
+  };
 
   const handleFavorite = async (animal: Animal) => {
     console.log('Favoriting Animal: ', animal.name);
@@ -87,9 +97,19 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
             <Text style={styles.sectionHeaderText}>Tags</Text>
             <View style={{flexDirection: 'row', flexWrap: 'wrap', padding: 8}}>
               {tags.map((tag, index) => (
-                <View key={index} style={styles.tag}>
-                  <Text style={{color: 'white'}}>{tag}</Text>
-                </View>
+                <TouchableOpacity
+                  key={index}
+                  onPress={() => handleTagPress(tag)}>
+                  <View
+                    key={index}
+                    style={
+                      !selectedTags.includes(tag)
+                        ? styles.tag
+                        : styles.activeTag
+                    }>
+                    <Text style={{color: 'white'}}>{tag}</Text>
+                  </View>
+                </TouchableOpacity>
               ))}
             </View>
           </>
@@ -138,6 +158,14 @@ const styles = StyleSheet.create({
   },
   tag: {
     backgroundColor: 'gray',
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    borderRadius: 8,
+    marginRight: 8,
+    marginBottom: 8,
+  },
+  activeTag: {
+    backgroundColor: 'red',
     paddingVertical: 4,
     paddingHorizontal: 8,
     borderRadius: 8,
