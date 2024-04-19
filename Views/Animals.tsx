@@ -43,7 +43,7 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
   const dispatch = useDispatch();
   const animals = useSelector(selectAnimals);
   const searchParameters = useSelector(selectSearchParameters);
-  const {location, distance} = searchParameters;
+  const {location, distance, tagsPreffered} = searchParameters;
 
   const toggleGridView = () => {
     setIsGridView(prevState => !prevState);
@@ -68,13 +68,27 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
           location.zipCode,
           distance,
         );
-        dispatch(setAnimals(animalsData));
+        const filteredAnimals = animalsData.filter(animal =>
+          animal.tags.some(tag => tagsPreffered.includes(tag)),
+        );
+        dispatch(
+          setAnimals(
+            filteredAnimals.length > 0 ? filteredAnimals : animalsData,
+          ),
+        );
       } catch (error) {
         console.error('Failed top fetch Breeds data: ', error);
       }
     };
     fetchAnimalsData();
-  }, [dispatch, petType, selectedBreed, location.zipCode, distance]);
+  }, [
+    dispatch,
+    petType,
+    selectedBreed,
+    location.zipCode,
+    distance,
+    tagsPreffered,
+  ]);
 
   const handleAnimalSelection = (animal: Animal) => {
     navigation.navigate('AnimalDetails', {selectedAnimal: animal});
