@@ -14,6 +14,11 @@ interface PetTypesResponse {
   types: PetType[];
 }
 
+export interface AnimalResults {
+  animalsData: Animal[];
+  pagination: {current_page: number; total_pages: number};
+}
+
 let jwt_access_token: string | null = null;
 
 const AUTH_ENDPOINT = 'https://api.petfinder.com/v2/oauth2/token';
@@ -86,7 +91,8 @@ const getAnimals = async (
   breed: Breed,
   location: string,
   searchDistance: number,
-): Promise<Animal[]> => {
+  currentPage: number,
+): Promise<AnimalResults> => {
   if (!jwt_access_token) {
     await getAccessToken();
   }
@@ -96,14 +102,14 @@ const getAnimals = async (
     const typeName = type.name.toLowerCase();
     const breedName = breed.name.toLowerCase();
     const response = await axios.get(
-      `https://api.petfinder.com/v2/animals?type=${typeName}&breed=${breedName}&location=${location}&distance=${searchDistance}`,
+      `https://api.petfinder.com/v2/animals?type=${typeName}&breed=${breedName}&location=${location}&distance=${searchDistance}&page=${currentPage}`,
       {
         headers: {
           Authorization: `Bearer ${jwt_access_token}`,
         },
       },
     );
-
+    const {current_page, total_pages} = response.data.pagination;
     const animals = response.data.animals.map((animal: Animal) => {
       const storedAnimal = storedAnimals.find(
         (a: Animal) => a.id === animal.id,
@@ -113,16 +119,19 @@ const getAnimals = async (
         isFavorite: storedAnimal ? storedAnimal.isFavorite : false,
       };
     });
-    return animals;
+    return {
+      animalsData: animals,
+      pagination: {current_page: current_page, total_pages: total_pages},
+    };
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
       const axiosError = error as AxiosError;
       if (axiosError.response?.status === 401) {
         await getAccessToken();
-        return getAnimals(type, breed);
+        return getAnimals(type, breed, location, searchDistance, currentPage);
       }
     }
-    return [];
+    return {animalsData: [], pagination: {current_page: 1, total_pages: 1}};
   }
 };
 

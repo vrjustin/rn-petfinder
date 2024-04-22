@@ -194,7 +194,12 @@ describe('apiService', () => {
         {id: 1, name: 'Buddy', isFavorite: false},
         {id: 2, name: 'Max', isFavorite: false},
       ];
-      const mockResponse = {data: {animals: mockAnimals}};
+      const mockResponse = {
+        data: {
+          animals: mockAnimals,
+          pagination: {current_page: 1, total_pages: 1},
+        },
+      };
       (axios.get as jest.Mock).mockResolvedValue(mockResponse);
 
       const searchParameters: SearchParameters = {
@@ -202,20 +207,23 @@ describe('apiService', () => {
           zipCode: '90210',
         },
         distance: 500,
+        tagsPreffered: [],
       };
 
-      const animals = await apiService.getAnimals(
+      const animalsResponse = await apiService.getAnimals(
         mockType,
         mockBreed,
         searchParameters.location.zipCode,
         searchParameters.distance,
+        1,
       );
+      const {animalsData} = animalsResponse;
       const lcTypeName = mockType.name.toLowerCase();
       const lcBreedName = mockBreed.name.toLowerCase();
 
-      expect(animals).toEqual(mockAnimals);
+      expect(animalsData).toEqual(mockAnimals);
       expect(axios.get).toHaveBeenCalledWith(
-        `https://api.petfinder.com/v2/animals?type=${lcTypeName}&breed=${lcBreedName}&location=90210&distance=500`,
+        `https://api.petfinder.com/v2/animals?type=${lcTypeName}&breed=${lcBreedName}&location=90210&distance=500&page=1`,
         {
           headers: {
             Authorization: `Bearer ${mockAccessToken}`,
@@ -225,14 +233,43 @@ describe('apiService', () => {
     });
 
     it('should handle error when fetching animals', async () => {
-      const mockType = 'Dog'; // Mocked type from getPetTypes
-      const mockBreed = 'Labrador'; // Mocked breed from getPetBreeds
+      const mockType: PetType = {
+        name: 'Dog',
+        coats: [],
+        colors: [],
+        genders: [],
+        _links: {
+          self: {href: ''},
+          breeds: {href: ''},
+        },
+      };
+      const mockBreed: Breed = {
+        name: 'Labrador',
+        _links: {
+          type: {href: ''},
+        },
+      };
       const mockError = new Error('Failed to fetch animals');
       (axios.get as jest.Mock).mockRejectedValue(mockError);
 
-      const animals = await apiService.getAnimals(mockType, mockBreed);
+      const searchParameters: SearchParameters = {
+        location: {
+          zipCode: '90210',
+        },
+        distance: 500,
+        tagsPreffered: [],
+      };
 
-      expect(animals).toEqual([]);
+      const animalsResponse = await apiService.getAnimals(
+        mockType,
+        mockBreed,
+        searchParameters.location.zipCode,
+        searchParameters.distance,
+        1,
+      );
+      const {animalsData} = animalsResponse;
+
+      expect(animalsData).toEqual([]);
     });
   });
 });

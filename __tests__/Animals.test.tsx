@@ -5,6 +5,7 @@ import renderer, {act} from 'react-test-renderer';
 import Animals from '../Views/Animals';
 import {PetType} from '../models/PetType';
 import Breed from '../models/Breed';
+import {AnimalResults} from '../services/apiService';
 
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({
@@ -18,8 +19,8 @@ jest.mock('@react-native-async-storage/async-storage', () => ({
   getItem: jest.fn(),
 }));
 
-jest.mock('../services/apiService', () => ({
-  getAnimals: jest.fn(() => [
+const animalResults: AnimalResults = {
+  animalsData: [
     {
       id: 1,
       organization_id: 'org1',
@@ -72,10 +73,11 @@ jest.mock('../services/apiService', () => ({
       tags: ['Friendly', 'Playful'],
       isFavorite: false,
     },
-  ]),
-}));
+  ],
+  pagination: {current_page: 1, total_pages: 1},
+};
 
-let mockedPetType: PetType = {
+const mockedPetType: PetType = {
   name: 'Dog',
   coats: [],
   colors: [],
@@ -94,6 +96,10 @@ const mockBreed: Breed = {
 };
 
 let renderedAnimalsTree: any;
+
+jest.mock('../services/apiService.ts', () => ({
+  getAnimals: jest.fn(() => animalResults),
+}));
 
 describe('Animals', () => {
   it('renders correctly', async () => {

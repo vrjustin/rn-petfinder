@@ -44,6 +44,8 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
   const animals = useSelector(selectAnimals);
   const searchParameters = useSelector(selectSearchParameters);
   const {location, distance, tagsPreffered} = searchParameters;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   const toggleGridView = () => {
     setIsGridView(prevState => !prevState);
@@ -62,12 +64,14 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
   useEffect(() => {
     const fetchAnimalsData = async () => {
       try {
-        const animalsData = await apiService.getAnimals(
+        const animalsResponse = await apiService.getAnimals(
           petType,
           selectedBreed,
           location.zipCode,
           distance,
+          currentPage,
         );
+        const {animalsData, pagination} = animalsResponse;
         const filteredAnimals = animalsData.filter(animal =>
           animal.tags.some(tag => tagsPreffered.includes(tag)),
         );
@@ -76,6 +80,8 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
             filteredAnimals.length > 0 ? filteredAnimals : animalsData,
           ),
         );
+        setCurrentPage(pagination.current_page);
+        setTotalPages(pagination.total_pages);
       } catch (error) {
         console.error('Failed top fetch Breeds data: ', error);
       }
@@ -88,6 +94,7 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
     location.zipCode,
     distance,
     tagsPreffered,
+    currentPage,
   ]);
 
   const handleAnimalSelection = (animal: Animal) => {
@@ -171,6 +178,36 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
     </TouchableOpacity>
   );
 
+  const prevPage = () => {
+    setCurrentPage(currentPage - 1);
+  };
+
+  const nextPage = () => {
+    setCurrentPage(currentPage + 1);
+  };
+
+  const paginationHeader = () => {
+    return (
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: 32,
+        }}>
+        <TouchableOpacity onPress={prevPage}>
+          <FontAwesomeIcon name="caret-left" size={30} style={styles.icon} />
+        </TouchableOpacity>
+        <Text style={{marginHorizontal: 16}}>
+          {currentPage} / {totalPages}
+        </Text>
+        <TouchableOpacity onPress={nextPage}>
+          <FontAwesomeIcon name="caret-right" size={30} style={styles.icon} />
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
   return (
     <View style={GlobalStyles.container}>
       <View style={styles.headerRow}>
@@ -194,6 +231,7 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
           </TouchableOpacity>
         </View>
       </View>
+      {totalPages > 1 ? paginationHeader() : <></>}
       {animals.length > 0 ? (
         <>
           {isGridView ? (
@@ -229,7 +267,8 @@ const styles = StyleSheet.create({
   headerRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    margin: 20,
+    marginHorizontal: 20,
+    marginVertical: 8,
   },
   header: {
     fontSize: 20,
