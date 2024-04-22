@@ -46,6 +46,7 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
   const {location, distance, tagsPreffered} = searchParameters;
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
   const toggleGridView = () => {
     setIsGridView(prevState => !prevState);
@@ -64,6 +65,7 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
   useEffect(() => {
     const fetchAnimalsData = async () => {
       try {
+        setIsLoading(true);
         const animalsResponse = await apiService.getAnimals(
           petType,
           selectedBreed,
@@ -84,6 +86,8 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
         setTotalPages(pagination.total_pages);
       } catch (error) {
         console.error('Failed top fetch Breeds data: ', error);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchAnimalsData();
@@ -179,11 +183,17 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
   );
 
   const prevPage = () => {
-    setCurrentPage(currentPage - 1);
+    if (isLoading) {
+      return;
+    }
+    setCurrentPage(prev => Math.max(prev - 1, 1));
   };
 
   const nextPage = () => {
-    setCurrentPage(currentPage + 1);
+    if (isLoading) {
+      return;
+    }
+    setCurrentPage(prev => Math.min(prev + 1, totalPages));
   };
 
   const paginationHeader = () => {
