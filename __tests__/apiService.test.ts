@@ -184,12 +184,14 @@ describe('apiService', () => {
           breeds: {href: ''},
         },
       };
-      const mockBreed: Breed = {
-        name: 'Labrador',
-        _links: {
-          type: {href: ''},
+      const mockBreeds: Breed[] = [
+        {
+          name: 'Labrador',
+          _links: {
+            type: {href: ''},
+          },
         },
-      };
+      ];
       const mockAnimals = [
         {id: 1, name: 'Buddy', isFavorite: false},
         {id: 2, name: 'Max', isFavorite: false},
@@ -212,14 +214,14 @@ describe('apiService', () => {
 
       const animalsResponse = await apiService.getAnimals(
         mockType,
-        mockBreed,
+        mockBreeds,
         searchParameters.location.zipCode,
         searchParameters.distance,
         1,
       );
       const {animalsData} = animalsResponse;
       const lcTypeName = mockType.name.toLowerCase();
-      const lcBreedName = mockBreed.name.toLowerCase();
+      const lcBreedName = mockBreeds[0].name.toLowerCase();
 
       expect(animalsData).toEqual(mockAnimals);
       expect(axios.get).toHaveBeenCalledWith(

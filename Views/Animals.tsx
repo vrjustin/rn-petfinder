@@ -38,7 +38,7 @@ const UserOptions = ({onPress}: {onPress: () => void}) => {
 
 const Animals: React.FC<AnimalsProps> = ({route}) => {
   const [isGridView, setIsGridView] = useState(true);
-  const {petType, selectedBreed} = route.params;
+  const {petType, selectedBreeds} = route.params;
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const animals = useSelector(selectAnimals);
@@ -68,7 +68,7 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
         setIsLoading(true);
         const animalsResponse = await apiService.getAnimals(
           petType,
-          selectedBreed,
+          selectedBreeds,
           location.zipCode,
           distance,
           currentPage,
@@ -94,7 +94,7 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
   }, [
     dispatch,
     petType,
-    selectedBreed,
+    selectedBreeds,
     location.zipCode,
     distance,
     tagsPreffered,
@@ -221,7 +221,7 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
   return (
     <View style={GlobalStyles.container}>
       <View style={styles.headerRow}>
-        <Text style={styles.header}>{selectedBreed.name} Pets</Text>
+        <Text style={styles.header}>Adoptable Pets</Text>
         <View style={styles.headerIconContainer}>
           <TouchableOpacity onPress={toggleGridView}>
             <FontAwesomeIcon

@@ -88,7 +88,7 @@ const getPetBreeds = async (type: PetType): Promise<Breed[]> => {
 
 const getAnimals = async (
   type: PetType,
-  breed: Breed,
+  breeds: Breed[],
   location: string,
   searchDistance: number,
   currentPage: number,
@@ -100,9 +100,12 @@ const getAnimals = async (
     const localAnimalsJson = await AsyncStorage.getItem('animals');
     const storedAnimals = localAnimalsJson ? JSON.parse(localAnimalsJson) : [];
     const typeName = type.name.toLowerCase();
-    const breedName = breed.name.toLowerCase();
+    // const breedName = breed.name.toLowerCase();
+    const breedNamesString = breeds
+      .map(breed => breed.name.toLowerCase())
+      .join(',');
     const response = await axios.get(
-      `https://api.petfinder.com/v2/animals?type=${typeName}&breed=${breedName}&location=${location}&distance=${searchDistance}&page=${currentPage}`,
+      `https://api.petfinder.com/v2/animals?type=${typeName}&breed=${breedNamesString}&location=${location}&distance=${searchDistance}&page=${currentPage}`,
       {
         headers: {
           Authorization: `Bearer ${jwt_access_token}`,
@@ -128,7 +131,7 @@ const getAnimals = async (
       const axiosError = error as AxiosError;
       if (axiosError.response?.status === 401) {
         await getAccessToken();
-        return getAnimals(type, breed, location, searchDistance, currentPage);
+        return getAnimals(type, breeds, location, searchDistance, currentPage);
       }
     }
     return {animalsData: [], pagination: {current_page: 1, total_pages: 1}};

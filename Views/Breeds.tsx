@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState, useRef, useLayoutEffect} from 'react';
 import {
   FlatList,
   Text,
@@ -25,6 +25,30 @@ const Breeds: React.FC<BreedsProps> = ({route}) => {
   const searchInputRef = useRef<TextInput>(null);
   const dispatch = useDispatch();
   const typeBreeds = useSelector(selectPetBreeds);
+  const [selectedBreeds, setSelectedBreeds] = useState<Breed[]>([]);
+
+  useLayoutEffect(() => {
+    const handleNavigateToAnimals = () => {
+      navigation.navigate('Animals', {
+        petType: petType,
+        selectedBreeds: selectedBreeds,
+      });
+    };
+    const headerRight =
+      selectedBreeds.length > 0 ? (
+        <FontAwesomeIcon
+          onPress={handleNavigateToAnimals}
+          name="caret-right"
+          size={30}
+          color="#000"
+          style={styles.icon}
+        />
+      ) : null;
+
+    navigation.setOptions({
+      headerRight: () => headerRight,
+    });
+  }, [navigation, petType, selectedBreeds]);
 
   useEffect(() => {
     const fetchTypeBreedsData = async () => {
@@ -47,10 +71,14 @@ const Breeds: React.FC<BreedsProps> = ({route}) => {
   }, [searchText, typeBreeds]);
 
   const handleBreedSelection = (breed: Breed) => {
-    navigation.navigate('Animals', {
-      petType: petType,
-      selectedBreed: breed,
-    });
+    const index = selectedBreeds.findIndex(b => b.name === breed.name);
+    if (index !== -1) {
+      const updatedBreeds = [...selectedBreeds];
+      updatedBreeds.splice(index, 1);
+      setSelectedBreeds(updatedBreeds);
+    } else {
+      setSelectedBreeds([...selectedBreeds, breed]);
+    }
   };
 
   const renderItem = ({item}: {item: Breed}) => (
@@ -59,10 +87,19 @@ const Breeds: React.FC<BreedsProps> = ({route}) => {
         <FontAwesomeIcon
           name="paw"
           size={20}
-          color="#000"
+          color={
+            selectedBreeds.some(b => b.name === item.name) ? 'red' : '#000'
+          }
           style={styles.icon}
         />
-        <Text style={styles.text}>{item.name}</Text>
+        <Text
+          style={
+            selectedBreeds.some(b => b.name === item.name)
+              ? styles.selectedBreedText
+              : styles.text
+          }>
+          {item.name}
+        </Text>
       </View>
     </TouchableOpacity>
   );
@@ -103,6 +140,10 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
+  },
+  selectedBreedText: {
+    fontSize: 16,
+    color: 'red',
   },
   icon: {
     marginRight: 10,

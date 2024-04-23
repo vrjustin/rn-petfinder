@@ -88,12 +88,14 @@ const mockedPetType: PetType = {
   },
 };
 
-const mockBreed: Breed = {
-  name: 'Poodle',
-  _links: {
-    type: {href: ''},
+const mockBreeds: Breeds[] = [
+  {
+    name: 'Poodle',
+    _links: {
+      type: {href: ''},
+    },
   },
-};
+];
 
 let renderedAnimalsTree: any;
 
@@ -110,7 +112,7 @@ describe('Animals', () => {
             route={{
               params: {
                 petType: mockedPetType,
-                selectedBreed: mockBreed,
+                selectedBreeds: mockBreeds,
               },
             }}
           />

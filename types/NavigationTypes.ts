@@ -6,7 +6,7 @@ import Animal from '../models/Animal';
 type RootStackParamList = {
   PetTypes: undefined;
   Breeds: {petType: PetType};
-  Animals: {petType: PetType; selectedBreed: Breed};
+  Animals: {petType: PetType; selectedBreeds: Breed[]};
   Animal: {selectedAnimal: Animal};
 };
 
