@@ -38,7 +38,7 @@ const UserOptions = ({onPress}: {onPress: () => void}) => {
 
 const Animals: React.FC<AnimalsProps> = ({route}) => {
   const [isGridView, setIsGridView] = useState(true);
-  const {petType, selectedBreeds} = route.params;
+  const {petType} = route.params;
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const animals = useSelector(selectAnimals);
@@ -47,6 +47,7 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  const selectedBreeds = searchParameters.breedsPreferred;
 
   const toggleGridView = () => {
     setIsGridView(prevState => !prevState);

@@ -11,11 +11,12 @@ import {
   selectSearchParameters,
   setSearchParameters,
 } from '../reducers/searchParamsReducer';
+import Breed from '../models/Breed';
 
 const Options: React.FC = () => {
   const dispatch = useDispatch();
   const searchParameters = useSelector(selectSearchParameters);
-  const {distance, location, tagsPreferred} = searchParameters;
+  const {distance, location, tagsPreferred, breedsPreferred} = searchParameters;
 
   const handleZipCodeChange = (newZip: string) => {
     dispatch(
@@ -53,6 +54,31 @@ const Options: React.FC = () => {
     }
   };
 
+  const handleBreedPress = (breed: Breed) => {
+    if (breedsPreferred.length <= 1) {
+      return;
+    }
+    console.log('Remove Breed: ', breed.name);
+    const index = breedsPreferred.findIndex(b => b.name === breed.name);
+    if (index !== -1) {
+      const updatedBreeds = [...breedsPreferred];
+      updatedBreeds.splice(index, 1);
+      dispatch(
+        setSearchParameters({
+          ...searchParameters,
+          breedsPreferred: updatedBreeds,
+        }),
+      );
+    } else {
+      dispatch(
+        setSearchParameters({
+          ...searchParameters,
+          breedsPreferred: [...breedsPreferred, breed],
+        }),
+      );
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.label}>Enter ZIP Code:</Text>
@@ -69,6 +95,28 @@ const Options: React.FC = () => {
         onChangeText={handleDistanceChange}
         keyboardType="numeric"
       />
+      {breedsPreferred.length > 0 && (
+        <>
+          <Text style={styles.label}>Preferred Breeds:</Text>
+          <View style={{flexDirection: 'row', flexWrap: 'wrap', padding: 8}}>
+            {breedsPreferred.map((breed, index) => (
+              <TouchableOpacity
+                key={index}
+                onPress={() => handleBreedPress(breed)}>
+                <View
+                  key={index}
+                  style={
+                    !breedsPreferred.includes(breed)
+                      ? styles.tag
+                      : styles.activeTag
+                  }>
+                  <Text style={{color: 'white'}}>{breed.name}</Text>
+                </View>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </>
+      )}
       {tagsPreferred.length > 0 && (
         <>
           <Text style={styles.label}>Preferred Tags:</Text>

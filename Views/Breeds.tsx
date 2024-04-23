@@ -10,6 +10,10 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {useSelector, useDispatch} from 'react-redux';
 import {setBreeds, selectPetBreeds} from '../reducers/petBreedsReducer';
+import {
+  setSearchParameters,
+  selectSearchParameters,
+} from '../reducers/searchParamsReducer';
 import {BreedsProps} from '../types/NavigationTypes';
 import Breed from '../models/Breed';
 import apiService from '../services/apiService';
@@ -24,18 +28,19 @@ const Breeds: React.FC<BreedsProps> = ({route}) => {
   const navigation = useNavigation();
   const searchInputRef = useRef<TextInput>(null);
   const dispatch = useDispatch();
+  const searchParameters = useSelector(selectSearchParameters);
+  const breedsPreferred = searchParameters.breedsPreferred;
   const typeBreeds = useSelector(selectPetBreeds);
-  const [selectedBreeds, setSelectedBreeds] = useState<Breed[]>([]);
 
   useLayoutEffect(() => {
     const handleNavigateToAnimals = () => {
       navigation.navigate('Animals', {
         petType: petType,
-        selectedBreeds: selectedBreeds,
+        selectedBreeds: breedsPreferred,
       });
     };
     const headerRight =
-      selectedBreeds.length > 0 ? (
+      breedsPreferred.length > 0 ? (
         <FontAwesomeIcon
           onPress={handleNavigateToAnimals}
           name="caret-right"
@@ -48,7 +53,7 @@ const Breeds: React.FC<BreedsProps> = ({route}) => {
     navigation.setOptions({
       headerRight: () => headerRight,
     });
-  }, [navigation, petType, selectedBreeds]);
+  }, [navigation, petType, breedsPreferred]);
 
   useEffect(() => {
     const fetchTypeBreedsData = async () => {
@@ -71,13 +76,23 @@ const Breeds: React.FC<BreedsProps> = ({route}) => {
   }, [searchText, typeBreeds]);
 
   const handleBreedSelection = (breed: Breed) => {
-    const index = selectedBreeds.findIndex(b => b.name === breed.name);
+    const index = breedsPreferred.findIndex(b => b.name === breed.name);
     if (index !== -1) {
-      const updatedBreeds = [...selectedBreeds];
+      const updatedBreeds = [...breedsPreferred];
       updatedBreeds.splice(index, 1);
-      setSelectedBreeds(updatedBreeds);
+      dispatch(
+        setSearchParameters({
+          ...searchParameters,
+          breedsPreferred: updatedBreeds,
+        }),
+      );
     } else {
-      setSelectedBreeds([...selectedBreeds, breed]);
+      dispatch(
+        setSearchParameters({
+          ...searchParameters,
+          breedsPreferred: [...breedsPreferred, breed],
+        }),
+      );
     }
   };
 
@@ -88,13 +103,13 @@ const Breeds: React.FC<BreedsProps> = ({route}) => {
           name="paw"
           size={20}
           color={
-            selectedBreeds.some(b => b.name === item.name) ? 'red' : '#000'
+            breedsPreferred.some(b => b.name === item.name) ? 'red' : '#000'
           }
           style={styles.icon}
         />
         <Text
           style={
-            selectedBreeds.some(b => b.name === item.name)
+            breedsPreferred.some(b => b.name === item.name)
               ? styles.selectedBreedText
               : styles.text
           }>
