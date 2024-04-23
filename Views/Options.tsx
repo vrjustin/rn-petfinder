@@ -15,7 +15,7 @@ import {
 const Options: React.FC = () => {
   const dispatch = useDispatch();
   const searchParameters = useSelector(selectSearchParameters);
-  const {distance, location, tagsPreffered} = searchParameters;
+  const {distance, location, tagsPreferred} = searchParameters;
 
   const handleZipCodeChange = (newZip: string) => {
     dispatch(
@@ -36,18 +36,18 @@ const Options: React.FC = () => {
   };
 
   const handleTagPress = (tag: string) => {
-    if (!tagsPreffered.includes(tag)) {
+    if (!tagsPreferred.includes(tag)) {
       dispatch(
         setSearchParameters({
           ...searchParameters,
-          tagsPreffered: [...tagsPreffered, tag],
+          tagsPreferred: [...tagsPreferred, tag],
         }),
       );
     } else {
       dispatch(
         setSearchParameters({
           ...searchParameters,
-          tagsPreffered: tagsPreffered.filter(t => t !== tag),
+          tagsPreferred: tagsPreferred.filter(t => t !== tag),
         }),
       );
     }
@@ -69,16 +69,16 @@ const Options: React.FC = () => {
         onChangeText={handleDistanceChange}
         keyboardType="numeric"
       />
-      {tagsPreffered.length > 0 && (
+      {tagsPreferred.length > 0 && (
         <>
           <Text style={styles.label}>Preferred Tags:</Text>
           <View style={{flexDirection: 'row', flexWrap: 'wrap', padding: 8}}>
-            {tagsPreffered.map((tag, index) => (
+            {tagsPreferred.map((tag, index) => (
               <TouchableOpacity key={index} onPress={() => handleTagPress(tag)}>
                 <View
                   key={index}
                   style={
-                    !tagsPreffered.includes(tag) ? styles.tag : styles.activeTag
+                    !tagsPreferred.includes(tag) ? styles.tag : styles.activeTag
                   }>
                   <Text style={{color: 'white'}}>{tag}</Text>
                 </View>

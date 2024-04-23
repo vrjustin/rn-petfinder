@@ -209,7 +209,7 @@ describe('apiService', () => {
           zipCode: '90210',
         },
         distance: 500,
-        tagsPreffered: [],
+        tagsPreferred: [],
       };
 
       const animalsResponse = await apiService.getAnimals(

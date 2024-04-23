@@ -12,7 +12,7 @@ const initialState: SearchParametersState = {
       zipCode: '90210',
     },
     distance: 500, //in miles
-    tagsPreffered: [],
+    tagsPreferred: [],
   },
 };
 

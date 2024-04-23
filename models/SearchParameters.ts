@@ -1,7 +1,7 @@
 interface SearchParameters {
   location: {zipCode: string};
   distance: number;
-  tagsPreffered: string[];
+  tagsPreferred: string[];
 }
 
 export default SearchParameters;

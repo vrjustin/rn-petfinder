@@ -43,7 +43,7 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
   const dispatch = useDispatch();
   const animals = useSelector(selectAnimals);
   const searchParameters = useSelector(selectSearchParameters);
-  const {location, distance, tagsPreffered} = searchParameters;
+  const {location, distance, tagsPreferred} = searchParameters;
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
@@ -75,7 +75,7 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
         );
         const {animalsData, pagination} = animalsResponse;
         const filteredAnimals = animalsData.filter(animal =>
-          animal.tags.some(tag => tagsPreffered.includes(tag)),
+          animal.tags.some(tag => tagsPreferred.includes(tag)),
         );
         dispatch(
           setAnimals(
@@ -97,7 +97,7 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
     selectedBreeds,
     location.zipCode,
     distance,
-    tagsPreffered,
+    tagsPreferred,
     currentPage,
   ]);
 
