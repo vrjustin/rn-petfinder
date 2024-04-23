@@ -9,6 +9,13 @@ interface Animal {
   name: string;
   description: string;
   status: string;
+  attributes: {
+    declawed: boolean | null;
+    house_trained: boolean | null;
+    shots_current: boolean | null;
+    spayed_neutered: boolean | null;
+    special_needs: boolean | null;
+  };
   breeds: {
     mixed: boolean;
     primary: string;

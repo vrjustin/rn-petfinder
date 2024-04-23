@@ -36,6 +36,13 @@ describe('AnimalDetails', () => {
                   name: 'Fluffy',
                   description: 'A fluffy dog',
                   status: 'Available',
+                  attributes: {
+                    declawed: null,
+                    house_trained: true,
+                    shots_current: true,
+                    spayed_neutered: false,
+                    special_needs: false,
+                  },
                   breeds: {
                     mixed: false,
                     primary: 'Poodle',

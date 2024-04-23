@@ -224,6 +224,135 @@ exports[`AnimalDetails renders correctly 1`] = `
       >
         A fluffy dog
       </Text>
+      <View
+        style={
+          {
+            "padding": 8,
+          }
+        }
+      >
+        <Text
+          style={
+            {
+              "fontSize": 16,
+              "fontWeight": "bold",
+              "padding": 8,
+            }
+          }
+        >
+          Attributes
+        </Text>
+        <View
+          style={
+            {
+              "backgroundColor": "#f0f0f0",
+              "borderRadius": 8,
+              "padding": 8,
+            }
+          }
+        >
+          <View
+            style={
+              {
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "paddingVertical": 4,
+              }
+            }
+          >
+            <Text
+              style={
+                {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              House Trained
+              :
+            </Text>
+            <Text
+              style={{}}
+            >
+              Yes
+            </Text>
+          </View>
+          <View
+            style={
+              {
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "paddingVertical": 4,
+              }
+            }
+          >
+            <Text
+              style={
+                {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Shots Current
+              :
+            </Text>
+            <Text
+              style={{}}
+            >
+              Yes
+            </Text>
+          </View>
+          <View
+            style={
+              {
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "paddingVertical": 4,
+              }
+            }
+          >
+            <Text
+              style={
+                {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Spayed/Neutered
+              :
+            </Text>
+            <Text
+              style={{}}
+            >
+              No
+            </Text>
+          </View>
+          <View
+            style={
+              {
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "paddingVertical": 4,
+              }
+            }
+          >
+            <Text
+              style={
+                {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Special Needs
+              :
+            </Text>
+            <Text
+              style={{}}
+            >
+              No
+            </Text>
+          </View>
+        </View>
+      </View>
       <Text
         style={
           {

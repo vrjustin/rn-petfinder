@@ -21,9 +21,20 @@ import {
 } from '../reducers/searchParamsReducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+const AttributeItem: React.FC<{label: string; value: string}> = ({
+  label,
+  value,
+}) => (
+  <View style={styles.attributeItem}>
+    <Text style={styles.attributeLabel}>{label}:</Text>
+    <Text style={styles.attributeValue}>{value}</Text>
+  </View>
+);
+
 const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
   const {selectedAnimal} = route.params;
-  const {age, name, description, photos, contact, tags} = selectedAnimal;
+  const {age, name, description, photos, contact, tags, attributes} =
+    selectedAnimal;
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isFavorite, setIsFavorite] = useState(selectedAnimal.isFavorite);
   const animals = useSelector(selectAnimals);
@@ -58,6 +69,46 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
     setIsFavorite(isFavoriteValToggle);
     dispatch(setAnimals(updatedAnimals));
     await AsyncStorage.setItem('animals', JSON.stringify(updatedAnimals));
+  };
+
+  const renderAttributes = () => {
+    return (
+      <View style={styles.attributesContainer}>
+        <Text style={styles.sectionHeaderText}>Attributes</Text>
+        <View style={styles.attributes}>
+          {attributes.declawed !== null && (
+            <AttributeItem
+              label="Declawed"
+              value={attributes.declawed ? 'Yes' : 'No'}
+            />
+          )}
+          {attributes.house_trained !== null && (
+            <AttributeItem
+              label="House Trained"
+              value={attributes.house_trained ? 'Yes' : 'No'}
+            />
+          )}
+          {attributes.shots_current !== null && (
+            <AttributeItem
+              label="Shots Current"
+              value={attributes.shots_current ? 'Yes' : 'No'}
+            />
+          )}
+          {attributes.spayed_neutered !== null && (
+            <AttributeItem
+              label="Spayed/Neutered"
+              value={attributes.spayed_neutered ? 'Yes' : 'No'}
+            />
+          )}
+          {attributes.special_needs !== null && (
+            <AttributeItem
+              label="Special Needs"
+              value={attributes.special_needs ? 'Yes' : 'No'}
+            />
+          )}
+        </View>
+      </View>
+    );
   };
 
   return (
@@ -106,6 +157,7 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
             <Text style={{padding: 8, fontSize: 14}}>{description}</Text>
           </>
         )}
+        {renderAttributes()}
         {tags.length > 0 && (
           <>
             <Text style={styles.sectionHeaderText}>Tags</Text>
@@ -186,6 +238,23 @@ const styles = StyleSheet.create({
     marginRight: 8,
     marginBottom: 8,
   },
+  attributesContainer: {
+    padding: 8,
+  },
+  attributes: {
+    backgroundColor: '#f0f0f0',
+    borderRadius: 8,
+    padding: 8,
+  },
+  attributeItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: 4,
+  },
+  attributeLabel: {
+    fontWeight: 'bold',
+  },
+  attributeValue: {},
 });
 
 export default AnimalDetails;
