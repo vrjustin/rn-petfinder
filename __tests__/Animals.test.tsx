@@ -88,7 +88,7 @@ const mockedPetType: PetType = {
   },
 };
 
-const mockBreeds: Breeds[] = [
+const mockBreeds: Breed[] = [
   {
     name: 'Poodle',
     _links: {
