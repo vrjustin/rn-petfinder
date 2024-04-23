@@ -28,22 +28,22 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
   const [isFavorite, setIsFavorite] = useState(selectedAnimal.isFavorite);
   const animals = useSelector(selectAnimals);
   const searchParameters = useSelector(selectSearchParameters);
-  const {tagsPreffered} = searchParameters;
+  const {tagsPreferred} = searchParameters;
   const dispatch = useDispatch();
 
   const handleTagPress = (tag: string) => {
-    if (!tagsPreffered.includes(tag)) {
+    if (!tagsPreferred.includes(tag)) {
       dispatch(
         setSearchParameters({
           ...searchParameters,
-          tagsPreffered: [...tagsPreffered, tag],
+          tagsPreferred: [...tagsPreferred, tag],
         }),
       );
     } else {
       dispatch(
         setSearchParameters({
           ...searchParameters,
-          tagsPreffered: tagsPreffered.filter(t => t !== tag),
+          tagsPreferred: tagsPreferred.filter(t => t !== tag),
         }),
       );
     }
@@ -117,7 +117,7 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
                   <View
                     key={index}
                     style={
-                      !tagsPreffered.includes(tag)
+                      !tagsPreferred.includes(tag)
                         ? styles.tag
                         : styles.activeTag
                     }>

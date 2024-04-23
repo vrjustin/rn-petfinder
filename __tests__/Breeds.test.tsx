@@ -4,11 +4,12 @@ import store from '../stores/store';
 import renderer, {act} from 'react-test-renderer';
 import Breeds from '../Views/Breeds';
 import {BreedsScreenRouteProp} from '../types/NavigationTypes';
-import { PetType } from '../models/PetType';
+import {PetType} from '../models/PetType';
 
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({
     navigate: jest.fn(),
+    setOptions: jest.fn(),
   }),
 }));
 

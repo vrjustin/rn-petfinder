@@ -29,8 +29,7 @@ exports[`Animals renders correctly 1`] = `
         }
       }
     >
-      Poodle
-       Pets
+      Adoptable Pets
     </Text>
     <View
       style={

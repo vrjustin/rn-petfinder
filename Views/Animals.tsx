@@ -38,15 +38,16 @@ const UserOptions = ({onPress}: {onPress: () => void}) => {
 
 const Animals: React.FC<AnimalsProps> = ({route}) => {
   const [isGridView, setIsGridView] = useState(true);
-  const {petType, selectedBreed} = route.params;
+  const {petType} = route.params;
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const animals = useSelector(selectAnimals);
   const searchParameters = useSelector(selectSearchParameters);
-  const {location, distance, tagsPreffered} = searchParameters;
+  const {location, distance, tagsPreferred} = searchParameters;
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  const selectedBreeds = searchParameters.breedsPreferred;
 
   const toggleGridView = () => {
     setIsGridView(prevState => !prevState);
@@ -68,14 +69,14 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
         setIsLoading(true);
         const animalsResponse = await apiService.getAnimals(
           petType,
-          selectedBreed,
+          selectedBreeds,
           location.zipCode,
           distance,
           currentPage,
         );
         const {animalsData, pagination} = animalsResponse;
         const filteredAnimals = animalsData.filter(animal =>
-          animal.tags.some(tag => tagsPreffered.includes(tag)),
+          animal.tags.some(tag => tagsPreferred.includes(tag)),
         );
         dispatch(
           setAnimals(
@@ -94,10 +95,10 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
   }, [
     dispatch,
     petType,
-    selectedBreed,
+    selectedBreeds,
     location.zipCode,
     distance,
-    tagsPreffered,
+    tagsPreferred,
     currentPage,
   ]);
 
@@ -221,7 +222,7 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
   return (
     <View style={GlobalStyles.container}>
       <View style={styles.headerRow}>
-        <Text style={styles.header}>{selectedBreed.name} Pets</Text>
+        <Text style={styles.header}>Adoptable Pets</Text>
         <View style={styles.headerIconContainer}>
           <TouchableOpacity onPress={toggleGridView}>
             <FontAwesomeIcon
