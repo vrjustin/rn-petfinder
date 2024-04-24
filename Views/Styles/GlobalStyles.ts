@@ -17,6 +17,7 @@ const GlobalStyles = () => {
     fontSize: 20,
     fontWeight: 'bold',
     margin: 20,
+    color: isDarkMode ? 'white' : 'black',
   };
 
   const textInput = {

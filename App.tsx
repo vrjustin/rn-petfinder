@@ -13,12 +13,23 @@ import ThemeContext from './contexts/ThemeContext';
 const Stack = createStackNavigator();
 
 function App(): React.JSX.Element {
-  const [isDarkMode] = useState(false);
+  const [isDarkMode] = useState(true);
+  const headerStyle = {
+    backgroundColor: isDarkMode ? 'black' : 'white',
+  };
+  const headerTitleStyle = {
+    color: isDarkMode ? 'white' : 'black',
+  };
+
   return (
     <Provider store={store}>
       <ThemeContext.Provider value={isDarkMode}>
         <NavigationContainer>
-          <Stack.Navigator>
+          <Stack.Navigator
+            screenOptions={{
+              headerStyle,
+              headerTitleStyle,
+            }}>
             <Stack.Screen name="PetTypes" component={PetTypes} />
             <Stack.Screen name="Breeds" component={Breeds} />
             <Stack.Screen name="Animals" component={Animals} />
