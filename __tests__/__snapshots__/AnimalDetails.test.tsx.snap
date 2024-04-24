@@ -25,6 +25,7 @@ exports[`AnimalDetails renders correctly 1`] = `
       }
     >
       <Image
+        resizeMode="contain"
         source={
           {
             "uri": "https://example.com/medium.jpg",
@@ -118,8 +119,11 @@ exports[`AnimalDetails renders correctly 1`] = `
       <View
         style={
           {
+            "backgroundColor": "gray",
+            "borderRadius": 8,
             "bottom": 8,
             "left": 8,
+            "padding": 4,
             "position": "absolute",
           }
         }
@@ -224,13 +228,7 @@ exports[`AnimalDetails renders correctly 1`] = `
       >
         A fluffy dog
       </Text>
-      <View
-        style={
-          {
-            "padding": 8,
-          }
-        }
-      >
+      <View>
         <Text
           style={
             {
@@ -245,111 +243,116 @@ exports[`AnimalDetails renders correctly 1`] = `
         <View
           style={
             {
-              "backgroundColor": "#f0f0f0",
-              "borderRadius": 8,
-              "padding": 8,
+              "padding": 16,
+              "paddingRight": 32,
             }
           }
         >
           <View
             style={
               {
-                "flexDirection": "row",
-                "justifyContent": "space-between",
-                "paddingVertical": 4,
+                "backgroundColor": "#f0f0f0",
+                "borderRadius": 8,
+                "padding": 8,
               }
             }
           >
-            <Text
+            <View
               style={
                 {
-                  "fontWeight": "bold",
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "paddingVertical": 4,
                 }
               }
             >
-              House Trained
-              :
-            </Text>
-            <Text
-              style={{}}
-            >
-              Yes
-            </Text>
-          </View>
-          <View
-            style={
-              {
-                "flexDirection": "row",
-                "justifyContent": "space-between",
-                "paddingVertical": 4,
-              }
-            }
-          >
-            <Text
+              <Text
+                style={
+                  {
+                    "fontWeight": "normal",
+                  }
+                }
+              >
+                House Trained
+              </Text>
+              <Text
+                style={{}}
+              >
+                Yes
+              </Text>
+            </View>
+            <View
               style={
                 {
-                  "fontWeight": "bold",
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "paddingVertical": 4,
                 }
               }
             >
-              Shots Current
-              :
-            </Text>
-            <Text
-              style={{}}
-            >
-              Yes
-            </Text>
-          </View>
-          <View
-            style={
-              {
-                "flexDirection": "row",
-                "justifyContent": "space-between",
-                "paddingVertical": 4,
-              }
-            }
-          >
-            <Text
+              <Text
+                style={
+                  {
+                    "fontWeight": "normal",
+                  }
+                }
+              >
+                Shots Current
+              </Text>
+              <Text
+                style={{}}
+              >
+                Yes
+              </Text>
+            </View>
+            <View
               style={
                 {
-                  "fontWeight": "bold",
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "paddingVertical": 4,
                 }
               }
             >
-              Spayed/Neutered
-              :
-            </Text>
-            <Text
-              style={{}}
-            >
-              No
-            </Text>
-          </View>
-          <View
-            style={
-              {
-                "flexDirection": "row",
-                "justifyContent": "space-between",
-                "paddingVertical": 4,
-              }
-            }
-          >
-            <Text
+              <Text
+                style={
+                  {
+                    "fontWeight": "normal",
+                  }
+                }
+              >
+                Spayed/Neutered
+              </Text>
+              <Text
+                style={{}}
+              >
+                No
+              </Text>
+            </View>
+            <View
               style={
                 {
-                  "fontWeight": "bold",
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "paddingVertical": 4,
                 }
               }
             >
-              Special Needs
-              :
-            </Text>
-            <Text
-              style={{}}
-            >
-              No
-            </Text>
+              <Text
+                style={
+                  {
+                    "fontWeight": "normal",
+                  }
+                }
+              >
+                Special Needs
+              </Text>
+              <Text
+                style={{}}
+              >
+                No
+              </Text>
+            </View>
           </View>
         </View>
       </View>
