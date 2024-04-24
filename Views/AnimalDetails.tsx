@@ -26,7 +26,7 @@ const AttributeItem: React.FC<{label: string; value: string}> = ({
   value,
 }) => (
   <View style={styles.attributeItem}>
-    <Text style={styles.attributeLabel}>{label}:</Text>
+    <Text style={styles.attributeLabel}>{label}</Text>
     <Text style={styles.attributeValue}>{value}</Text>
   </View>
 );
@@ -73,39 +73,41 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
 
   const renderAttributes = () => {
     return (
-      <View style={styles.attributesContainer}>
+      <View>
         <Text style={styles.sectionHeaderText}>Attributes</Text>
-        <View style={styles.attributes}>
-          {attributes.declawed !== null && (
-            <AttributeItem
-              label="Declawed"
-              value={attributes.declawed ? 'Yes' : 'No'}
-            />
-          )}
-          {attributes.house_trained !== null && (
-            <AttributeItem
-              label="House Trained"
-              value={attributes.house_trained ? 'Yes' : 'No'}
-            />
-          )}
-          {attributes.shots_current !== null && (
-            <AttributeItem
-              label="Shots Current"
-              value={attributes.shots_current ? 'Yes' : 'No'}
-            />
-          )}
-          {attributes.spayed_neutered !== null && (
-            <AttributeItem
-              label="Spayed/Neutered"
-              value={attributes.spayed_neutered ? 'Yes' : 'No'}
-            />
-          )}
-          {attributes.special_needs !== null && (
-            <AttributeItem
-              label="Special Needs"
-              value={attributes.special_needs ? 'Yes' : 'No'}
-            />
-          )}
+        <View style={styles.attributesContainer}>
+          <View style={styles.attributes}>
+            {attributes.declawed !== null && (
+              <AttributeItem
+                label="Declawed"
+                value={attributes.declawed ? 'Yes' : 'No'}
+              />
+            )}
+            {attributes.house_trained !== null && (
+              <AttributeItem
+                label="House Trained"
+                value={attributes.house_trained ? 'Yes' : 'No'}
+              />
+            )}
+            {attributes.shots_current !== null && (
+              <AttributeItem
+                label="Shots Current"
+                value={attributes.shots_current ? 'Yes' : 'No'}
+              />
+            )}
+            {attributes.spayed_neutered !== null && (
+              <AttributeItem
+                label="Spayed/Neutered"
+                value={attributes.spayed_neutered ? 'Yes' : 'No'}
+              />
+            )}
+            {attributes.special_needs !== null && (
+              <AttributeItem
+                label="Special Needs"
+                value={attributes.special_needs ? 'Yes' : 'No'}
+              />
+            )}
+          </View>
         </View>
       </View>
     );
@@ -120,7 +122,8 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
               ? {uri: photos[currentImageIndex].medium}
               : require('../resources/black-1869685_1280.jpg')
           }
-          style={{flex: 1}}>
+          style={{flex: 1}}
+          resizeMode="contain">
           <View style={{position: 'absolute', top: 8, right: 8}}>
             <TouchableOpacity onPress={() => handleFavorite(selectedAnimal)}>
               <FontAwesomeIcon
@@ -131,7 +134,15 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
               />
             </TouchableOpacity>
           </View>
-          <View style={{position: 'absolute', bottom: 8, left: 8}}>
+          <View
+            style={{
+              position: 'absolute',
+              bottom: 8,
+              left: 8,
+              backgroundColor: 'gray',
+              borderRadius: 8,
+              padding: 4,
+            }}>
             <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
               <Text style={styles.nameText}>{name}, </Text>
               <Text style={styles.ageText}>{age}</Text>
@@ -239,7 +250,8 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   attributesContainer: {
-    padding: 8,
+    padding: 16,
+    paddingRight: 32,
   },
   attributes: {
     backgroundColor: '#f0f0f0',
@@ -252,7 +264,7 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
   },
   attributeLabel: {
-    fontWeight: 'bold',
+    fontWeight: 'normal',
   },
   attributeValue: {},
 });
