@@ -31,6 +31,7 @@ const Breeds: React.FC<BreedsProps> = ({route}) => {
   const searchParameters = useSelector(selectSearchParameters);
   const breedsPreferred = searchParameters.breedsPreferred;
   const typeBreeds = useSelector(selectPetBreeds);
+  const globalStyles = GlobalStyles();
 
   useLayoutEffect(() => {
     const handleNavigateToAnimals = () => {
@@ -120,12 +121,12 @@ const Breeds: React.FC<BreedsProps> = ({route}) => {
   );
 
   return (
-    <View style={GlobalStyles.container}>
-      <Text style={GlobalStyles.header}>
+    <View style={globalStyles.container}>
+      <Text style={globalStyles.header}>
         Select your {typeName} breed, or start typing below to learn more!
       </Text>
       <TextInput
-        style={GlobalStyles.textInput}
+        style={globalStyles.textInput}
         placeholder="Start typing to filter breeds..."
         value={searchText}
         onChangeText={setSearchText}

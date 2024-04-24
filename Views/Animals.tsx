@@ -48,6 +48,7 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
   const [totalPages, setTotalPages] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const selectedBreeds = searchParameters.breedsPreferred;
+  const globalStyles = GlobalStyles();
 
   const toggleGridView = () => {
     setIsGridView(prevState => !prevState);
@@ -220,7 +221,7 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
   };
 
   return (
-    <View style={GlobalStyles.container}>
+    <View style={globalStyles.container}>
       <View style={styles.headerRow}>
         <Text style={styles.header}>Adoptable Pets</Text>
         <View style={styles.headerIconContainer}>

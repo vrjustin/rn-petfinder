@@ -22,6 +22,7 @@ const PetTypes: React.FC = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const petTypes = useSelector(selectPetTypes);
+  const globalStyles = GlobalStyles();
 
   useEffect(() => {
     const fetchPetTypesData = async () => {
@@ -69,8 +70,8 @@ const PetTypes: React.FC = () => {
   }
 
   return (
-    <View style={GlobalStyles.container}>
-      <Text style={GlobalStyles.header}>
+    <View style={globalStyles.container}>
+      <Text style={globalStyles.header}>
         Select an Animal Type to Get Started:
       </Text>
       <FlatList
