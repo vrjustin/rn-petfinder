@@ -61,6 +61,9 @@ const Breeds: React.FC<BreedsProps> = ({route}) => {
       try {
         const breedsData = await apiService.getPetBreeds(petType);
         dispatch(setBreeds(breedsData));
+        dispatch(
+          setSearchParameters({...searchParameters, breedsPreferred: []}),
+        );
       } catch (error) {
         console.error('Failed to fetch Breeds data: ', error);
       }
