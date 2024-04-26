@@ -6,6 +6,7 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 import {
   selectSearchParameters,
@@ -81,60 +82,66 @@ const Options: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Enter ZIP Code:</Text>
-      <TextInput
-        style={styles.input}
-        value={location.zipCode}
-        onChangeText={handleZipCodeChange}
-        keyboardType="numeric"
-      />
-      <Text style={styles.label}>Enter Search Distance:</Text>
-      <TextInput
-        style={styles.input}
-        value={distance.toString()}
-        onChangeText={handleDistanceChange}
-        keyboardType="numeric"
-      />
-      {breedsPreferred.length > 0 && (
-        <>
-          <Text style={styles.label}>Preferred Breeds:</Text>
-          <View style={{flexDirection: 'row', flexWrap: 'wrap', padding: 8}}>
-            {breedsPreferred.map((breed, index) => (
-              <TouchableOpacity
-                key={index}
-                onPress={() => handleBreedPress(breed)}>
-                <View
+      <ScrollView>
+        <Text style={styles.label}>Enter ZIP Code:</Text>
+        <TextInput
+          style={styles.input}
+          value={location.zipCode}
+          onChangeText={handleZipCodeChange}
+          keyboardType="numeric"
+        />
+        <Text style={styles.label}>Enter Search Distance:</Text>
+        <TextInput
+          style={styles.input}
+          value={distance.toString()}
+          onChangeText={handleDistanceChange}
+          keyboardType="numeric"
+        />
+        {breedsPreferred.length > 0 && (
+          <>
+            <Text style={styles.label}>Preferred Breeds:</Text>
+            <View style={{flexDirection: 'row', flexWrap: 'wrap', padding: 8}}>
+              {breedsPreferred.map((breed, index) => (
+                <TouchableOpacity
                   key={index}
-                  style={
-                    !breedsPreferred.includes(breed)
-                      ? styles.tag
-                      : styles.activeTag
-                  }>
-                  <Text style={{color: 'white'}}>{breed.name}</Text>
-                </View>
-              </TouchableOpacity>
-            ))}
-          </View>
-        </>
-      )}
-      {tagsPreferred.length > 0 && (
-        <>
-          <Text style={styles.label}>Preferred Tags:</Text>
-          <View style={{flexDirection: 'row', flexWrap: 'wrap', padding: 8}}>
-            {tagsPreferred.map((tag, index) => (
-              <TouchableOpacity key={index} onPress={() => handleTagPress(tag)}>
-                <View
+                  onPress={() => handleBreedPress(breed)}>
+                  <View
+                    key={index}
+                    style={
+                      !breedsPreferred.includes(breed)
+                        ? styles.tag
+                        : styles.activeTag
+                    }>
+                    <Text style={{color: 'white'}}>{breed.name}</Text>
+                  </View>
+                </TouchableOpacity>
+              ))}
+            </View>
+          </>
+        )}
+        {tagsPreferred.length > 0 && (
+          <>
+            <Text style={styles.label}>Preferred Tags:</Text>
+            <View style={{flexDirection: 'row', flexWrap: 'wrap', padding: 8}}>
+              {tagsPreferred.map((tag, index) => (
+                <TouchableOpacity
                   key={index}
-                  style={
-                    !tagsPreferred.includes(tag) ? styles.tag : styles.activeTag
-                  }>
-                  <Text style={{color: 'white'}}>{tag}</Text>
-                </View>
-              </TouchableOpacity>
-            ))}
-          </View>
-        </>
-      )}
+                  onPress={() => handleTagPress(tag)}>
+                  <View
+                    key={index}
+                    style={
+                      !tagsPreferred.includes(tag)
+                        ? styles.tag
+                        : styles.activeTag
+                    }>
+                    <Text style={{color: 'white'}}>{tag}</Text>
+                  </View>
+                </TouchableOpacity>
+              ))}
+            </View>
+          </>
+        )}
+      </ScrollView>
     </View>
   );
 };
