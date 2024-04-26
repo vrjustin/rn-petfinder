@@ -74,12 +74,14 @@ const PetTypes: React.FC = () => {
       <Text style={globalStyles.header}>
         Select an Animal Type to Get Started:
       </Text>
-      <FlatList
-        data={petTypes}
-        renderItem={renderPetType}
-        keyExtractor={item => item.name}
-        numColumns={2}
-      />
+      <View style={styles.gridContainer}>
+        <FlatList
+          data={petTypes}
+          renderItem={renderPetType}
+          keyExtractor={item => item.name}
+          numColumns={2}
+        />
+      </View>
     </View>
   );
 };
@@ -99,6 +101,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 16,
     flex: 1,
+  },
+  gridContainer: {
+    flex: 1,
+    alignItems: 'center',
   },
   gridItemContainer: {
     flex: 1,
