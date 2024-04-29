@@ -12,7 +12,12 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {useSelector, useDispatch} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {setAnimals, selectAnimals} from '../reducers/animalsReducer';
+import {
+  setAnimals,
+  selectAnimals,
+  toggleFavorite,
+  selectFavorites,
+} from '../reducers/animalsReducer';
 import {selectSearchParameters} from '../reducers/searchParamsReducer';
 import Animal from '../models/Animal';
 import apiService from '../services/apiService';
@@ -42,6 +47,7 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const animals = useSelector(selectAnimals);
+  const favorites = useSelector(selectFavorites);
   const searchParameters = useSelector(selectSearchParameters);
   const {location, distance, tagsPreferred} = searchParameters;
   const [currentPage, setCurrentPage] = useState(1);
@@ -92,7 +98,16 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
         setIsLoading(false);
       }
     };
-    fetchAnimalsData();
+    if (petType.name === 'Favorite' && favorites.length > 0) {
+      dispatch(setAnimals(favorites));
+    } else {
+      if (petType.name === 'Favorite') {
+        //Navigate back so they can select the AnimalType.
+        navigation.goBack();
+      } else {
+        fetchAnimalsData();
+      }
+    }
   }, [
     dispatch,
     petType,
@@ -101,19 +116,23 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
     distance,
     tagsPreferred,
     currentPage,
+    favorites,
   ]);
+
+  const isFavorite = (animal: Animal): boolean => {
+    if (favorites.some(a => a.id === animal.id)) {
+      return true;
+    }
+    return false;
+  };
 
   const handleAnimalSelection = (animal: Animal) => {
     navigation.navigate('AnimalDetails', {selectedAnimal: animal});
   };
 
   const handleFavorite = async (animal: Animal) => {
-    console.log('Favoriting Animal: ', animal.name);
-    const updatedAnimals = animals.map(a =>
-      a.id === animal.id ? {...a, isFavorite: !animal.isFavorite} : a,
-    );
-    dispatch(setAnimals(updatedAnimals));
-    await AsyncStorage.setItem('animals', JSON.stringify(updatedAnimals));
+    console.log('Favorite Toggling Animal: ', animal.name);
+    dispatch(toggleFavorite(animal));
   };
 
   const noData = () => {
@@ -154,7 +173,7 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
               }}>
               <TouchableOpacity onPress={() => handleFavorite(item)}>
                 <FontAwesomeIcon
-                  name={item.isFavorite ? 'heart' : 'heart-o'}
+                  name={isFavorite(item) ? 'heart' : 'heart-o'}
                   size={20}
                   color={'white'}
                   style={styles.icon}
@@ -220,10 +239,14 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
     );
   };
 
+  const headerText = () => {
+    return petType.name === 'Favorite' ? 'My Favorites' : 'Adoptable Pets';
+  };
+
   return (
     <View style={globalStyles.container}>
       <View style={styles.headerRow}>
-        <Text style={styles.header}>Adoptable Pets</Text>
+        <Text style={styles.header}>{headerText()}</Text>
         <View style={styles.headerIconContainer}>
           <TouchableOpacity onPress={toggleGridView}>
             <FontAwesomeIcon
