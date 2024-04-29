@@ -11,6 +11,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
+import {Swipeable} from 'react-native-gesture-handler';
 import Animal from '../models/Animal';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import {AnimalProps} from '../types/NavigationTypes';
@@ -72,6 +73,36 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
   };
 
   const renderHero = () => {
+    const renderIdCard = () => {
+      return (
+        <View
+          style={{
+            position: 'absolute',
+            bottom: 8,
+            left: 8,
+            backgroundColor: 'gray',
+            borderRadius: 8,
+            padding: 4,
+          }}>
+          <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
+            <Text style={styles.nameText}>{name}, </Text>
+            <Text style={styles.ageText}>{age}</Text>
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            <FontAwesomeIcon
+              name="globe"
+              size={20}
+              color={'white'}
+              style={{marginRight: 8}}
+            />
+            <Text style={styles.ageText}>
+              {contact.address.city}, {contact.address.state}
+            </Text>
+          </View>
+        </View>
+      );
+    };
+
     return (
       <View
         style={{
@@ -96,31 +127,7 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
               />
             </TouchableOpacity>
           </View>
-          <View
-            style={{
-              position: 'absolute',
-              bottom: 8,
-              left: 8,
-              backgroundColor: 'gray',
-              borderRadius: 8,
-              padding: 4,
-            }}>
-            <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
-              <Text style={styles.nameText}>{name}, </Text>
-              <Text style={styles.ageText}>{age}</Text>
-            </View>
-            <View style={{flexDirection: 'row'}}>
-              <FontAwesomeIcon
-                name="globe"
-                size={20}
-                color={'white'}
-                style={{marginRight: 8}}
-              />
-              <Text style={styles.ageText}>
-                {contact.address.city}, {contact.address.state}
-              </Text>
-            </View>
-          </View>
+          {renderIdCard()}
         </ImageBackground>
       </View>
     );
