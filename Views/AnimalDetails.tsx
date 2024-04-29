@@ -71,6 +71,61 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
     await AsyncStorage.setItem('animals', JSON.stringify(updatedAnimals));
   };
 
+  const renderHero = () => {
+    return (
+      <View
+        style={{
+          height: '50%',
+          overflow: 'hidden',
+        }}>
+        <ImageBackground
+          source={
+            photos.length > 0
+              ? {uri: photos[currentImageIndex].large}
+              : require('../resources/black-1869685_1280.jpg')
+          }
+          style={{flex: 1}}
+          resizeMode="contain">
+          <View style={{position: 'absolute', top: 8, right: 8}}>
+            <TouchableOpacity onPress={() => handleFavorite(selectedAnimal)}>
+              <FontAwesomeIcon
+                name={isFavorite ? 'heart' : 'heart-o'}
+                size={20}
+                color={'white'}
+                style={{marginRight: 8}}
+              />
+            </TouchableOpacity>
+          </View>
+          <View
+            style={{
+              position: 'absolute',
+              bottom: 8,
+              left: 8,
+              backgroundColor: 'gray',
+              borderRadius: 8,
+              padding: 4,
+            }}>
+            <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
+              <Text style={styles.nameText}>{name}, </Text>
+              <Text style={styles.ageText}>{age}</Text>
+            </View>
+            <View style={{flexDirection: 'row'}}>
+              <FontAwesomeIcon
+                name="globe"
+                size={20}
+                color={'white'}
+                style={{marginRight: 8}}
+              />
+              <Text style={styles.ageText}>
+                {contact.address.city}, {contact.address.state}
+              </Text>
+            </View>
+          </View>
+        </ImageBackground>
+      </View>
+    );
+  };
+
   const renderAttributes = () => {
     return (
       <View>
@@ -113,55 +168,38 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
     );
   };
 
+  const renderGallery = () => {
+    return (
+      <>
+        <Text style={styles.sectionHeaderText}>Gallery</Text>
+        <FlatList
+          horizontal
+          data={photos}
+          keyExtractor={(item, index) => `${item.full}_${index}`}
+          renderItem={({item, index}) => (
+            <View>
+              <TouchableOpacity onPress={() => setCurrentImageIndex(index)}>
+                <Image
+                  style={
+                    index === currentImageIndex
+                      ? styles.imageSelected
+                      : styles.image
+                  }
+                  source={{uri: item.small}}
+                />
+              </TouchableOpacity>
+            </View>
+          )}
+        />
+      </>
+    );
+  };
+
   return (
     <SafeAreaView style={{flex: 1}}>
-      <View style={{height: '50%', overflow: 'hidden'}}>
-        <ImageBackground
-          source={
-            photos.length > 0
-              ? {uri: photos[currentImageIndex].medium}
-              : require('../resources/black-1869685_1280.jpg')
-          }
-          style={{flex: 1}}
-          resizeMode="contain">
-          <View style={{position: 'absolute', top: 8, right: 8}}>
-            <TouchableOpacity onPress={() => handleFavorite(selectedAnimal)}>
-              <FontAwesomeIcon
-                name={isFavorite ? 'heart' : 'heart-o'}
-                size={20}
-                color={'white'}
-                style={{marginRight: 8}}
-              />
-            </TouchableOpacity>
-          </View>
-          <View
-            style={{
-              position: 'absolute',
-              bottom: 8,
-              left: 8,
-              backgroundColor: 'gray',
-              borderRadius: 8,
-              padding: 4,
-            }}>
-            <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
-              <Text style={styles.nameText}>{name}, </Text>
-              <Text style={styles.ageText}>{age}</Text>
-            </View>
-            <View style={{flexDirection: 'row'}}>
-              <FontAwesomeIcon
-                name="globe"
-                size={20}
-                color={'white'}
-                style={{marginRight: 8}}
-              />
-              <Text style={styles.ageText}>
-                {contact.address.city}, {contact.address.state}
-              </Text>
-            </View>
-          </View>
-        </ImageBackground>
-      </View>
+      {renderHero()}
       <ScrollView>
+        {photos.length > 0 && renderGallery()}
         {description && (
           <>
             <Text style={styles.sectionHeaderText}>Introduction</Text>
@@ -191,23 +229,6 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
             </View>
           </>
         )}
-        {photos.length > 0 && (
-          <>
-            <Text style={styles.sectionHeaderText}>Gallery</Text>
-            <FlatList
-              horizontal
-              data={photos}
-              keyExtractor={(item, index) => `${item.full}_${index}`}
-              renderItem={({item, index}) => (
-                <View>
-                  <TouchableOpacity onPress={() => setCurrentImageIndex(index)}>
-                    <Image style={styles.image} source={{uri: item.full}} />
-                  </TouchableOpacity>
-                </View>
-              )}
-            />
-          </>
-        )}
       </ScrollView>
     </SafeAreaView>
   );
@@ -218,6 +239,13 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     margin: 5,
+  },
+  imageSelected: {
+    width: 100,
+    height: 100,
+    margin: 5,
+    borderWidth: 2,
+    borderColor: 'red',
   },
   nameText: {
     fontSize: 24,
