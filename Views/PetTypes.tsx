@@ -11,11 +11,12 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {useSelector, useDispatch} from 'react-redux';
 import {setPetTypes, selectPetTypes} from '../reducers/petTypesReducer';
-import {selectAnimals} from '../reducers/animalsReducer';
+import {selectFavorites} from '../reducers/animalsReducer';
 import apiService from '../services/apiService';
 import {PetType, petTypeImages} from '../models/PetType';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import GlobalStyles from './Styles/GlobalStyles';
+import {Routes} from '../navigation/Routes';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -24,8 +25,8 @@ const PetTypes: React.FC = () => {
   const dispatch = useDispatch();
   const petTypes = useSelector(selectPetTypes);
   const globalStyles = GlobalStyles();
-  const allAnimals = useSelector(selectAnimals);
-  const haveFavorites = allAnimals.some(animal => animal.isFavorite);
+  const favoriteAnimals = useSelector(selectFavorites);
+  const haveFavorites = favoriteAnimals.length > 0;
 
   useEffect(() => {
     const fetchPetTypesData = async () => {
@@ -40,7 +41,21 @@ const PetTypes: React.FC = () => {
   }, [dispatch]);
 
   const handlePetTypeSelection = (petType: PetType) => {
-    navigation.navigate('Breeds', {petType: petType});
+    navigation.navigate(Routes.Breeds, {petType: petType});
+  };
+
+  const handleFavoriteSelectionNavigation = () => {
+    const favType: PetType = {
+      name: 'Favorite',
+      coats: [],
+      colors: [],
+      genders: [],
+      _links: {
+        self: {href: ''},
+        breeds: {href: ''},
+      },
+    };
+    navigation.navigate(Routes.Animals, {petType: favType});
   };
 
   const renderPetType = ({item}: {item: PetType}) => (
@@ -70,31 +85,33 @@ const PetTypes: React.FC = () => {
 
   const renderFavoritesTouchable = () => {
     return haveFavorites ? (
-      <View
-        style={{
-          backgroundColor: 'pink',
-          height: 38,
-          flexDirection: 'row',
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginHorizontal: 20,
-          marginBottom: 8,
-          borderRadius: 8,
-        }}>
-        <FontAwesomeIcon
-          name={'heart'}
-          size={20}
-          color={'white'}
-          style={styles.icon}
-        />
-        <Text style={{marginRight: 8}}>Favorites</Text>
-        <FontAwesomeIcon
-          name={'heart'}
-          size={20}
-          color={'white'}
-          style={styles.icon}
-        />
-      </View>
+      <TouchableOpacity onPress={handleFavoriteSelectionNavigation}>
+        <View
+          style={{
+            backgroundColor: 'pink',
+            height: 38,
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginHorizontal: 20,
+            marginBottom: 8,
+            borderRadius: 8,
+          }}>
+          <FontAwesomeIcon
+            name={'heart'}
+            size={20}
+            color={'white'}
+            style={styles.icon}
+          />
+          <Text style={{marginRight: 8}}>Favorites</Text>
+          <FontAwesomeIcon
+            name={'heart'}
+            size={20}
+            color={'white'}
+            style={styles.icon}
+          />
+        </View>
+      </TouchableOpacity>
     ) : null;
   };
 
