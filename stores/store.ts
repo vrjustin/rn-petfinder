@@ -3,10 +3,12 @@ import petTypesReducer from '../reducers/petTypesReducer';
 import petBreedsReducer from '../reducers/petBreedsReducer';
 import animalsReducer from '../reducers/animalsReducer';
 import searchParamsReducer from '../reducers/searchParamsReducer';
+import organizationsReducer from '../reducers/organizationsReducer';
 
 const createDebugger = require('redux-flipper').default;
 
 const rootReducer = combineReducers({
+  organizations: organizationsReducer,
   petTypes: petTypesReducer,
   petBreeds: petBreedsReducer,
   animals: animalsReducer,
