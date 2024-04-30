@@ -1,42 +1,59 @@
 import React from 'react';
-import {View, Text, StyleSheet, Linking} from 'react-native';
+import {View, Text, StyleSheet, Linking, TouchableOpacity} from 'react-native';
 
 const Contact = ({route}) => {
   const {selectedAnimal} = route.params;
   const renderContactInfo = () => {
     const {contact} = selectedAnimal;
-    if (!contact) return null;
+    if (!contact) {
+      return null;
+    }
 
     const {address, email, phone} = contact;
 
+    // Check if address details are sufficient and not a PO Box
+    const hasValidAddress =
+      address &&
+      address.address1 &&
+      address.city &&
+      address.state &&
+      address.postcode &&
+      !/^(P(\.|ost)?\s?O(\.|ffice)?\s?Box|POB?)\s*\d+/i.test(address.address1);
+
     return (
       <View style={styles.contactContainer}>
-        {address && (
-          <Text style={styles.contactText}>
-            {[
-              address.address1,
-              address.address2,
-              address.city,
-              address.state,
-              address.postcode,
-            ]
-              .filter(Boolean)
-              .join(', ')}
-          </Text>
+        {hasValidAddress && (
+          <TouchableOpacity
+            style={styles.actionButton}
+            onPress={() =>
+              Linking.openURL(
+                `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+                  address.address1 +
+                    ', ' +
+                    address.city +
+                    ', ' +
+                    address.state +
+                    ' ' +
+                    address.postcode,
+                )}`,
+              )
+            }>
+            <Text style={styles.actionButtonText}>Get Directions</Text>
+          </TouchableOpacity>
         )}
         {email && (
-          <Text
-            style={styles.contactText}
+          <TouchableOpacity
+            style={styles.actionButton}
             onPress={() => Linking.openURL(`mailto:${email}`)}>
-            {email}
-          </Text>
+            <Text style={styles.actionButtonText}>Email</Text>
+          </TouchableOpacity>
         )}
         {phone && (
-          <Text
-            style={styles.contactText}
+          <TouchableOpacity
+            style={styles.actionButton}
             onPress={() => Linking.openURL(`tel:${phone}`)}>
-            {phone}
-          </Text>
+            <Text style={styles.actionButtonText}>Call</Text>
+          </TouchableOpacity>
         )}
       </View>
     );
@@ -66,10 +83,16 @@ const styles = StyleSheet.create({
   contactContainer: {
     marginVertical: 8,
   },
-  contactText: {
-    fontSize: 16,
-    marginBottom: 4,
-    color: 'blue',
+  actionButton: {
+    backgroundColor: '#007AFF',
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 8,
+    alignItems: 'center',
+  },
+  actionButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
   },
 });
 
