@@ -28,7 +28,7 @@ exports[`AnimalDetails renders correctly 1`] = `
         resizeMode="contain"
         source={
           {
-            "uri": "https://example.com/medium.jpg",
+            "uri": "https://example.com/large.jpg",
           }
         }
         style={
@@ -207,6 +207,114 @@ exports[`AnimalDetails renders correctly 1`] = `
   </View>
   <RCTScrollView>
     <View>
+      <Text
+        style={
+          {
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "padding": 8,
+          }
+        }
+      >
+        Gallery
+      </Text>
+      <RCTScrollView
+        data={
+          [
+            {
+              "full": "https://example.com/full.jpg",
+              "large": "https://example.com/large.jpg",
+              "medium": "https://example.com/medium.jpg",
+              "small": "https://example.com/small.jpg",
+            },
+          ]
+        }
+        getItem={[Function]}
+        getItemCount={[Function]}
+        horizontal={true}
+        keyExtractor={[Function]}
+        onContentSizeChange={[Function]}
+        onLayout={[Function]}
+        onMomentumScrollBegin={[Function]}
+        onMomentumScrollEnd={[Function]}
+        onScroll={[Function]}
+        onScrollBeginDrag={[Function]}
+        onScrollEndDrag={[Function]}
+        removeClippedSubviews={false}
+        renderItem={[Function]}
+        scrollEventThrottle={0.0001}
+        stickyHeaderIndices={[]}
+        viewabilityConfigCallbackPairs={[]}
+      >
+        <View>
+          <View
+            onFocusCapture={[Function]}
+            onLayout={[Function]}
+            style={
+              [
+                {
+                  "flexDirection": "row",
+                },
+                null,
+              ]
+            }
+          >
+            <View>
+              <View
+                accessibilityState={
+                  {
+                    "busy": undefined,
+                    "checked": undefined,
+                    "disabled": undefined,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  {
+                    "opacity": 1,
+                  }
+                }
+              >
+                <Image
+                  source={
+                    {
+                      "uri": "https://example.com/small.jpg",
+                    }
+                  }
+                  style={
+                    {
+                      "borderColor": "red",
+                      "borderWidth": 2,
+                      "height": 100,
+                      "margin": 5,
+                      "width": 100,
+                    }
+                  }
+                />
+              </View>
+            </View>
+          </View>
+        </View>
+      </RCTScrollView>
       <Text
         style={
           {
@@ -491,112 +599,6 @@ exports[`AnimalDetails renders correctly 1`] = `
           </View>
         </View>
       </View>
-      <Text
-        style={
-          {
-            "fontSize": 16,
-            "fontWeight": "bold",
-            "padding": 8,
-          }
-        }
-      >
-        Gallery
-      </Text>
-      <RCTScrollView
-        data={
-          [
-            {
-              "full": "https://example.com/full.jpg",
-              "large": "https://example.com/large.jpg",
-              "medium": "https://example.com/medium.jpg",
-              "small": "https://example.com/small.jpg",
-            },
-          ]
-        }
-        getItem={[Function]}
-        getItemCount={[Function]}
-        horizontal={true}
-        keyExtractor={[Function]}
-        onContentSizeChange={[Function]}
-        onLayout={[Function]}
-        onMomentumScrollBegin={[Function]}
-        onMomentumScrollEnd={[Function]}
-        onScroll={[Function]}
-        onScrollBeginDrag={[Function]}
-        onScrollEndDrag={[Function]}
-        removeClippedSubviews={false}
-        renderItem={[Function]}
-        scrollEventThrottle={0.0001}
-        stickyHeaderIndices={[]}
-        viewabilityConfigCallbackPairs={[]}
-      >
-        <View>
-          <View
-            onFocusCapture={[Function]}
-            onLayout={[Function]}
-            style={
-              [
-                {
-                  "flexDirection": "row",
-                },
-                null,
-              ]
-            }
-          >
-            <View>
-              <View
-                accessibilityState={
-                  {
-                    "busy": undefined,
-                    "checked": undefined,
-                    "disabled": undefined,
-                    "expanded": undefined,
-                    "selected": undefined,
-                  }
-                }
-                accessibilityValue={
-                  {
-                    "max": undefined,
-                    "min": undefined,
-                    "now": undefined,
-                    "text": undefined,
-                  }
-                }
-                accessible={true}
-                collapsable={false}
-                focusable={true}
-                onClick={[Function]}
-                onResponderGrant={[Function]}
-                onResponderMove={[Function]}
-                onResponderRelease={[Function]}
-                onResponderTerminate={[Function]}
-                onResponderTerminationRequest={[Function]}
-                onStartShouldSetResponder={[Function]}
-                style={
-                  {
-                    "opacity": 1,
-                  }
-                }
-              >
-                <Image
-                  source={
-                    {
-                      "uri": "https://example.com/full.jpg",
-                    }
-                  }
-                  style={
-                    {
-                      "height": 100,
-                      "margin": 5,
-                      "width": 100,
-                    }
-                  }
-                />
-              </View>
-            </View>
-          </View>
-        </View>
-      </RCTScrollView>
     </View>
   </RCTScrollView>
 </RCTSafeAreaView>

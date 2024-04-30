@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector, useDispatch} from 'react-redux';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   setAnimals,
   selectAnimals,
@@ -99,7 +98,15 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
       }
     };
     if (petType.name === 'Favorite' && favorites.length > 0) {
-      dispatch(setAnimals(favorites));
+      //We need to apply our tagFiltering system here.
+      const filteredFavorites = favorites.filter(fav =>
+        fav.tags.some(t => tagsPreferred.includes(t)),
+      );
+      dispatch(
+        setAnimals(
+          filteredFavorites.length > 0 ? filteredFavorites : favorites,
+        ),
+      );
     } else {
       if (petType.name === 'Favorite') {
         //Navigate back so they can select the AnimalType.
