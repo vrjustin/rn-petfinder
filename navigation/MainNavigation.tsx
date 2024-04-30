@@ -6,6 +6,7 @@ import Breeds from '../Views/Breeds';
 import Animals from '../Views/Animals';
 import Options from '../Views/Options';
 import AnimalDetails from '../Views/AnimalDetails';
+import Contact from '../Views/Contact';
 import ThemeContext from '../contexts/ThemeContext';
 
 const Stack = createStackNavigator();
@@ -36,6 +37,11 @@ const MainNavigation = () => {
         options={{presentation: 'modal'}}
       />
       <Stack.Screen name={Routes.AnimalDetails} component={AnimalDetails} />
+      <Stack.Screen
+        name={Routes.Contact}
+        component={Contact}
+        options={{presentation: 'modal'}}
+      />
     </Stack.Navigator>
   );
 };
