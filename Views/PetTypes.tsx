@@ -58,6 +58,10 @@ const PetTypes: React.FC = () => {
     navigation.navigate(Routes.Animals, {petType: favType});
   };
 
+  const handleAdoptionOrgsNavigation = () => {
+    console.log('Navigate to New Orgs Screen');
+  };
+
   const renderPetType = ({item}: {item: PetType}) => (
     <TouchableOpacity onPress={() => handlePetTypeSelection(item)}>
       <View style={styles.gridItemContainer}>
@@ -82,6 +86,38 @@ const PetTypes: React.FC = () => {
       </View>
     </TouchableOpacity>
   );
+
+  const renderAdoptionOrgsTouchable = () => {
+    return (
+      <TouchableOpacity onPress={handleAdoptionOrgsNavigation}>
+        <View
+          style={{
+            backgroundColor: 'grey',
+            height: 38,
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginHorizontal: 20,
+            marginBottom: 8,
+            borderRadius: 8,
+          }}>
+          <FontAwesomeIcon
+            name={'building'}
+            size={20}
+            color={'white'}
+            style={styles.icon}
+          />
+          <Text style={{marginRight: 8, color: 'white'}}>Adoption Orgs</Text>
+          <FontAwesomeIcon
+            name={'building'}
+            size={20}
+            color={'white'}
+            style={styles.icon}
+          />
+        </View>
+      </TouchableOpacity>
+    );
+  };
 
   const renderFavoritesTouchable = () => {
     return haveFavorites ? (
@@ -125,6 +161,7 @@ const PetTypes: React.FC = () => {
         Select an Animal Type to Get Started:
       </Text>
       {renderFavoritesTouchable()}
+      {renderAdoptionOrgsTouchable()}
       <View style={styles.gridContainer}>
         <FlatList
           data={petTypes}
