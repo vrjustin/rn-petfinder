@@ -24,6 +24,7 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import {AnimalsProps} from '../types/NavigationTypes';
 import GlobalStyles from './Styles/GlobalStyles';
 import {Routes} from '../navigation/Routes';
+import en from '../strings/en.json';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -248,7 +249,7 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
   };
 
   const headerText = () => {
-    return petType.name === 'Favorite' ? 'My Favorites' : 'Adoptable Pets';
+    return petType.name === 'Favorite' ? en.MyFavorites : en.AdoptablePets;
   };
 
   return (

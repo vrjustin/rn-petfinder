@@ -13,6 +13,7 @@ import {
   setSearchParameters,
 } from '../reducers/searchParamsReducer';
 import Breed from '../models/Breed';
+import en from '../strings/en.json';
 
 const Options: React.FC = () => {
   const dispatch = useDispatch();
@@ -59,7 +60,6 @@ const Options: React.FC = () => {
     if (breedsPreferred.length <= 1) {
       return;
     }
-    console.log('Remove Breed: ', breed.name);
     const index = breedsPreferred.findIndex(b => b.name === breed.name);
     if (index !== -1) {
       const updatedBreeds = [...breedsPreferred];
@@ -83,14 +83,14 @@ const Options: React.FC = () => {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <Text style={styles.label}>Enter ZIP Code:</Text>
+        <Text style={styles.label}>{en.EnterZip}</Text>
         <TextInput
           style={styles.input}
           value={location.zipCode}
           onChangeText={handleZipCodeChange}
           keyboardType="numeric"
         />
-        <Text style={styles.label}>Enter Search Distance:</Text>
+        <Text style={styles.label}>{en.SearchDistance}</Text>
         <TextInput
           style={styles.input}
           value={distance.toString()}
@@ -99,7 +99,7 @@ const Options: React.FC = () => {
         />
         {breedsPreferred.length > 0 && (
           <>
-            <Text style={styles.label}>Preferred Breeds:</Text>
+            <Text style={styles.label}>{en.PreferredBreeds}</Text>
             <View style={{flexDirection: 'row', flexWrap: 'wrap', padding: 8}}>
               {breedsPreferred.map((breed, index) => (
                 <TouchableOpacity
@@ -121,7 +121,7 @@ const Options: React.FC = () => {
         )}
         {tagsPreferred.length > 0 && (
           <>
-            <Text style={styles.label}>Preferred Tags:</Text>
+            <Text style={styles.label}>{en.PreferredTags}</Text>
             <View style={{flexDirection: 'row', flexWrap: 'wrap', padding: 8}}>
               {tagsPreferred.map((tag, index) => (
                 <TouchableOpacity

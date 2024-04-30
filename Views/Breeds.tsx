@@ -19,6 +19,7 @@ import Breed from '../models/Breed';
 import apiService from '../services/apiService';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import GlobalStyles from './Styles/GlobalStyles';
+import en from '../strings/en.json';
 
 const Breeds: React.FC<BreedsProps> = ({route}) => {
   const {petType} = route.params;
@@ -126,7 +127,9 @@ const Breeds: React.FC<BreedsProps> = ({route}) => {
   return (
     <View style={globalStyles.container}>
       <Text style={globalStyles.header}>
-        Select your {typeName} breed, or start typing below to learn more!
+        {en.BreedPreHeader}
+        {typeName}
+        {en.BreedPostHeader}
       </Text>
       <TextInput
         style={globalStyles.textInput}
