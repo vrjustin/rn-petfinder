@@ -22,6 +22,7 @@ import {
 } from '../reducers/searchParamsReducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Routes} from '../navigation/Routes';
+import en from '../strings/en.json';
 
 const AttributeItem: React.FC<{label: string; value: string}> = ({
   label,
@@ -152,7 +153,7 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
   const renderAttributes = () => {
     return (
       <View>
-        <Text style={styles.sectionHeaderText}>Attributes</Text>
+        <Text style={styles.sectionHeaderText}>{en.Attributes}</Text>
         <View style={styles.attributesContainer}>
           <View style={styles.attributes}>
             {attributes.declawed !== null && (
@@ -194,7 +195,7 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
   const renderGallery = () => {
     return (
       <>
-        <Text style={styles.sectionHeaderText}>Gallery</Text>
+        <Text style={styles.sectionHeaderText}>{en.Gallery}</Text>
         <FlatList
           horizontal
           data={photos}
@@ -235,14 +236,14 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
         {photos.length > 0 && renderGallery()}
         {description && (
           <>
-            <Text style={styles.sectionHeaderText}>Introduction</Text>
+            <Text style={styles.sectionHeaderText}>{en.Introduction}</Text>
             <Text style={{padding: 8, fontSize: 14}}>{description}</Text>
           </>
         )}
         {renderAttributes()}
         {tags.length > 0 && (
           <>
-            <Text style={styles.sectionHeaderText}>Tags</Text>
+            <Text style={styles.sectionHeaderText}>{en.Tags}</Text>
             <View style={{flexDirection: 'row', flexWrap: 'wrap', padding: 8}}>
               {tags.map((tag, index) => (
                 <TouchableOpacity

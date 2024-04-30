@@ -1,0 +1,21 @@
+{
+    "HomeHeader": "Select an Animal Type to Get Started:",
+    "Favorites": "Favorites",
+    "AdoptionOrgs": "Adoption Shelters",
+    "BreedPreHeader": "Select your ",
+    "BreedPostHeader": " breed, or start typing below to learn more!",
+    "AdoptablePets": "Adoptable Pets",
+    "MyFavorites": "My Favorites",
+    "EnterZip": "Zip Code:",
+    "SearchDistance": "Search Distance:",
+    "PreferredBreeds": "Preferred Breeds:",
+    "PreferredTags": "Preferred Tags:",
+    "Gallery": "Gallery",
+    "Introduction": "Introduction",
+    "Tags": "Tags",
+    "Attributes": "Attributes",
+    "ContactHeader": "Contact Information",
+    "GetDirections": "Get Directions",
+    "Email": "Email",
+    "Call": "Call"
+}

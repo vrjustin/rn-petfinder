@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet, Linking, TouchableOpacity} from 'react-native';
+import en from '../strings/en.json';
 
 const Contact = ({route}) => {
   const {selectedAnimal} = route.params;
@@ -38,7 +39,7 @@ const Contact = ({route}) => {
                 )}`,
               )
             }>
-            <Text style={styles.actionButtonText}>Get Directions</Text>
+            <Text style={styles.actionButtonText}>{en.GetDirections}</Text>
           </TouchableOpacity>
         )}
         {email && (
@@ -57,7 +58,7 @@ const Contact = ({route}) => {
                 console.error('Failed to open email:', error);
               }
             }}>
-            <Text style={styles.actionButtonText}>Email</Text>
+            <Text style={styles.actionButtonText}>{en.Email}</Text>
           </TouchableOpacity>
         )}
 
@@ -65,7 +66,7 @@ const Contact = ({route}) => {
           <TouchableOpacity
             style={styles.actionButton}
             onPress={() => Linking.openURL(`tel:${phone}`)}>
-            <Text style={styles.actionButtonText}>Call</Text>
+            <Text style={styles.actionButtonText}>{en.Call}</Text>
           </TouchableOpacity>
         )}
       </View>
@@ -74,7 +75,7 @@ const Contact = ({route}) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Contact Information</Text>
+      <Text style={styles.heading}>{en.ContactHeader}</Text>
       {renderContactInfo()}
     </View>
   );

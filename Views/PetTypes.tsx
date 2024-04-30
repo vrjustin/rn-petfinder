@@ -17,6 +17,7 @@ import {PetType, petTypeImages} from '../models/PetType';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import GlobalStyles from './Styles/GlobalStyles';
 import {Routes} from '../navigation/Routes';
+import en from '../strings/en.json';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -132,7 +133,9 @@ const PetTypes: React.FC = () => {
             color={'white'}
             style={styles.icon}
           />
-          <Text style={{marginRight: 8, color: 'white'}}>Adoption Orgs</Text>
+          <Text style={{marginRight: 8, color: 'white'}}>
+            {en.AdoptionOrgs}
+          </Text>
           <FontAwesomeIcon
             name={'building'}
             size={20}
@@ -164,7 +167,7 @@ const PetTypes: React.FC = () => {
             color={'white'}
             style={styles.icon}
           />
-          <Text style={{marginRight: 8}}>Favorites</Text>
+          <Text style={{marginRight: 8}}>{en.Favorites}</Text>
           <FontAwesomeIcon
             name={'heart'}
             size={20}
@@ -182,9 +185,7 @@ const PetTypes: React.FC = () => {
 
   return (
     <View style={globalStyles.container}>
-      <Text style={globalStyles.header}>
-        Select an Animal Type to Get Started:
-      </Text>
+      <Text style={globalStyles.header}>{en.HomeHeader}</Text>
       {renderFavoritesTouchable()}
       {renderAdoptionOrgsTouchable()}
       <View style={styles.gridContainer}>
