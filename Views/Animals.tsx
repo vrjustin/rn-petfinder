@@ -23,7 +23,7 @@ import apiService from '../services/apiService';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import {AnimalsProps} from '../types/NavigationTypes';
 import GlobalStyles from './Styles/GlobalStyles';
-import { Routes } from '../navigation/Routes';
+import {Routes} from '../navigation/Routes';
 
 const screenWidth = Dimensions.get('window').width;
 

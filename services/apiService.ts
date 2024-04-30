@@ -39,7 +39,6 @@ let jwt_access_token: string | null = null;
 
 const AUTH_ENDPOINT = 'https://api.petfinder.com/v2/oauth2/token';
 const TYPES_ENDPOINT = 'https://api.petfinder.com/v2/types';
-const ORGS_ENDPOINT = 'https://api.petfinder.com/v2/organizations';
 
 const getAccessToken = async (): Promise<string | null> => {
   try {
@@ -61,18 +60,24 @@ const getAccessToken = async (): Promise<string | null> => {
   }
 };
 
-const getOrganizations = async (): Promise<OrganizationsResultsResponse> => {
+const getOrganizations = async (
+  location: string,
+  searchDistance: number,
+): Promise<OrganizationsResultsResponse> => {
   if (!jwt_access_token) {
     await getAccessToken();
   }
 
   try {
     const response: AxiosResponse<OrganizationsResultsResponse> =
-      await axios.get(ORGS_ENDPOINT, {
-        headers: {
-          Authorization: `Bearer ${jwt_access_token}`,
+      await axios.get(
+        `https://api.petfinder.com/v2/organizations?location=${location}&distance=${searchDistance}`,
+        {
+          headers: {
+            Authorization: `Bearer ${jwt_access_token}`,
+          },
         },
-      });
+      );
     return response.data;
   } catch (error) {
     console.log('Failed to get Organizations: ', error);
