@@ -11,7 +11,6 @@ import {
   SafeAreaView,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-import {Swipeable} from 'react-native-gesture-handler';
 import Animal from '../models/Animal';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import {AnimalProps} from '../types/NavigationTypes';
