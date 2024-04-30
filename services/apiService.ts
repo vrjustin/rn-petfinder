@@ -1,5 +1,6 @@
 import axios, {AxiosResponse, AxiosError} from 'axios';
 import {PetType} from '../models/PetType';
+import Organization from '../models/Organization';
 import Breed from '../models/Breed';
 import Animal from '../models/Animal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -19,10 +20,26 @@ export interface AnimalResults {
   pagination: {current_page: number; total_pages: number};
 }
 
+export interface OrganizationsResultsResponse {
+  organizations: Organization[];
+  pagination: {
+    count_per_page: number;
+    total_count: number;
+    current_page: number;
+    total_pages: number;
+    _links: {
+      next: {
+        href: string;
+      };
+    };
+  };
+}
+
 let jwt_access_token: string | null = null;
 
 const AUTH_ENDPOINT = 'https://api.petfinder.com/v2/oauth2/token';
 const TYPES_ENDPOINT = 'https://api.petfinder.com/v2/types';
+const ORGS_ENDPOINT = 'https://api.petfinder.com/v2/organizations';
 
 const getAccessToken = async (): Promise<string | null> => {
   try {
@@ -41,6 +58,34 @@ const getAccessToken = async (): Promise<string | null> => {
   } catch (error) {
     console.error(error);
     return null;
+  }
+};
+
+const getOrganizations = async (): Promise<OrganizationsResultsResponse> => {
+  if (!jwt_access_token) {
+    await getAccessToken();
+  }
+
+  try {
+    const response: AxiosResponse<OrganizationsResultsResponse> =
+      await axios.get(ORGS_ENDPOINT, {
+        headers: {
+          Authorization: `Bearer ${jwt_access_token}`,
+        },
+      });
+    return response.data;
+  } catch (error) {
+    console.log('Failed to get Organizations: ', error);
+    return {
+      organizations: [],
+      pagination: {
+        count_per_page: 0,
+        total_count: 0,
+        current_page: 0,
+        total_pages: 0,
+        _links: {next: {href: ''}},
+      },
+    };
   }
 };
 
@@ -143,4 +188,5 @@ export default {
   getPetTypes,
   getPetBreeds,
   getAnimals,
+  getOrganizations,
 };
