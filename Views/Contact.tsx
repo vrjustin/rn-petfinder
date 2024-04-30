@@ -44,10 +44,23 @@ const Contact = ({route}) => {
         {email && (
           <TouchableOpacity
             style={styles.actionButton}
-            onPress={() => Linking.openURL(`mailto:${email}`)}>
+            onPress={() => {
+              try {
+                const subject = 'Regarding your animal adoption listing';
+                const body = `Hello,\n\nI am interested in adopting the following animal:\n\nName: ${selectedAnimal.name}\nID: ${selectedAnimal.id}\nURL: ${selectedAnimal.url}\n\nCould you please provide me with more information?`;
+                Linking.openURL(
+                  `mailto:${email}?subject=${encodeURIComponent(
+                    subject,
+                  )}&body=${encodeURIComponent(body)}`,
+                );
+              } catch (error) {
+                console.error('Failed to open email:', error);
+              }
+            }}>
             <Text style={styles.actionButtonText}>Email</Text>
           </TouchableOpacity>
         )}
+
         {phone && (
           <TouchableOpacity
             style={styles.actionButton}
