@@ -5,4 +5,5 @@ export const Routes = {
   Options: 'Options',
   AnimalDetails: 'AnimalDetails',
   Contact: 'Contact',
+  Organizations: 'Organizations',
 };

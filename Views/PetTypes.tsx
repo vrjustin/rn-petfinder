@@ -60,6 +60,7 @@ const PetTypes: React.FC = () => {
 
   const handleAdoptionOrgsNavigation = () => {
     console.log('Navigate to New Orgs Screen');
+    navigation.navigate(Routes.Organizations);
   };
 
   const renderPetType = ({item}: {item: PetType}) => (
