@@ -4,4 +4,5 @@ export const Routes = {
   Animals: 'Animals',
   Options: 'Options',
   AnimalDetails: 'AnimalDetails',
+  Contact: 'Contact',
 };

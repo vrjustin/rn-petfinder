@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useLayoutEffect} from 'react';
 import {
   Text,
   View,
@@ -11,6 +11,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
 import Animal from '../models/Animal';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import {AnimalProps} from '../types/NavigationTypes';
@@ -20,6 +21,7 @@ import {
   selectSearchParameters,
 } from '../reducers/searchParamsReducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Routes} from '../navigation/Routes';
 
 const AttributeItem: React.FC<{label: string; value: string}> = ({
   label,
@@ -31,6 +33,20 @@ const AttributeItem: React.FC<{label: string; value: string}> = ({
   </View>
 );
 
+const ContactOptions = ({onPress}: {onPress: () => void}) => {
+  return (
+    <>
+      <FontAwesomeIcon
+        name="mobile"
+        size={20}
+        color="#000"
+        style={{marginRight: 20}}
+        onPress={onPress}
+      />
+    </>
+  );
+};
+
 const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
   const {selectedAnimal} = route.params;
   const {age, name, description, photos, contact, tags, attributes} =
@@ -40,6 +56,7 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
   const animals = useSelector(selectAnimals);
   const searchParameters = useSelector(selectSearchParameters);
   const {tagsPreferred} = searchParameters;
+  const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const handleTagPress = (tag: string) => {
@@ -200,6 +217,16 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
       </>
     );
   };
+
+  useLayoutEffect(() => {
+    const handleContactPress = () => {
+      console.log('Contact Info Pressed');
+      navigation.navigate(Routes.Contact, {selectedAnimal: selectedAnimal});
+    };
+    navigation.setOptions({
+      headerRight: () => <ContactOptions onPress={handleContactPress} />,
+    });
+  }, [navigation]);
 
   return (
     <SafeAreaView style={{flex: 1}}>

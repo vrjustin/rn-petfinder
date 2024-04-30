@@ -7,6 +7,7 @@ import AnimalDetails from '../Views/AnimalDetails';
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({
     navigate: jest.fn(),
+    setOptions: jest.fn(),
   }),
 }));
 

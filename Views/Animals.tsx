@@ -23,6 +23,7 @@ import apiService from '../services/apiService';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import {AnimalsProps} from '../types/NavigationTypes';
 import GlobalStyles from './Styles/GlobalStyles';
+import { Routes } from '../navigation/Routes';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -62,7 +63,7 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
   useLayoutEffect(() => {
     const handleOptionsPress = () => {
       console.log('Settings Icon Pressed');
-      navigation.navigate('Options');
+      navigation.navigate(Routes.Options);
     };
     navigation.setOptions({
       headerRight: () => <UserOptions onPress={handleOptionsPress} />,
