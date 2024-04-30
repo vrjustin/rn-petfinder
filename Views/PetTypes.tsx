@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useLayoutEffect} from 'react';
 import {
   Text,
   View,
@@ -20,6 +20,20 @@ import {Routes} from '../navigation/Routes';
 
 const screenWidth = Dimensions.get('window').width;
 
+const UserOptions = ({onPress}: {onPress: () => void}) => {
+  return (
+    <>
+      <FontAwesomeIcon
+        name="gear"
+        size={20}
+        color="#000"
+        style={{marginRight: 20}}
+        onPress={onPress}
+      />
+    </>
+  );
+};
+
 const PetTypes: React.FC = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -27,6 +41,16 @@ const PetTypes: React.FC = () => {
   const globalStyles = GlobalStyles();
   const favoriteAnimals = useSelector(selectFavorites);
   const haveFavorites = favoriteAnimals.length > 0;
+
+  useLayoutEffect(() => {
+    const handleOptionsPress = () => {
+      console.log('Settings Icon Pressed');
+      navigation.navigate(Routes.Options);
+    };
+    navigation.setOptions({
+      headerRight: () => <UserOptions onPress={handleOptionsPress} />,
+    });
+  }, [navigation]);
 
   useEffect(() => {
     const fetchPetTypesData = async () => {

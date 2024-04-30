@@ -7,6 +7,7 @@ import PetTypes from '../Views/PetTypes';
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({
     navigate: jest.fn(),
+    setOptions: jest.fn(),
   }),
 }));
 
