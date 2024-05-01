@@ -11,10 +11,9 @@ import {
   SafeAreaView,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-import {useNavigation} from '@react-navigation/native';
 import Animal from '../models/Animal';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-import {AnimalProps} from '../types/NavigationTypes';
+import {AnimalProps, useTypedNavigation} from '../types/NavigationTypes';
 import {setAnimals, selectAnimals} from '../reducers/animalsReducer';
 import {
   setSearchParameters,
@@ -57,7 +56,7 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
   const animals = useSelector(selectAnimals);
   const searchParameters = useSelector(selectSearchParameters);
   const {tagsPreferred} = searchParameters;
-  const navigation = useNavigation();
+  const navigation = useTypedNavigation();
   const dispatch = useDispatch();
 
   const handleTagPress = (tag: string) => {

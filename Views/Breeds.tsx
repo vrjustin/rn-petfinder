@@ -7,14 +7,13 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
 import {useSelector, useDispatch} from 'react-redux';
 import {setBreeds, selectPetBreeds} from '../reducers/petBreedsReducer';
 import {
   setSearchParameters,
   selectSearchParameters,
 } from '../reducers/searchParamsReducer';
-import {BreedsProps} from '../types/NavigationTypes';
+import {BreedsProps, useTypedNavigation} from '../types/NavigationTypes';
 import Breed from '../models/Breed';
 import apiService from '../services/apiService';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
@@ -26,7 +25,7 @@ const Breeds: React.FC<BreedsProps> = ({route}) => {
   const typeName = petType.name;
   const [filteredBreeds, setFilteredBreeds] = useState<Breed[]>([]);
   const [searchText, setSearchText] = useState<string>('');
-  const navigation = useNavigation();
+  const navigation = useTypedNavigation();
   const searchInputRef = useRef<TextInput>(null);
   const dispatch = useDispatch();
   const searchParameters = useSelector(selectSearchParameters);

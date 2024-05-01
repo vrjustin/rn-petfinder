@@ -1,4 +1,14 @@
 {
+    "petTypesLocaleResolver": {
+        "Dog": "Dog",
+        "Cat": "Cat",
+        "Rabbit": "Rabbit",
+        "SmallFurry": "Small & Furry",
+        "Horse": "Horse",
+        "Bird": "Bird",
+        "ScalesFinsOther": "Scales, Fins & Other",
+        "Barnyard": "Barnyard"
+    },
     "HomeHeader": "Select an Animal Type to Get Started:",
     "Favorites": "Favorites",
     "AdoptionOrgs": "Adoption Shelters",

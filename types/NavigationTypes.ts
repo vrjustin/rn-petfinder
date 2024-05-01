@@ -1,4 +1,5 @@
-import {RouteProp} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RouteProp, useNavigation} from '@react-navigation/native';
 import {PetType} from '../models/PetType';
 import Animal from '../models/Animal';
 
@@ -24,3 +25,6 @@ export type AnimalsProps = {
 export type AnimalProps = {
   route: AnimalScreenRouteProp;
 };
+
+export const useTypedNavigation = () =>
+  useNavigation<StackNavigationProp<RootStackParamList>>();
