@@ -9,7 +9,6 @@ import {
   SafeAreaView,
   ImageBackground,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
 import {useSelector, useDispatch} from 'react-redux';
 import {
   setAnimals,
@@ -21,7 +20,7 @@ import {selectSearchParameters} from '../reducers/searchParamsReducer';
 import Animal from '../models/Animal';
 import apiService from '../services/apiService';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-import {AnimalsProps} from '../types/NavigationTypes';
+import {AnimalsProps, useTypedNavigation} from '../types/NavigationTypes';
 import GlobalStyles from './Styles/GlobalStyles';
 import {Routes} from '../navigation/Routes';
 import en from '../strings/en.json';
@@ -45,7 +44,7 @@ const UserOptions = ({onPress}: {onPress: () => void}) => {
 const Animals: React.FC<AnimalsProps> = ({route}) => {
   const [isGridView, setIsGridView] = useState(true);
   const {petType} = route.params;
-  const navigation = useNavigation();
+  const navigation = useTypedNavigation();
   const dispatch = useDispatch();
   const animals = useSelector(selectAnimals);
   const favorites = useSelector(selectFavorites);

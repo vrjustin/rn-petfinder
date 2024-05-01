@@ -8,7 +8,6 @@ import {
   ImageBackground,
   Dimensions,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
 import {useSelector, useDispatch} from 'react-redux';
 import {setPetTypes, selectPetTypes} from '../reducers/petTypesReducer';
 import {selectFavorites} from '../reducers/animalsReducer';
@@ -19,6 +18,7 @@ import GlobalStyles from './Styles/GlobalStyles';
 import {Routes} from '../navigation/Routes';
 import en from '../strings/en.json';
 import {mapTypeNameToLocaleName} from '../models/PetType';
+import {useTypedNavigation} from '../types/NavigationTypes';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -37,7 +37,7 @@ const UserOptions = ({onPress}: {onPress: () => void}) => {
 };
 
 const PetTypes: React.FC = () => {
-  const navigation = useNavigation();
+  const navigation = useTypedNavigation();
   const dispatch = useDispatch();
   const petTypes = useSelector(selectPetTypes);
   const globalStyles = GlobalStyles();
