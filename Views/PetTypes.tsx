@@ -18,6 +18,7 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import GlobalStyles from './Styles/GlobalStyles';
 import {Routes} from '../navigation/Routes';
 import en from '../strings/en.json';
+import {mapTypeNameToLocaleName} from '../models/PetType';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -57,7 +58,12 @@ const PetTypes: React.FC = () => {
     const fetchPetTypesData = async () => {
       try {
         const typesData = await apiService.getPetTypes();
-        dispatch(setPetTypes(typesData?.types ?? []));
+        const localeResolvedData: PetType[] =
+          typesData?.types?.map(type => ({
+            ...type,
+            displayName: mapTypeNameToLocaleName(type.name),
+          })) ?? [];
+        dispatch(setPetTypes(localeResolvedData));
       } catch (error) {
         console.error('Failed to fetch pet types:', error);
       }
@@ -71,6 +77,7 @@ const PetTypes: React.FC = () => {
 
   const handleFavoriteSelectionNavigation = () => {
     const favType: PetType = {
+      displayName: '',
       name: 'Favorite',
       coats: [],
       colors: [],
@@ -106,7 +113,7 @@ const PetTypes: React.FC = () => {
               color="#fff"
               style={styles.icon}
             />
-            <Text style={styles.text}>{item.name}</Text>
+            <Text style={styles.text}>{item.displayName}</Text>
           </View>
         </ImageBackground>
       </View>

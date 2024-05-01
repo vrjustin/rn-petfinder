@@ -78,6 +78,7 @@ const animalResults: AnimalResults = {
 };
 
 const mockedPetType: PetType = {
+  displayName: 'Dog',
   name: 'Dog',
   coats: [],
   colors: [],
