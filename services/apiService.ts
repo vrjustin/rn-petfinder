@@ -63,6 +63,7 @@ const getAccessToken = async (): Promise<string | null> => {
 const getOrganizations = async (
   location: string,
   searchDistance: number,
+  currentPage: number,
 ): Promise<OrganizationsResultsResponse> => {
   if (!jwt_access_token) {
     await getAccessToken();
@@ -71,7 +72,7 @@ const getOrganizations = async (
   try {
     const response: AxiosResponse<OrganizationsResultsResponse> =
       await axios.get(
-        `https://api.petfinder.com/v2/organizations?location=${location}&distance=${searchDistance}`,
+        `https://api.petfinder.com/v2/organizations?location=${location}&distance=${searchDistance}&page=${currentPage}`,
         {
           headers: {
             Authorization: `Bearer ${jwt_access_token}`,
