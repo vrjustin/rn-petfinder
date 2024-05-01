@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -16,6 +16,7 @@ import {
 import {selectSearchParameters} from '../reducers/searchParamsReducer';
 import apiService from '../services/apiService';
 import Organization from '../models/Organization';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 const Organizations = () => {
   const dispatch = useDispatch();
@@ -23,21 +24,31 @@ const Organizations = () => {
   const globalStyles = GlobalStyles();
   const searchParameters = useSelector(selectSearchParameters);
   const {location, distance} = searchParameters;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchOrganizations = async () => {
       try {
-        const orgsData = await apiService.getOrganizations(
+        setIsLoading(true);
+        const orgsResponse = await apiService.getOrganizations(
           location.zipCode,
           distance,
+          currentPage,
         );
-        dispatch(setOrganizations(orgsData.organizations));
+        const {organizations, pagination} = orgsResponse;
+        dispatch(setOrganizations(organizations));
+        setCurrentPage(pagination.current_page);
+        setTotalPages(pagination.total_pages);
       } catch (error) {
         console.error('Failed to fetch organizations: ', error);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchOrganizations();
-  }, [dispatch, distance, location]);
+  }, [dispatch, distance, location, currentPage]);
 
   const renderOrg = ({item}: {item: Organization}) => (
     <TouchableOpacity
@@ -71,8 +82,45 @@ const Organizations = () => {
       .join('\n');
   };
 
+  const prevPage = () => {
+    if (isLoading) {
+      return;
+    }
+    setCurrentPage(prev => Math.max(prev - 1, 1));
+  };
+
+  const nextPage = () => {
+    if (isLoading) {
+      return;
+    }
+    setCurrentPage(prev => Math.min(prev + 1, totalPages));
+  };
+
+  const paginationHeader = () => {
+    return (
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: 32,
+        }}>
+        <TouchableOpacity onPress={prevPage}>
+          <FontAwesomeIcon name="caret-left" size={30} style={styles.icon} />
+        </TouchableOpacity>
+        <Text style={{marginHorizontal: 16}}>
+          {currentPage} / {totalPages}
+        </Text>
+        <TouchableOpacity onPress={nextPage}>
+          <FontAwesomeIcon name="caret-right" size={30} style={styles.icon} />
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
   return (
     <View style={globalStyles.container}>
+      {totalPages > 1 ? paginationHeader() : <></>}
       <FlatList
         data={orgs}
         renderItem={renderOrg}
@@ -100,6 +148,9 @@ const styles = StyleSheet.create({
   orgHours: {
     fontSize: 14,
     color: 'gray',
+  },
+  icon: {
+    marginRight: 8,
   },
 });
 
