@@ -54,12 +54,24 @@ const Organizations = () => {
     <TouchableOpacity
       style={styles.orgContainer}
       onPress={() => Linking.openURL(item.url)}>
-      <Text style={styles.orgName}>{item.name}</Text>
-      <Text
-        style={
-          styles.orgLocation
-        }>{`${item.address.city}, ${item.address.state}`}</Text>
-      <Text style={styles.orgHours}>{renderHours(item.hours)}</Text>
+      <View style={styles.iconContainer}>
+        <FontAwesomeIcon
+          name={'building'}
+          size={20}
+          color={'white'}
+          style={styles.icon}
+        />
+      </View>
+      <View style={styles.textContainer}>
+        <View>
+          <Text style={styles.orgName}>{item.name}</Text>
+          <Text
+            style={
+              styles.orgLocation
+            }>{`${item.address.city}, ${item.address.state}`}</Text>
+        </View>
+        <Text style={styles.orgHours}>{renderHours(item.hours)}</Text>
+      </View>
     </TouchableOpacity>
   );
 
@@ -106,13 +118,21 @@ const Organizations = () => {
           height: 32,
         }}>
         <TouchableOpacity onPress={prevPage}>
-          <FontAwesomeIcon name="caret-left" size={30} style={styles.icon} />
+          <FontAwesomeIcon
+            name="caret-left"
+            size={30}
+            style={styles.paginationIcon}
+          />
         </TouchableOpacity>
         <Text style={{marginHorizontal: 16}}>
           {currentPage} / {totalPages}
         </Text>
         <TouchableOpacity onPress={nextPage}>
-          <FontAwesomeIcon name="caret-right" size={30} style={styles.icon} />
+          <FontAwesomeIcon
+            name="caret-right"
+            size={30}
+            style={styles.paginationIcon}
+          />
         </TouchableOpacity>
       </View>
     );
@@ -132,25 +152,43 @@ const Organizations = () => {
 
 const styles = StyleSheet.create({
   orgContainer: {
-    backgroundColor: '#f9f9f9',
-    padding: 16,
-    marginBottom: 8,
-    borderRadius: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 10,
+    backgroundColor: 'gray',
+    borderRadius: 5,
+    marginBottom: 10,
+    marginHorizontal: 16,
   },
-  orgName: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 4,
-  },
-  orgLocation: {
-    fontSize: 16,
-  },
-  orgHours: {
-    fontSize: 14,
-    color: 'gray',
+  iconContainer: {
+    marginRight: 10,
   },
   icon: {
+    fontSize: 20,
+    color: 'white',
+  },
+  paginationIcon: {
     marginRight: 8,
+  },
+  textContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  orgName: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  orgLocation: {
+    color: 'white',
+    fontSize: 14,
+  },
+  orgHours: {
+    color: 'white',
+    fontSize: 12,
+    marginLeft: 'auto', // Push to the far right
   },
 });
 
