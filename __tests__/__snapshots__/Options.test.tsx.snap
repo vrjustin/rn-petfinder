@@ -53,6 +53,7 @@ exports[`Options renders correctly 1`] = `
       </Text>
       <TextInput
         keyboardType="numeric"
+        onBlur={[Function]}
         onChangeText={[Function]}
         style={
           {
