@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {
   Text,
@@ -19,6 +19,7 @@ const Options: React.FC = () => {
   const dispatch = useDispatch();
   const searchParameters = useSelector(selectSearchParameters);
   const {distance, location, tagsPreferred, breedsPreferred} = searchParameters;
+  const [displayDistance, setDisplayDistance] = useState(distance.toString());
 
   const handleZipCodeChange = (newZip: string) => {
     dispatch(
@@ -27,8 +28,12 @@ const Options: React.FC = () => {
   };
 
   const handleDistanceChange = (newDistance: string) => {
+    setDisplayDistance(newDistance);
+  };
+
+  const handleDistanceOnBlur = () => {
     let distanceValue =
-      newDistance.trim() !== '' ? parseInt(newDistance, 10) : 1;
+      displayDistance.trim() !== '' ? parseInt(displayDistance, 10) : 1;
     distanceValue = Math.max(1, Math.min(500, distanceValue));
     dispatch(
       setSearchParameters({
@@ -93,8 +98,9 @@ const Options: React.FC = () => {
         <Text style={styles.label}>{en.SearchDistance}</Text>
         <TextInput
           style={styles.input}
-          value={distance.toString()}
+          value={displayDistance}
           onChangeText={handleDistanceChange}
+          onBlur={handleDistanceOnBlur}
           keyboardType="numeric"
         />
         {breedsPreferred.length > 0 && (
