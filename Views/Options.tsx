@@ -19,11 +19,22 @@ const Options: React.FC = () => {
   const dispatch = useDispatch();
   const searchParameters = useSelector(selectSearchParameters);
   const {distance, location, tagsPreferred, breedsPreferred} = searchParameters;
+  const [displayZip, setDisplayZip] = useState(location.zipCode);
   const [displayDistance, setDisplayDistance] = useState(distance.toString());
 
   const handleZipCodeChange = (newZip: string) => {
+    setDisplayZip(newZip);
+  };
+
+  const handleZipOnBlur = () => {
+    if (displayZip.length < 5) {
+      return;
+    }
     dispatch(
-      setSearchParameters({...searchParameters, location: {zipCode: newZip}}),
+      setSearchParameters({
+        ...searchParameters,
+        location: {zipCode: displayZip},
+      }),
     );
   };
 
@@ -91,8 +102,9 @@ const Options: React.FC = () => {
         <Text style={styles.label}>{en.EnterZip}</Text>
         <TextInput
           style={styles.input}
-          value={location.zipCode}
+          value={displayZip}
           onChangeText={handleZipCodeChange}
+          onBlur={handleZipOnBlur}
           keyboardType="numeric"
         />
         <Text style={styles.label}>{en.SearchDistance}</Text>
