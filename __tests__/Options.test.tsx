@@ -10,7 +10,7 @@ describe('Options', () => {
   it('renders correctly', () => {
     renderedOptionsTree = renderer.create(
       <Provider store={store}>
-        <Options />
+        <Options route={{params: {from: 'hello'}}} />
       </Provider>,
     );
     expect(renderedOptionsTree.toJSON()).toMatchSnapshot();

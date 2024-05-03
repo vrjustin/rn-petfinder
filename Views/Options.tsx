@@ -15,8 +15,9 @@ import {
 import Breed from '../models/Breed';
 import en from '../strings/en.json';
 
-const Options: React.FC = () => {
+const Options: React.FC = ({route}) => {
   const dispatch = useDispatch();
+  const {from} = route.params;
   const searchParameters = useSelector(selectSearchParameters);
   const {distance, location, tagsPreferred, breedsPreferred} = searchParameters;
   const [displayZip, setDisplayZip] = useState(location.zipCode);
@@ -73,7 +74,7 @@ const Options: React.FC = () => {
   };
 
   const handleBreedPress = (breed: Breed) => {
-    if (breedsPreferred.length <= 1) {
+    if (breedsPreferred.length <= 1 && from !== 'petTypes') {
       return;
     }
     const index = breedsPreferred.findIndex(b => b.name === breed.name);
