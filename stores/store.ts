@@ -4,6 +4,7 @@ import petBreedsReducer from '../reducers/petBreedsReducer';
 import animalsReducer from '../reducers/animalsReducer';
 import searchParamsReducer from '../reducers/searchParamsReducer';
 import organizationsReducer from '../reducers/organizationsReducer';
+import profileReducer from '../reducers/profileReducer';
 
 const createDebugger = require('redux-flipper').default;
 
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   petBreeds: petBreedsReducer,
   animals: animalsReducer,
   searchParameters: searchParamsReducer,
+  profile: profileReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
