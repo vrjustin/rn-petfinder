@@ -1,6 +1,8 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {createStackNavigator} from '@react-navigation/stack';
 import {Routes} from '../navigation/Routes';
+import {profile, setProfile} from '../reducers/profileReducer';
 import PetTypes from '../Views/PetTypes';
 import Breeds from '../Views/Breeds';
 import Animals from '../Views/Animals';
@@ -16,6 +18,7 @@ const Stack = createStackNavigator();
 const useTheme = () => useContext(ThemeContext);
 
 const MainNavigation = () => {
+  const dispatch = useDispatch();
   const isDarkMode = useTheme();
   const headerStyle = {
     backgroundColor: isDarkMode ? 'black' : 'white',
@@ -23,10 +26,10 @@ const MainNavigation = () => {
   const headerTitleStyle = {
     color: isDarkMode ? 'white' : 'black',
   };
-  const [isOnboarding, setIsOnboarding] = useState(true);
+  const {shouldOnboard} = useSelector(profile);
 
   const handleFinishOnboarding = () => {
-    setIsOnboarding(false);
+    dispatch(setProfile({...profile, shouldOnboard: false}));
   };
 
   const postOnboardingStack = () => {
@@ -55,7 +58,7 @@ const MainNavigation = () => {
     );
   };
 
-  return isOnboarding ? (
+  return shouldOnboard ? (
     <Onboarding onFinishOnboarding={handleFinishOnboarding} />
   ) : (
     postOnboardingStack()
