@@ -4,6 +4,16 @@ import store from '../stores/store';
 import renderer from 'react-test-renderer';
 import PetTypes from '../Views/PetTypes';
 
+jest.mock('@react-native-async-storage/async-storage', () => ({
+  setItem: jest.fn(),
+  getItem: jest.fn(),
+}));
+
+jest.mock('redux-persist', () => ({
+  ...jest.requireActual('redux-persist'),
+  persistStore: jest.fn(),
+}));
+
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({
     navigate: jest.fn(),

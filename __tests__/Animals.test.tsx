@@ -19,6 +19,11 @@ jest.mock('@react-native-async-storage/async-storage', () => ({
   getItem: jest.fn(),
 }));
 
+jest.mock('redux-persist', () => ({
+  ...jest.requireActual('redux-persist'),
+  persistStore: jest.fn(),
+}));
+
 const animalResults: AnimalResults = {
   animalsData: [
     {
