@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
-import {Text} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {createStackNavigator} from '@react-navigation/stack';
+import SplashScreen from 'react-native-splash-screen';
 import {Routes} from '../navigation/Routes';
 import {profile, setProfile} from '../reducers/profileReducer';
 import PetTypes from '../Views/PetTypes';
@@ -65,8 +65,8 @@ const MainNavigation = () => {
     );
   };
 
-  if (!isRehydrated) {
-    return <Text>Loading...</Text>;
+  if (isRehydrated) {
+    SplashScreen.hide();
   }
 
   return shouldOnboard ? (
