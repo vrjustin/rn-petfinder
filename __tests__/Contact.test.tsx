@@ -2,23 +2,16 @@ import React from 'react';
 import {Provider} from 'react-redux';
 import store from '../stores/store';
 import renderer, {act} from 'react-test-renderer';
-import AnimalDetails from '../Views/AnimalDetails';
+import Contact from '../Views/Contact';
 
-jest.mock('@react-navigation/native', () => ({
-  useNavigation: () => ({
-    navigate: jest.fn(),
-    setOptions: jest.fn(),
-  }),
-}));
+let renderedContactTree: any;
 
-let renderedAnimalDetailsTree: any;
-
-describe('AnimalDetails', () => {
+describe('Contact', () => {
   it('renders correctly', async () => {
     await act(async () => {
-      renderedAnimalDetailsTree = renderer.create(
+      renderedContactTree = renderer.create(
         <Provider store={store}>
-          <AnimalDetails
+          <Contact
             route={{
               params: {
                 selectedAnimal: {
@@ -86,6 +79,6 @@ describe('AnimalDetails', () => {
         </Provider>,
       );
     });
-    expect(renderedAnimalDetailsTree.toJSON()).toMatchSnapshot();
+    expect(renderedContactTree.toJSON()).toMatchSnapshot();
   });
 });

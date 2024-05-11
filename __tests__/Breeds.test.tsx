@@ -30,16 +30,6 @@ jest.mock('../services/apiService', () => ({
   ]),
 }));
 
-jest.mock('@react-native-async-storage/async-storage', () => ({
-  setItem: jest.fn(),
-  getItem: jest.fn(),
-}));
-
-jest.mock('redux-persist', () => ({
-  ...jest.requireActual('redux-persist'),
-  persistStore: jest.fn(),
-}));
-
 describe('Breeds', () => {
   it('renders correctly', async () => {
     let renderedBreedsTree: any;

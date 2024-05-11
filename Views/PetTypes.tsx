@@ -46,7 +46,6 @@ const PetTypes: React.FC = () => {
 
   useLayoutEffect(() => {
     const handleOptionsPress = () => {
-      console.log('Settings Icon Pressed');
       navigation.navigate(Routes.Options, {from: 'petTypes'});
     };
     navigation.setOptions({

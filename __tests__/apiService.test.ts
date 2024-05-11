@@ -4,13 +4,6 @@ import {PetType} from '../models/PetType';
 import Breed from '../models/Breed';
 import SearchParameters from '../models/SearchParameters';
 
-jest.mock('axios');
-
-jest.mock('@react-native-async-storage/async-storage', () => ({
-  setItem: jest.fn(),
-  getItem: jest.fn(),
-}));
-
 describe('apiService', () => {
   beforeEach(() => {
     jest.clearAllMocks();
