@@ -26,6 +26,11 @@ jest.mock('redux-persist', () => ({
   persistStore: jest.fn(),
 }));
 
+jest.mock('react-native-splash-screen', () => ({
+  show: jest.fn(),
+  hide: jest.fn(),
+}));
+
 let renderedAppTree: any;
 
 it('renders correctly', async () => {
