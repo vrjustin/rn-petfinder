@@ -1,11 +1,9 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import PagerView from 'react-native-pager-view';
-import SplashScreen from 'react-native-splash-screen';
 import Page from './Page';
 
 const Onboarding = ({onFinishOnboarding}) => {
-  SplashScreen.hide();
   return (
     <PagerView style={styles.pagerView} initialPage={0} useNext={false}>
       <Page
