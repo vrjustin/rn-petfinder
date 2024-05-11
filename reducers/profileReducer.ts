@@ -9,6 +9,7 @@ interface ProfileState {
 const initialState: ProfileState = {
   profile: {
     shouldOnboard: true,
+    isRehydrated: false,
   },
 };
 

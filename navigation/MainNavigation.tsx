@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
+import {Text} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {createStackNavigator} from '@react-navigation/stack';
-import SplashScreen from 'react-native-splash-screen';
 import {Routes} from '../navigation/Routes';
 import {profile, setProfile} from '../reducers/profileReducer';
 import PetTypes from '../Views/PetTypes';
@@ -27,10 +27,16 @@ const MainNavigation = () => {
   const headerTitleStyle = {
     color: isDarkMode ? 'white' : 'black',
   };
-  const {shouldOnboard} = useSelector(profile);
+  const {shouldOnboard, isRehydrated} = useSelector(profile);
 
   const handleFinishOnboarding = () => {
-    dispatch(setProfile({...profile, shouldOnboard: false}));
+    dispatch(
+      setProfile({
+        ...profile,
+        shouldOnboard: false,
+        isRehydrated: isRehydrated,
+      }),
+    );
   };
 
   const postOnboardingStack = () => {
@@ -58,6 +64,10 @@ const MainNavigation = () => {
       </Stack.Navigator>
     );
   };
+
+  if (!isRehydrated) {
+    return <Text>Loading...</Text>;
+  }
 
   return shouldOnboard ? (
     <Onboarding onFinishOnboarding={handleFinishOnboarding} />
