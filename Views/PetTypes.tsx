@@ -9,6 +9,7 @@ import {
   Dimensions,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
+import SplashScreen from 'react-native-splash-screen';
 import {setPetTypes, selectPetTypes} from '../reducers/petTypesReducer';
 import {selectFavorites} from '../reducers/animalsReducer';
 import apiService from '../services/apiService';
@@ -189,6 +190,8 @@ const PetTypes: React.FC = () => {
   if (petTypes.length === 0) {
     return <Text>Loading...</Text>;
   }
+
+  SplashScreen.hide();
 
   return (
     <View style={globalStyles.container}>

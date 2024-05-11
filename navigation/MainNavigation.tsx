@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {createStackNavigator} from '@react-navigation/stack';
+import SplashScreen from 'react-native-splash-screen';
 import {Routes} from '../navigation/Routes';
 import {profile, setProfile} from '../reducers/profileReducer';
 import PetTypes from '../Views/PetTypes';
