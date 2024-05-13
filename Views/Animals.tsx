@@ -34,7 +34,7 @@ const UserOptions = ({onPress}: {onPress: () => void}) => {
         name="gear"
         size={20}
         color="#000"
-        style={{marginRight: 20}}
+        style={styles.headerIconStyle}
         onPress={onPress}
       />
     </>
@@ -171,12 +171,7 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
           style={styles.gridItemBackground}
           imageStyle={styles.gridItemImage}>
           <View style={styles.gridItem}>
-            <View
-              style={{
-                position: 'absolute',
-                top: 8,
-                right: -68,
-              }}>
+            <View style={styles.gridItemFavorite}>
               <TouchableOpacity onPress={() => handleFavorite(item)}>
                 <FontAwesomeIcon
                   name={isFavorite(item) ? 'heart' : 'heart-o'}
@@ -186,12 +181,12 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
                 />
               </TouchableOpacity>
             </View>
-            <View style={{position: 'absolute', bottom: 4}}>
-              <View style={{flexDirection: 'row'}}>
+            <View style={styles.gridItemTextRowContainer}>
+              <View style={styles.gridItemTextRow}>
                 <Text style={styles.gridTextName}>{item.name},</Text>
                 <Text style={styles.gridTextAge}> {item.age}</Text>
               </View>
-              <View style={{flexDirection: 'row'}}>
+              <View style={styles.gridItemTextRow}>
                 <FontAwesomeIcon
                   name="globe"
                   size={20}
@@ -225,17 +220,11 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
 
   const paginationHeader = () => {
     return (
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: 32,
-        }}>
+      <View style={styles.paginationHeaderContainer}>
         <TouchableOpacity onPress={prevPage}>
           <FontAwesomeIcon name="caret-left" size={30} style={styles.icon} />
         </TouchableOpacity>
-        <Text style={{marginHorizontal: 16}}>
+        <Text style={styles.paginationText}>
           {currentPage} / {totalPages}
         </Text>
         <TouchableOpacity onPress={nextPage}>
@@ -277,7 +266,7 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
         <>
           {isGridView ? (
             <SafeAreaView style={styles.safeArea}>
-              <View style={{margin: 8}}>
+              <View style={styles.gridViewFlatlistContainer}>
                 <FlatList
                   data={animals}
                   renderItem={gridItem}
@@ -319,11 +308,26 @@ const styles = StyleSheet.create({
   headerIconContainer: {
     flexDirection: 'row',
   },
+  headerIconStyle: {
+    marginRight: 20,
+  },
+  paginationHeaderContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 32,
+  },
+  paginationText: {
+    marginHorizontal: 16,
+  },
   flatListContent: {
     flexGrow: 1,
   },
   safeArea: {
     flex: 1,
+  },
+  gridViewFlatlistContainer: {
+    margin: 8,
   },
   gridItemContainer: {
     flex: 1,
@@ -348,6 +352,13 @@ const styles = StyleSheet.create({
   gridItemImage: {
     borderRadius: 8,
   },
+  gridItemTextRowContainer: {
+    position: 'absolute',
+    bottom: 4,
+  },
+  gridItemTextRow: {
+    flexDirection: 'row',
+  },
   item: {
     backgroundColor: '#fff',
     padding: 15,
@@ -369,6 +380,11 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 8,
+  },
+  gridItemFavorite: {
+    position: 'absolute',
+    top: 8,
+    right: -68,
   },
 });
 

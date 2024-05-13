@@ -110,13 +110,7 @@ const Organizations = () => {
 
   const paginationHeader = () => {
     return (
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: 32,
-        }}>
+      <View style={styles.paginationHeaderContainer}>
         <TouchableOpacity onPress={prevPage}>
           <FontAwesomeIcon
             name="caret-left"
@@ -124,7 +118,7 @@ const Organizations = () => {
             style={styles.paginationIcon}
           />
         </TouchableOpacity>
-        <Text style={{marginHorizontal: 16}}>
+        <Text style={styles.paginationText}>
           {currentPage} / {totalPages}
         </Text>
         <TouchableOpacity onPress={nextPage}>
@@ -151,6 +145,15 @@ const Organizations = () => {
 };
 
 const styles = StyleSheet.create({
+  paginationHeaderContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 32,
+  },
+  paginationText: {
+    marginHorizontal: 16,
+  },
   orgContainer: {
     flexDirection: 'row',
     alignItems: 'center',
