@@ -1,7 +1,7 @@
 import React from 'react';
 import {Provider} from 'react-redux';
 import store from '../stores/store';
-import renderer from 'react-test-renderer';
+import renderer, {act} from 'react-test-renderer';
 import PetTypes from '../Views/PetTypes';
 
 jest.mock('@react-navigation/native', () => ({
@@ -48,6 +48,17 @@ describe('PetTypes', () => {
         <PetTypes />
       </Provider>,
     );
+    expect(renderedPetTypesTree.toJSON()).toMatchSnapshot();
+  });
+
+  it('renders correctly when petTypes are fetched', async () => {
+    await act(async () => {
+      renderedPetTypesTree = renderer.create(
+        <Provider store={store}>
+          <PetTypes />
+        </Provider>,
+      );
+    });
     expect(renderedPetTypesTree.toJSON()).toMatchSnapshot();
   });
 });

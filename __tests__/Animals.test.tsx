@@ -3,9 +3,11 @@ import {Provider} from 'react-redux';
 import store from '../stores/store';
 import renderer, {act} from 'react-test-renderer';
 import Animals from '../Views/Animals';
-import {PetType} from '../models/PetType';
-import Breed from '../models/Breed';
-import {AnimalResults} from '../services/apiService';
+import {
+  mockAnimalResults,
+  mockPetTypeDog,
+  mockBreeds,
+} from '../__mocks__/mocks';
 
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({
@@ -14,96 +16,10 @@ jest.mock('@react-navigation/native', () => ({
   }),
 }));
 
-const animalResultsMock: AnimalResults = {
-  animalsData: [
-    {
-      id: 1,
-      organization_id: 'org1',
-      url: 'https://example.com',
-      age: 'Young',
-      gender: 'Female',
-      size: 'Medium',
-      coat: 'Short',
-      name: 'Fluffy',
-      description: 'A fluffy dog',
-      status: 'Available',
-      breeds: {
-        mixed: false,
-        primary: 'Poodle',
-        secondary: null,
-        unknown: false,
-      },
-      colors: {
-        primary: 'White',
-        secondary: null,
-        tertiary: null,
-      },
-      contact: {
-        address: {
-          address1: '123 Main St',
-          address2: null,
-          city: 'Anytown',
-          country: 'USA',
-          postcode: '12345',
-          state: 'NY',
-        },
-        email: 'email@example.com',
-        phone: '555-123-4567',
-      },
-      photos: [
-        {
-          full: 'https://example.com/full.jpg',
-          large: 'https://example.com/large.jpg',
-          medium: 'https://example.com/medium.jpg',
-          small: 'https://example.com/small.jpg',
-        },
-      ],
-      primary_photo_cropped: {
-        full: 'https://example.com/full.jpg',
-        large: 'https://example.com/large.jpg',
-        medium: 'https://example.com/medium.jpg',
-        small: 'https://example.com/small.jpg',
-      },
-      species: 'Dog',
-      tags: ['Friendly', 'Playful'],
-      isFavorite: false,
-      attributes: {
-        declawed: null,
-        house_trained: null,
-        shots_current: null,
-        spayed_neutered: null,
-        special_needs: null,
-      },
-    },
-  ],
-  pagination: {current_page: 1, total_pages: 1},
-};
-
-const mockedPetType: PetType = {
-  displayName: 'Dog',
-  name: 'Dog',
-  coats: [],
-  colors: [],
-  genders: [],
-  _links: {
-    self: {href: ''},
-    breeds: {href: ''},
-  },
-};
-
-const mockBreeds: Breed[] = [
-  {
-    name: 'Poodle',
-    _links: {
-      type: {href: ''},
-    },
-  },
-];
-
 let renderedAnimalsTree: any;
 
 jest.mock('../services/apiService.ts', () => ({
-  getAnimals: jest.fn(() => animalResultsMock),
+  getAnimals: jest.fn(() => mockAnimalResults),
 }));
 
 describe('Animals', () => {
@@ -114,7 +30,7 @@ describe('Animals', () => {
           <Animals
             route={{
               params: {
-                petType: mockedPetType,
+                petType: mockPetTypeDog,
                 selectedBreeds: mockBreeds,
               },
             }}
@@ -123,5 +39,53 @@ describe('Animals', () => {
       );
     });
     expect(renderedAnimalsTree.toJSON()).toMatchSnapshot();
+  });
+
+  it('toggles to gridview correctly', async () => {
+    renderedAnimalsTree = renderer.create(
+      <Provider store={store}>
+        <Animals
+          route={{
+            params: {
+              petType: mockPetTypeDog,
+              selectedBreeds: mockBreeds,
+            },
+          }}
+        />
+      </Provider>,
+    );
+
+    const toggleButton = renderedAnimalsTree.root.findByProps({
+      testID: 'toggleGridButton',
+    });
+    const initialColor = toggleButton.props.children.props.color;
+    toggleButton.props.onPress();
+
+    const updatedColor = toggleButton.props.children.props.color;
+    expect(updatedColor).toBe(initialColor === 'black' ? 'gray' : 'black');
+  });
+
+  it('toggles to listview correctly', async () => {
+    renderedAnimalsTree = renderer.create(
+      <Provider store={store}>
+        <Animals
+          route={{
+            params: {
+              petType: mockPetTypeDog,
+              selectedBreeds: mockBreeds,
+            },
+          }}
+        />
+      </Provider>,
+    );
+
+    const toggleButton = renderedAnimalsTree.root.findByProps({
+      testID: 'toggleListButton',
+    });
+    const initialColor = toggleButton.props.children.props.color;
+    toggleButton.props.onPress();
+
+    const updatedColor = toggleButton.props.children.props.color;
+    expect(updatedColor).toBe(initialColor === 'black' ? 'gray' : 'black');
   });
 });
