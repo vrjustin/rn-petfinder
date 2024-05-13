@@ -71,6 +71,7 @@ exports[`Animals renders correctly 1`] = `
             "opacity": 1,
           }
         }
+        testID="toggleGridButton"
       >
         <Text
           allowFontScaling={false}
@@ -129,6 +130,7 @@ exports[`Animals renders correctly 1`] = `
             "opacity": 1,
           }
         }
+        testID="toggleListButton"
       >
         <Text
           allowFontScaling={false}
@@ -182,10 +184,10 @@ exports[`Animals renders correctly 1`] = `
               "age": "Young",
               "attributes": {
                 "declawed": null,
-                "house_trained": null,
-                "shots_current": null,
-                "spayed_neutered": null,
-                "special_needs": null,
+                "house_trained": true,
+                "shots_current": true,
+                "spayed_neutered": false,
+                "special_needs": false,
               },
               "breeds": {
                 "mixed": false,

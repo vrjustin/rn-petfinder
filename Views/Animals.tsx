@@ -62,7 +62,6 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
 
   useLayoutEffect(() => {
     const handleOptionsPress = () => {
-      console.log('Settings Icon Pressed');
       navigation.navigate(Routes.Options, {from: 'Animals'});
     };
     navigation.setOptions({
@@ -139,7 +138,6 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
   };
 
   const handleFavorite = async (animal: Animal) => {
-    console.log('Favorite Toggling Animal: ', animal.name);
     dispatch(toggleFavorite(animal));
   };
 
@@ -256,7 +254,7 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
       <View style={styles.headerRow}>
         <Text style={styles.header}>{headerText()}</Text>
         <View style={styles.headerIconContainer}>
-          <TouchableOpacity onPress={toggleGridView}>
+          <TouchableOpacity testID="toggleGridButton" onPress={toggleGridView}>
             <FontAwesomeIcon
               name="th"
               size={20}
@@ -264,7 +262,7 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
               style={styles.icon}
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={toggleGridView}>
+          <TouchableOpacity testID="toggleListButton" onPress={toggleGridView}>
             <FontAwesomeIcon
               name="list"
               size={20}
