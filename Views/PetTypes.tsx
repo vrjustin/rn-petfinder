@@ -29,7 +29,7 @@ const UserOptions = ({onPress}: {onPress: () => void}) => {
         name="gear"
         size={20}
         color="#000"
-        style={{marginRight: 20}}
+        style={styles.headerIconStyle}
         onPress={onPress}
       />
     </>
@@ -90,7 +90,6 @@ const PetTypes: React.FC = () => {
   };
 
   const handleAdoptionOrgsNavigation = () => {
-    console.log('Navigate to New Orgs Screen');
     navigation.navigate(Routes.Organizations);
   };
 
@@ -122,26 +121,14 @@ const PetTypes: React.FC = () => {
   const renderAdoptionOrgsTouchable = () => {
     return (
       <TouchableOpacity onPress={handleAdoptionOrgsNavigation}>
-        <View
-          style={{
-            backgroundColor: 'grey',
-            height: 38,
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginHorizontal: 20,
-            marginBottom: 8,
-            borderRadius: 8,
-          }}>
+        <View style={styles.orgsTouchableContainer}>
           <FontAwesomeIcon
             name={'building'}
             size={20}
             color={'white'}
             style={styles.icon}
           />
-          <Text style={{marginRight: 8, color: 'white'}}>
-            {en.AdoptionOrgs}
-          </Text>
+          <Text style={styles.orgsTouchableText}>{en.AdoptionOrgs}</Text>
           <FontAwesomeIcon
             name={'building'}
             size={20}
@@ -156,24 +143,14 @@ const PetTypes: React.FC = () => {
   const renderFavoritesTouchable = () => {
     return haveFavorites ? (
       <TouchableOpacity onPress={handleFavoriteSelectionNavigation}>
-        <View
-          style={{
-            backgroundColor: 'pink',
-            height: 38,
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginHorizontal: 20,
-            marginBottom: 8,
-            borderRadius: 8,
-          }}>
+        <View style={styles.favoritesTouchableContainer}>
           <FontAwesomeIcon
             name={'heart'}
             size={20}
             color={'white'}
             style={styles.icon}
           />
-          <Text style={{marginRight: 8}}>{en.Favorites}</Text>
+          <Text style={styles.favoritesTouchableText}>{en.Favorites}</Text>
           <FontAwesomeIcon
             name={'heart'}
             size={20}
@@ -207,6 +184,9 @@ const PetTypes: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
+  headerIconStyle: {
+    marginRight: 20,
+  },
   itemBackground: {
     flex: 1,
     margin: 10,
@@ -214,6 +194,33 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 10,
     overflow: 'hidden',
+  },
+  orgsTouchableContainer: {
+    backgroundColor: 'grey',
+    height: 38,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: 20,
+    marginBottom: 8,
+    borderRadius: 8,
+  },
+  orgsTouchableText: {
+    marginRight: 8,
+    color: 'white',
+  },
+  favoritesTouchableContainer: {
+    backgroundColor: 'pink',
+    height: 38,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: 20,
+    marginBottom: 8,
+    borderRadius: 8,
+  },
+  favoritesTouchableText: {
+    marginRight: 8,
   },
   item: {
     flexDirection: 'row',

@@ -40,7 +40,7 @@ const ContactOptions = ({onPress}: {onPress: () => void}) => {
         name="mobile"
         size={20}
         color="#000"
-        style={{marginRight: 20}}
+        style={styles.contactIcon}
         onPress={onPress}
       />
     </>
@@ -91,25 +91,17 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
   const renderHero = () => {
     const renderIdCard = () => {
       return (
-        <View
-          style={{
-            position: 'absolute',
-            bottom: 8,
-            left: 8,
-            backgroundColor: 'gray',
-            borderRadius: 8,
-            padding: 4,
-          }}>
-          <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
+        <View style={styles.idCardContainer}>
+          <View style={styles.idCardRow1}>
             <Text style={styles.nameText}>{name}, </Text>
             <Text style={styles.ageText}>{age}</Text>
           </View>
-          <View style={{flexDirection: 'row'}}>
+          <View style={styles.idCardRow2}>
             <FontAwesomeIcon
               name="globe"
               size={20}
               color={'white'}
-              style={{marginRight: 8}}
+              style={styles.idCardIcon}
             />
             <Text style={styles.ageText}>
               {contact.address.city}, {contact.address.state}
@@ -229,21 +221,21 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
   }, [navigation]);
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={styles.safeAreaContainer}>
       {renderHero()}
       <ScrollView>
         {photos.length > 0 && renderGallery()}
         {description && (
           <>
             <Text style={styles.sectionHeaderText}>{en.Introduction}</Text>
-            <Text style={{padding: 8, fontSize: 14}}>{description}</Text>
+            <Text style={styles.introductionText}>{description}</Text>
           </>
         )}
         {renderAttributes()}
         {tags.length > 0 && (
           <>
             <Text style={styles.sectionHeaderText}>{en.Tags}</Text>
-            <View style={{flexDirection: 'row', flexWrap: 'wrap', padding: 8}}>
+            <View style={styles.tagContainerView}>
               {tags.map((tag, index) => (
                 <TouchableOpacity
                   key={index}
@@ -255,7 +247,7 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
                         ? styles.tag
                         : styles.activeTag
                     }>
-                    <Text style={{color: 'white'}}>{tag}</Text>
+                    <Text style={styles.tagText}>{tag}</Text>
                   </View>
                 </TouchableOpacity>
               ))}
@@ -268,10 +260,34 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
 };
 
 const styles = StyleSheet.create({
+  safeAreaContainer: {
+    flex: 1,
+  },
+  contactIcon: {
+    marginRight: 20,
+  },
   image: {
     width: 100,
     height: 100,
     margin: 5,
+  },
+  idCardContainer: {
+    position: 'absolute',
+    bottom: 8,
+    left: 8,
+    backgroundColor: 'gray',
+    borderRadius: 8,
+    padding: 4,
+  },
+  idCardRow1: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+  },
+  idCardRow2: {
+    flexDirection: 'row',
+  },
+  idCardIcon: {
+    marginRight: 8,
   },
   imageSelected: {
     width: 100,
@@ -294,6 +310,15 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
+  introductionText: {
+    padding: 8,
+    fontSize: 14,
+  },
+  tagContainerView: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    padding: 8,
+  },
   tag: {
     backgroundColor: 'gray',
     paddingVertical: 4,
@@ -309,6 +334,9 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginRight: 8,
     marginBottom: 8,
+  },
+  tagText: {
+    color: 'white',
   },
   attributesContainer: {
     padding: 16,
