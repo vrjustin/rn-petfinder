@@ -56,21 +56,12 @@ const Options: React.FC = ({route}) => {
   };
 
   const handleTagPress = (tag: string) => {
-    if (!tagsPreferred.includes(tag)) {
-      dispatch(
-        setSearchParameters({
-          ...searchParameters,
-          tagsPreferred: [...tagsPreferred, tag],
-        }),
-      );
-    } else {
-      dispatch(
-        setSearchParameters({
-          ...searchParameters,
-          tagsPreferred: tagsPreferred.filter(t => t !== tag),
-        }),
-      );
-    }
+    dispatch(
+      setSearchParameters({
+        ...searchParameters,
+        tagsPreferred: tagsPreferred.filter(t => t !== tag),
+      }),
+    );
   };
 
   const handleBreedPress = (breed: Breed) => {
@@ -87,13 +78,6 @@ const Options: React.FC = ({route}) => {
           breedsPreferred: updatedBreeds,
         }),
       );
-    } else {
-      dispatch(
-        setSearchParameters({
-          ...searchParameters,
-          breedsPreferred: [...breedsPreferred, breed],
-        }),
-      );
     }
   };
 
@@ -102,6 +86,7 @@ const Options: React.FC = ({route}) => {
       <ScrollView>
         <Text style={styles.label}>{en.EnterZip}</Text>
         <TextInput
+          testID="zipCodeInput"
           style={styles.input}
           value={displayZip}
           onChangeText={handleZipCodeChange}
@@ -110,6 +95,7 @@ const Options: React.FC = ({route}) => {
         />
         <Text style={styles.label}>{en.SearchDistance}</Text>
         <TextInput
+          testID="distanceInput"
           style={styles.input}
           value={displayDistance}
           onChangeText={handleDistanceChange}
@@ -119,9 +105,10 @@ const Options: React.FC = ({route}) => {
         {breedsPreferred.length > 0 && (
           <>
             <Text style={styles.label}>{en.PreferredBreeds}</Text>
-            <View style={{flexDirection: 'row', flexWrap: 'wrap', padding: 8}}>
+            <View style={styles.collection}>
               {breedsPreferred.map((breed, index) => (
                 <TouchableOpacity
+                  testID="breedsTagButton"
                   key={index}
                   onPress={() => handleBreedPress(breed)}>
                   <View
@@ -131,7 +118,7 @@ const Options: React.FC = ({route}) => {
                         ? styles.tag
                         : styles.activeTag
                     }>
-                    <Text style={{color: 'white'}}>{breed.name}</Text>
+                    <Text style={styles.collectionItemText}>{breed.name}</Text>
                   </View>
                 </TouchableOpacity>
               ))}
@@ -141,9 +128,10 @@ const Options: React.FC = ({route}) => {
         {tagsPreferred.length > 0 && (
           <>
             <Text style={styles.label}>{en.PreferredTags}</Text>
-            <View style={{flexDirection: 'row', flexWrap: 'wrap', padding: 8}}>
+            <View style={styles.collection}>
               {tagsPreferred.map((tag, index) => (
                 <TouchableOpacity
+                  testID="tagsTagButton"
                   key={index}
                   onPress={() => handleTagPress(tag)}>
                   <View
@@ -153,7 +141,7 @@ const Options: React.FC = ({route}) => {
                         ? styles.tag
                         : styles.activeTag
                     }>
-                    <Text style={{color: 'white'}}>{tag}</Text>
+                    <Text style={styles.collectionItemText}>{tag}</Text>
                   </View>
                 </TouchableOpacity>
               ))}
@@ -185,6 +173,14 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     fontSize: 16,
     backgroundColor: '#fff',
+  },
+  collection: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    padding: 8,
+  },
+  collectionItemText: {
+    color: 'white',
   },
   tag: {
     backgroundColor: 'gray',

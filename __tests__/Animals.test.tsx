@@ -14,17 +14,7 @@ jest.mock('@react-navigation/native', () => ({
   }),
 }));
 
-jest.mock('@react-native-async-storage/async-storage', () => ({
-  setItem: jest.fn(),
-  getItem: jest.fn(),
-}));
-
-jest.mock('redux-persist', () => ({
-  ...jest.requireActual('redux-persist'),
-  persistStore: jest.fn(),
-}));
-
-const animalResults: AnimalResults = {
+const animalResultsMock: AnimalResults = {
   animalsData: [
     {
       id: 1,
@@ -77,6 +67,13 @@ const animalResults: AnimalResults = {
       species: 'Dog',
       tags: ['Friendly', 'Playful'],
       isFavorite: false,
+      attributes: {
+        declawed: null,
+        house_trained: null,
+        shots_current: null,
+        spayed_neutered: null,
+        special_needs: null,
+      },
     },
   ],
   pagination: {current_page: 1, total_pages: 1},
@@ -106,7 +103,7 @@ const mockBreeds: Breed[] = [
 let renderedAnimalsTree: any;
 
 jest.mock('../services/apiService.ts', () => ({
-  getAnimals: jest.fn(() => animalResults),
+  getAnimals: jest.fn(() => animalResultsMock),
 }));
 
 describe('Animals', () => {

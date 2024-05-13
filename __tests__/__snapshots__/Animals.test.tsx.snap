@@ -180,6 +180,13 @@ exports[`Animals renders correctly 1`] = `
           [
             {
               "age": "Young",
+              "attributes": {
+                "declawed": null,
+                "house_trained": null,
+                "shots_current": null,
+                "spayed_neutered": null,
+                "special_needs": null,
+              },
               "breeds": {
                 "mixed": false,
                 "primary": "Poodle",
