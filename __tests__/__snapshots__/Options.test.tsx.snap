@@ -1,427 +1,561 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Options renders correctly 1`] = `
-<View
+<RCTSafeAreaView
   style={
     {
       "backgroundColor": "#f9f9f9",
-      "borderRadius": 8,
-      "marginVertical": 8,
-      "padding": 16,
+      "flex": 1,
     }
   }
 >
-  <RCTScrollView>
-    <View>
+  <View
+    style={
+      {
+        "borderRadius": 8,
+        "flex": 1,
+        "justifyContent": "space-between",
+        "marginVertical": 8,
+        "padding": 16,
+      }
+    }
+  >
+    <RCTScrollView
+      contentContainerStyle={
+        {
+          "paddingBottom": 16,
+        }
+      }
+    >
+      <View>
+        <Text
+          style={
+            {
+              "color": "#333",
+              "fontSize": 18,
+              "marginBottom": 8,
+            }
+          }
+        >
+          Zip Code:
+        </Text>
+        <TextInput
+          keyboardType="numeric"
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          style={
+            {
+              "backgroundColor": "#fff",
+              "borderColor": "#ccc",
+              "borderRadius": 5,
+              "borderWidth": 1,
+              "fontSize": 16,
+              "marginBottom": 16,
+              "padding": 8,
+            }
+          }
+          testID="zipCodeInput"
+          value="90210"
+        />
+        <Text
+          style={
+            {
+              "color": "#333",
+              "fontSize": 18,
+              "marginBottom": 8,
+            }
+          }
+        >
+          Search Distance:
+        </Text>
+        <TextInput
+          keyboardType="numeric"
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          style={
+            {
+              "backgroundColor": "#fff",
+              "borderColor": "#ccc",
+              "borderRadius": 5,
+              "borderWidth": 1,
+              "fontSize": 16,
+              "marginBottom": 16,
+              "padding": 8,
+            }
+          }
+          testID="distanceInput"
+          value="500"
+        />
+      </View>
+    </RCTScrollView>
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "backgroundColor": "#007AFF",
+          "borderRadius": 5,
+          "opacity": 1,
+          "paddingHorizontal": 20,
+          "paddingVertical": 10,
+        }
+      }
+    >
       <Text
         style={
           {
-            "color": "#333",
-            "fontSize": 18,
-            "marginBottom": 8,
+            "color": "#fff",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "textAlign": "center",
           }
         }
       >
-        Zip Code:
+        Sign Out
       </Text>
-      <TextInput
-        keyboardType="numeric"
-        onBlur={[Function]}
-        onChangeText={[Function]}
-        style={
-          {
-            "backgroundColor": "#fff",
-            "borderColor": "#ccc",
-            "borderRadius": 5,
-            "borderWidth": 1,
-            "fontSize": 16,
-            "marginBottom": 16,
-            "padding": 8,
-          }
-        }
-        testID="zipCodeInput"
-        value="90210"
-      />
-      <Text
-        style={
-          {
-            "color": "#333",
-            "fontSize": 18,
-            "marginBottom": 8,
-          }
-        }
-      >
-        Search Distance:
-      </Text>
-      <TextInput
-        keyboardType="numeric"
-        onBlur={[Function]}
-        onChangeText={[Function]}
-        style={
-          {
-            "backgroundColor": "#fff",
-            "borderColor": "#ccc",
-            "borderRadius": 5,
-            "borderWidth": 1,
-            "fontSize": 16,
-            "marginBottom": 16,
-            "padding": 8,
-          }
-        }
-        testID="distanceInput"
-        value="500"
-      />
     </View>
-  </RCTScrollView>
-</View>
+  </View>
+</RCTSafeAreaView>
 `;
 
 exports[`Options renders correctly when preferredTags and breeds are present 1`] = `
-<View
+<RCTSafeAreaView
   style={
     {
       "backgroundColor": "#f9f9f9",
-      "borderRadius": 8,
-      "marginVertical": 8,
-      "padding": 16,
+      "flex": 1,
     }
   }
 >
-  <RCTScrollView>
-    <View>
-      <Text
-        style={
-          {
-            "color": "#333",
-            "fontSize": 18,
-            "marginBottom": 8,
-          }
+  <View
+    style={
+      {
+        "borderRadius": 8,
+        "flex": 1,
+        "justifyContent": "space-between",
+        "marginVertical": 8,
+        "padding": 16,
+      }
+    }
+  >
+    <RCTScrollView
+      contentContainerStyle={
+        {
+          "paddingBottom": 16,
         }
-      >
-        Zip Code:
-      </Text>
-      <TextInput
-        keyboardType="numeric"
-        onBlur={[Function]}
-        onChangeText={[Function]}
-        style={
-          {
-            "backgroundColor": "#fff",
-            "borderColor": "#ccc",
-            "borderRadius": 5,
-            "borderWidth": 1,
-            "fontSize": 16,
-            "marginBottom": 16,
-            "padding": 8,
-          }
-        }
-        testID="zipCodeInput"
-        value="90210"
-      />
-      <Text
-        style={
-          {
-            "color": "#333",
-            "fontSize": 18,
-            "marginBottom": 8,
-          }
-        }
-      >
-        Search Distance:
-      </Text>
-      <TextInput
-        keyboardType="numeric"
-        onBlur={[Function]}
-        onChangeText={[Function]}
-        style={
-          {
-            "backgroundColor": "#fff",
-            "borderColor": "#ccc",
-            "borderRadius": 5,
-            "borderWidth": 1,
-            "fontSize": 16,
-            "marginBottom": 16,
-            "padding": 8,
-          }
-        }
-        testID="distanceInput"
-        value="5"
-      />
-      <Text
-        style={
-          {
-            "color": "#333",
-            "fontSize": 18,
-            "marginBottom": 8,
-          }
-        }
-      >
-        Preferred Breeds:
-      </Text>
-      <View
-        style={
-          {
-            "flexDirection": "row",
-            "flexWrap": "wrap",
-            "padding": 8,
-          }
-        }
-      >
-        <View
-          accessibilityState={
-            {
-              "busy": undefined,
-              "checked": undefined,
-              "disabled": undefined,
-              "expanded": undefined,
-              "selected": undefined,
-            }
-          }
-          accessibilityValue={
-            {
-              "max": undefined,
-              "min": undefined,
-              "now": undefined,
-              "text": undefined,
-            }
-          }
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
+      }
+    >
+      <View>
+        <Text
           style={
             {
-              "opacity": 1,
+              "color": "#333",
+              "fontSize": 18,
+              "marginBottom": 8,
             }
           }
-          testID="breedsTagButton"
+        >
+          Zip Code:
+        </Text>
+        <TextInput
+          keyboardType="numeric"
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          style={
+            {
+              "backgroundColor": "#fff",
+              "borderColor": "#ccc",
+              "borderRadius": 5,
+              "borderWidth": 1,
+              "fontSize": 16,
+              "marginBottom": 16,
+              "padding": 8,
+            }
+          }
+          testID="zipCodeInput"
+          value="90210"
+        />
+        <Text
+          style={
+            {
+              "color": "#333",
+              "fontSize": 18,
+              "marginBottom": 8,
+            }
+          }
+        >
+          Search Distance:
+        </Text>
+        <TextInput
+          keyboardType="numeric"
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          style={
+            {
+              "backgroundColor": "#fff",
+              "borderColor": "#ccc",
+              "borderRadius": 5,
+              "borderWidth": 1,
+              "fontSize": 16,
+              "marginBottom": 16,
+              "padding": 8,
+            }
+          }
+          testID="distanceInput"
+          value="5"
+        />
+        <Text
+          style={
+            {
+              "color": "#333",
+              "fontSize": 18,
+              "marginBottom": 8,
+            }
+          }
+        >
+          Preferred Breeds:
+        </Text>
+        <View
+          style={
+            {
+              "flexDirection": "row",
+              "flexWrap": "wrap",
+              "padding": 8,
+            }
+          }
         >
           <View
-            style={
+            accessibilityState={
               {
-                "backgroundColor": "red",
-                "borderRadius": 8,
-                "marginBottom": 8,
-                "marginRight": 8,
-                "paddingHorizontal": 8,
-                "paddingVertical": 4,
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
               }
             }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+              }
+            }
+            testID="breedsTagButton"
           >
-            <Text
+            <View
               style={
                 {
-                  "color": "white",
+                  "backgroundColor": "red",
+                  "borderRadius": 8,
+                  "marginBottom": 8,
+                  "marginRight": 8,
+                  "paddingHorizontal": 8,
+                  "paddingVertical": 4,
                 }
               }
             >
-              MockBreed
-            </Text>
+              <Text
+                style={
+                  {
+                    "color": "white",
+                  }
+                }
+              >
+                MockBreed
+              </Text>
+            </View>
+          </View>
+        </View>
+        <Text
+          style={
+            {
+              "color": "#333",
+              "fontSize": 18,
+              "marginBottom": 8,
+            }
+          }
+        >
+          Preferred Tags:
+        </Text>
+        <View
+          style={
+            {
+              "flexDirection": "row",
+              "flexWrap": "wrap",
+              "padding": 8,
+            }
+          }
+        >
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+              }
+            }
+            testID="tagsTagButton"
+          >
+            <View
+              style={
+                {
+                  "backgroundColor": "red",
+                  "borderRadius": 8,
+                  "marginBottom": 8,
+                  "marginRight": 8,
+                  "paddingHorizontal": 8,
+                  "paddingVertical": 4,
+                }
+              }
+            >
+              <Text
+                style={
+                  {
+                    "color": "white",
+                  }
+                }
+              >
+                Tag1
+              </Text>
+            </View>
+          </View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+              }
+            }
+            testID="tagsTagButton"
+          >
+            <View
+              style={
+                {
+                  "backgroundColor": "red",
+                  "borderRadius": 8,
+                  "marginBottom": 8,
+                  "marginRight": 8,
+                  "paddingHorizontal": 8,
+                  "paddingVertical": 4,
+                }
+              }
+            >
+              <Text
+                style={
+                  {
+                    "color": "white",
+                  }
+                }
+              >
+                Tag2
+              </Text>
+            </View>
+          </View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "opacity": 1,
+              }
+            }
+            testID="tagsTagButton"
+          >
+            <View
+              style={
+                {
+                  "backgroundColor": "red",
+                  "borderRadius": 8,
+                  "marginBottom": 8,
+                  "marginRight": 8,
+                  "paddingHorizontal": 8,
+                  "paddingVertical": 4,
+                }
+              }
+            >
+              <Text
+                style={
+                  {
+                    "color": "white",
+                  }
+                }
+              >
+                Tag3
+              </Text>
+            </View>
           </View>
         </View>
       </View>
+    </RCTScrollView>
+    <View
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "backgroundColor": "#007AFF",
+          "borderRadius": 5,
+          "opacity": 1,
+          "paddingHorizontal": 20,
+          "paddingVertical": 10,
+        }
+      }
+    >
       <Text
         style={
           {
-            "color": "#333",
-            "fontSize": 18,
-            "marginBottom": 8,
+            "color": "#fff",
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "textAlign": "center",
           }
         }
       >
-        Preferred Tags:
+        Sign Out
       </Text>
-      <View
-        style={
-          {
-            "flexDirection": "row",
-            "flexWrap": "wrap",
-            "padding": 8,
-          }
-        }
-      >
-        <View
-          accessibilityState={
-            {
-              "busy": undefined,
-              "checked": undefined,
-              "disabled": undefined,
-              "expanded": undefined,
-              "selected": undefined,
-            }
-          }
-          accessibilityValue={
-            {
-              "max": undefined,
-              "min": undefined,
-              "now": undefined,
-              "text": undefined,
-            }
-          }
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            {
-              "opacity": 1,
-            }
-          }
-          testID="tagsTagButton"
-        >
-          <View
-            style={
-              {
-                "backgroundColor": "red",
-                "borderRadius": 8,
-                "marginBottom": 8,
-                "marginRight": 8,
-                "paddingHorizontal": 8,
-                "paddingVertical": 4,
-              }
-            }
-          >
-            <Text
-              style={
-                {
-                  "color": "white",
-                }
-              }
-            >
-              Tag1
-            </Text>
-          </View>
-        </View>
-        <View
-          accessibilityState={
-            {
-              "busy": undefined,
-              "checked": undefined,
-              "disabled": undefined,
-              "expanded": undefined,
-              "selected": undefined,
-            }
-          }
-          accessibilityValue={
-            {
-              "max": undefined,
-              "min": undefined,
-              "now": undefined,
-              "text": undefined,
-            }
-          }
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            {
-              "opacity": 1,
-            }
-          }
-          testID="tagsTagButton"
-        >
-          <View
-            style={
-              {
-                "backgroundColor": "red",
-                "borderRadius": 8,
-                "marginBottom": 8,
-                "marginRight": 8,
-                "paddingHorizontal": 8,
-                "paddingVertical": 4,
-              }
-            }
-          >
-            <Text
-              style={
-                {
-                  "color": "white",
-                }
-              }
-            >
-              Tag2
-            </Text>
-          </View>
-        </View>
-        <View
-          accessibilityState={
-            {
-              "busy": undefined,
-              "checked": undefined,
-              "disabled": undefined,
-              "expanded": undefined,
-              "selected": undefined,
-            }
-          }
-          accessibilityValue={
-            {
-              "max": undefined,
-              "min": undefined,
-              "now": undefined,
-              "text": undefined,
-            }
-          }
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            {
-              "opacity": 1,
-            }
-          }
-          testID="tagsTagButton"
-        >
-          <View
-            style={
-              {
-                "backgroundColor": "red",
-                "borderRadius": 8,
-                "marginBottom": 8,
-                "marginRight": 8,
-                "paddingHorizontal": 8,
-                "paddingVertical": 4,
-              }
-            }
-          >
-            <Text
-              style={
-                {
-                  "color": "white",
-                }
-              }
-            >
-              Tag3
-            </Text>
-          </View>
-        </View>
-      </View>
     </View>
-  </RCTScrollView>
-</View>
+  </View>
+</RCTSafeAreaView>
 `;

@@ -13,6 +13,7 @@ import Contact from '../Views/Contact';
 import Organizations from '../Views/Organizations';
 import ThemeContext from '../contexts/ThemeContext';
 import Onboarding from '../Views/Onboarding/Onboarding';
+import SignInUp from '../Views/SignInUp';
 
 const Stack = createStackNavigator();
 
@@ -46,7 +47,16 @@ const MainNavigation = () => {
           headerStyle,
           headerTitleStyle,
         }}>
-        <Stack.Screen name={Routes.PetTypes} component={PetTypes} />
+        <Stack.Screen
+          name={Routes.SignInUp}
+          component={SignInUp}
+          options={{headerShadowVisible: false, headerTitle: () => null}}
+        />
+        <Stack.Screen
+          name={Routes.PetTypes}
+          component={PetTypes}
+          options={{headerLeft: () => null}}
+        />
         <Stack.Screen name={Routes.Breeds} component={Breeds} />
         <Stack.Screen name={Routes.Animals} component={Animals} />
         <Stack.Screen

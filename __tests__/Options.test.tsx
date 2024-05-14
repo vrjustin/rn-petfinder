@@ -8,6 +8,13 @@ import * as searchParamsReducer from '../reducers/searchParamsReducer';
 import Breed from '../models/Breed';
 import Options from '../Views/Options';
 
+jest.mock('@react-navigation/native', () => ({
+  useNavigation: () => ({
+    navigate: jest.fn(),
+    setOptions: jest.fn(),
+  }),
+}));
+
 const mockBreed: Breed = {
   name: 'MockBreed',
   _links: {

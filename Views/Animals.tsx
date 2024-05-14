@@ -17,6 +17,7 @@ import {
   selectFavorites,
 } from '../reducers/animalsReducer';
 import {selectSearchParameters} from '../reducers/searchParamsReducer';
+import {profile} from '../reducers/profileReducer';
 import Animal from '../models/Animal';
 import apiService from '../services/apiService';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
@@ -49,12 +50,20 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
   const animals = useSelector(selectAnimals);
   const favorites = useSelector(selectFavorites);
   const searchParameters = useSelector(selectSearchParameters);
+  const userProfile = useSelector(profile);
   const {location, distance, tagsPreferred} = searchParameters;
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const selectedBreeds = searchParameters.breedsPreferred;
   const globalStyles = GlobalStyles();
+
+  const isGuest = () => {
+    const {userName} = userProfile;
+    return userName === '' || userName === undefined || userName === null
+      ? true
+      : false;
+  };
 
   const toggleGridView = () => {
     setIsGridView(prevState => !prevState);
@@ -171,16 +180,18 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
           style={styles.gridItemBackground}
           imageStyle={styles.gridItemImage}>
           <View style={styles.gridItem}>
-            <View style={styles.gridItemFavorite}>
-              <TouchableOpacity onPress={() => handleFavorite(item)}>
-                <FontAwesomeIcon
-                  name={isFavorite(item) ? 'heart' : 'heart-o'}
-                  size={20}
-                  color={'white'}
-                  style={styles.icon}
-                />
-              </TouchableOpacity>
-            </View>
+            {!isGuest() && (
+              <View style={styles.gridItemFavorite}>
+                <TouchableOpacity onPress={() => handleFavorite(item)}>
+                  <FontAwesomeIcon
+                    name={isFavorite(item) ? 'heart' : 'heart-o'}
+                    size={20}
+                    color={'white'}
+                    style={styles.icon}
+                  />
+                </TouchableOpacity>
+              </View>
+            )}
             <View style={styles.gridItemTextRowContainer}>
               <View style={styles.gridItemTextRow}>
                 <Text style={styles.gridTextName}>{item.name},</Text>

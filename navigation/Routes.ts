@@ -1,4 +1,5 @@
 export const Routes = {
+  SignInUp: 'SignInUp',
   Onboarding: 'Onboarding',
   PetTypes: 'Home',
   Breeds: 'Breeds',

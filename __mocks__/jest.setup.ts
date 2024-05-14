@@ -14,3 +14,9 @@ jest.mock('react-native-splash-screen', () => ({
   show: jest.fn(),
   hide: jest.fn(),
 }));
+
+jest.mock('@okta/okta-react-native', () => ({
+  createConfig: jest.fn(),
+  signOut: jest.fn(),
+  signInWithBrowser: jest.fn(),
+}));
