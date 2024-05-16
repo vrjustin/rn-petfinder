@@ -12,6 +12,6 @@ module.exports = {
     '^.+\\.(js|jsx|mjs|cjs|ts|tsx)$': 'babel-jest',
   },
   transformIgnorePatterns: [
-    'node_modules/(?!(jest-)?react-native|@react-native|@react-native-community|@react-navigation|react-redux)',
+    'node_modules/(?!(jest-)?react-native|@react-native|@react-native-community|@react-navigation|react-redux|@okta)',
   ],
 };

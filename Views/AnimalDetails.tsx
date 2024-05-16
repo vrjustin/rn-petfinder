@@ -19,6 +19,7 @@ import {
   setSearchParameters,
   selectSearchParameters,
 } from '../reducers/searchParamsReducer';
+import {profile} from '../reducers/profileReducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Routes} from '../navigation/Routes';
 import en from '../strings/en.json';
@@ -51,6 +52,7 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
   const {selectedAnimal} = route.params;
   const {age, name, description, photos, contact, tags, attributes} =
     selectedAnimal;
+  const userProfile = useSelector(profile);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isFavorite, setIsFavorite] = useState(selectedAnimal.isFavorite);
   const animals = useSelector(selectAnimals);
@@ -58,6 +60,13 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
   const {tagsPreferred} = searchParameters;
   const navigation = useTypedNavigation();
   const dispatch = useDispatch();
+
+  const isGuest = () => {
+    const {userName} = userProfile;
+    return userName === '' || userName === undefined || userName === null
+      ? true
+      : false;
+  };
 
   const handleTagPress = (tag: string) => {
     if (!tagsPreferred.includes(tag)) {
@@ -125,16 +134,18 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
           }
           style={{flex: 1}}
           resizeMode="contain">
-          <View style={{position: 'absolute', top: 8, right: 8}}>
-            <TouchableOpacity onPress={() => handleFavorite(selectedAnimal)}>
-              <FontAwesomeIcon
-                name={isFavorite ? 'heart' : 'heart-o'}
-                size={20}
-                color={'white'}
-                style={{marginRight: 8}}
-              />
-            </TouchableOpacity>
-          </View>
+          {!isGuest() && (
+            <View style={{position: 'absolute', top: 8, right: 8}}>
+              <TouchableOpacity onPress={() => handleFavorite(selectedAnimal)}>
+                <FontAwesomeIcon
+                  name={isFavorite ? 'heart' : 'heart-o'}
+                  size={20}
+                  color={'white'}
+                  style={{marginRight: 8}}
+                />
+              </TouchableOpacity>
+            </View>
+          )}
           {renderIdCard()}
         </ImageBackground>
       </View>
