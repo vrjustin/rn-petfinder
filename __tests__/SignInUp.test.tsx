@@ -14,16 +14,17 @@ jest.mock('@react-navigation/native', () => ({
 let renderedSignInUpTree: any;
 
 describe('SignInUp', () => {
-  it('renders correctly when initialLoading true', () => {
+  it('renders correctly when initialLoading true', async () => {
     renderedSignInUpTree = renderer.create(
       <Provider store={store}>
         <SignInUp />
       </Provider>,
     );
+
     expect(renderedSignInUpTree.toJSON()).toMatchSnapshot();
   });
 
-  it('renders correctly when loading complete', () => {
+  it('renders correctly when loading complete', async () => {
     renderedSignInUpTree = renderer.create(
       <Provider store={store}>
         <SignInUp initialLoadingProp={false} />

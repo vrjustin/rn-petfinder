@@ -18,6 +18,7 @@ import {
 } from '../reducers/animalsReducer';
 import {selectSearchParameters} from '../reducers/searchParamsReducer';
 import {profile} from '../reducers/profileReducer';
+import {SignInMethod} from '../services/authenticationServices';
 import Animal from '../models/Animal';
 import apiService from '../services/apiService';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
@@ -59,8 +60,12 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
   const globalStyles = GlobalStyles();
 
   const isGuest = () => {
-    const {userName} = userProfile;
-    return userName === '' || userName === undefined || userName === null
+    const {userName, signInMethod} = userProfile;
+    return signInMethod === undefined ||
+      signInMethod === SignInMethod.Guest ||
+      userName === '' ||
+      userName === undefined ||
+      userName === null
       ? true
       : false;
   };

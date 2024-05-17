@@ -7,16 +7,25 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Image,
+  ScrollView,
 } from 'react-native';
-import {createConfig, signInWithBrowser} from '@okta/okta-react-native';
-import base64 from 'base-64';
 import SplashScreen from 'react-native-splash-screen';
-import * as Keychain from 'react-native-keychain';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import {useTypedNavigation, SignInUpProps} from '../types/NavigationTypes';
 import {Routes} from '../navigation/Routes';
-import {profile, setProfile} from '../reducers/profileReducer';
+import {profile} from '../reducers/profileReducer';
+import {
+  configureOkta,
+  fetchToken,
+  handleSignIn,
+  configureGoogleSignin,
+  handleSignInViaGoogle,
+  handleSignInViaGuest,
+  handleSignInViaApple,
+} from '../services/authenticationServices';
 
 const SignInUp: React.FC<SignInUpProps> = ({initialLoadingProp = true}) => {
+  const enableAppleSignIn = false; //After we have a paid apple dev account we can reenable.
   const navigation = useTypedNavigation();
   const dispatch = useDispatch();
   const userProfile = useSelector(profile);
@@ -24,83 +33,59 @@ const SignInUp: React.FC<SignInUpProps> = ({initialLoadingProp = true}) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const clientId = process.env.OKTA_CLIENT_ID || '';
-    const redirectUri = process.env.OKTA_REDIRECT_URI || '';
-    const endSessionRedirectUri =
-      process.env.OKTA_END_SESSION_REDIRECT_URI || '';
-    const discoveryUri = process.env.OKTA_DISCOVERY_URI || '';
-    const configureOkta = async () => {
-      try {
-        await createConfig({
-          clientId: clientId,
-          redirectUri: redirectUri,
-          endSessionRedirectUri: endSessionRedirectUri,
-          discoveryUri: discoveryUri,
-          scopes: ['openid', 'profile', 'offline_access'],
-          requireHardwareBackedKeyStore: true,
-        });
-      } catch (error) {
-        console.error('Failed to configure Okta: ', error);
+    fetchToken().then(credentials => {
+      if (credentials) {
+        navigation.navigate(Routes.PetTypes);
       }
-    };
-    configureOkta();
-
-    const fetchToken = async () => {
-      try {
-        const credentials = await Keychain.getGenericPassword();
-        if (credentials) {
-          console.log('Token retrieved from secure storage');
-          navigation.navigate(Routes.PetTypes);
-        }
-      } catch (error) {
-        console.error('Failed to load token from secure storage', error);
-      } finally {
-        setTimeout(() => {
-          setInitialLoading(false);
-          SplashScreen.hide();
-        }, 500);
-      }
-    };
-    fetchToken();
+      setTimeout(() => {
+        setInitialLoading(false);
+        SplashScreen.hide();
+      }, 500);
+    });
   }, [navigation]);
 
-  const decodeJWT = (token: string) => {
-    const base64Url = token.split('.')[1];
-    const decodedPayload = base64.decode(base64Url); // Use base64.decode to decode the base64Url
-    return JSON.parse(decodedPayload);
+  useEffect(() => {
+    configureOkta();
+    configureGoogleSignin();
+  }, []);
+
+  const handleSignInOktaPress = async () => {
+    setLoading(true);
+    handleSignIn(dispatch, userProfile).then(success => {
+      if (success) {
+        navigation.navigate(Routes.PetTypes);
+      }
+      setLoading(false);
+    });
   };
 
-  const handleSignInPress = async () => {
+  const handleSignInGooglePress = async () => {
     setLoading(true);
-    try {
-      const result = await signInWithBrowser();
-      console.log(
-        'handleSignInPress: result.accessToken: ',
-        result.access_token,
-      );
-      const decodedToken = decodeJWT(result.access_token);
-      const {sub} = decodedToken;
-      console.log('decodedToken is: ', decodedToken);
-      dispatch(
-        setProfile({
-          ...userProfile,
-          isRehydrated: userProfile.isRehydrated,
-          shouldOnboard: userProfile.shouldOnboard,
-          userName: sub,
-        }),
-      );
-      await Keychain.setGenericPassword('user', result.access_token);
-      console.log('Token stored securely');
-      navigation.navigate(Routes.PetTypes);
-    } catch (error) {
-      console.error('Sign in failed', error);
-    } finally {
+    handleSignInViaGoogle(dispatch, userProfile).then(success => {
+      if (success) {
+        navigation.navigate(Routes.PetTypes);
+      }
       setLoading(false);
-    }
+    });
+  };
+
+  const handleSignInApplePress = async () => {
+    console.log('handleSignInApplePress');
+    setLoading(true);
+    handleSignInViaApple(dispatch, userProfile).then(success => {
+      if (success) {
+        navigation.navigate(Routes.PetTypes);
+      }
+    });
+    setLoading(false);
   };
 
   const handleGuestPress = () => {
-    navigation.navigate(Routes.PetTypes);
+    handleSignInViaGuest(dispatch, userProfile).then(success => {
+      if (success) {
+        navigation.navigate(Routes.PetTypes);
+      }
+    });
   };
 
   const renderLoadingIndicator = () => {
@@ -125,21 +110,69 @@ const SignInUp: React.FC<SignInUpProps> = ({initialLoadingProp = true}) => {
           style={styles.logo}
         />
         <View style={styles.bottomContainer}>
-          <Text style={styles.infoText}>
-            Welcome! Please sign in to access your account. If you don't have an
-            account, you can create one from the Sign In screen. Continue as
-            Guest if you just want to poke around anyway.
-          </Text>
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.button} onPress={handleSignInPress}>
-              <Text style={styles.buttonText}>Sign In</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.guestButton}
-              onPress={handleGuestPress}>
-              <Text style={styles.guestButtonText}>Continue as Guest</Text>
-            </TouchableOpacity>
-          </View>
+          <ScrollView>
+            <Text style={styles.infoText}>
+              Welcome! Please sign in to access your account. If you don't have
+              an account, you can create one from the Sign In screen. Continue
+              as Guest if you just want to poke around anyway.
+            </Text>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={handleSignInGooglePress}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <FontAwesomeIcon
+                    name={'google'}
+                    size={20}
+                    color={'white'}
+                    style={styles.icon}
+                  />
+                  <Text style={styles.buttonText}>Sign In via Google</Text>
+                </View>
+              </TouchableOpacity>
+              {enableAppleSignIn && (
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={handleSignInApplePress}>
+                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <FontAwesomeIcon
+                      name={'apple'}
+                      size={20}
+                      color={'white'}
+                      style={styles.icon}
+                    />
+                    <Text style={styles.buttonText}>Sign In via Apple</Text>
+                  </View>
+                </TouchableOpacity>
+              )}
+              <TouchableOpacity
+                style={styles.button}
+                onPress={handleSignInOktaPress}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <FontAwesomeIcon
+                    name={'safari'}
+                    size={20}
+                    color={'white'}
+                    style={styles.icon}
+                  />
+                  <Text style={styles.buttonText}>Sign In via Okta</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.guestButton}
+                onPress={handleGuestPress}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <FontAwesomeIcon
+                    name={'sign-in'}
+                    size={20}
+                    color={'black'}
+                    style={{fontSize: 20, color: 'black', paddingRight: 8}}
+                  />
+                  <Text style={styles.guestButtonText}>Continue as Guest</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
         </View>
       </View>
     );
@@ -190,7 +223,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 20,
     paddingHorizontal: 10,
-    alignSelf: 'flex-start',
     marginTop: 16,
   },
   buttonContainer: {
@@ -213,6 +245,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  icon: {
+    fontSize: 20,
+    color: 'white',
+    paddingRight: 8,
   },
   guestButton: {
     backgroundColor: '#ccc',

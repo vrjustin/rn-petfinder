@@ -89,6 +89,17 @@ exports[`Options renders correctly 1`] = `
       </View>
     </RCTScrollView>
     <View
+      style={
+        {
+          "paddingVertical": 8,
+        }
+      }
+    >
+      <Text>
+        Account: 
+      </Text>
+    </View>
+    <View
       accessibilityState={
         {
           "busy": undefined,
@@ -563,6 +574,17 @@ exports[`Options renders correctly when preferredTags and breeds are present 1`]
         </View>
       </View>
     </RCTScrollView>
+    <View
+      style={
+        {
+          "paddingVertical": 8,
+        }
+      }
+    >
+      <Text>
+        Account: 
+      </Text>
+    </View>
     <View
       accessibilityState={
         {

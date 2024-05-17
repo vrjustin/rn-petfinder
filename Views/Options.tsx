@@ -9,7 +9,6 @@ import {
   ScrollView,
   SafeAreaView,
 } from 'react-native';
-import {signOut} from '@okta/okta-react-native';
 import {
   selectSearchParameters,
   setSearchParameters,
@@ -19,6 +18,12 @@ import Breed from '../models/Breed';
 import en from '../strings/en.json';
 import {Routes} from '../navigation/Routes';
 import {profile, setProfile} from '../reducers/profileReducer';
+import {
+  signOutOkta,
+  signOutGoogle,
+  SignInMethod,
+  signOutGuest,
+} from '../services/authenticationServices';
 
 const Options: React.FC<OptionsProps> = ({route}) => {
   const dispatch = useDispatch();
@@ -29,15 +34,6 @@ const Options: React.FC<OptionsProps> = ({route}) => {
   const {distance, location, tagsPreferred, breedsPreferred} = searchParameters;
   const [displayZip, setDisplayZip] = useState(location.zipCode);
   const [displayDistance, setDisplayDistance] = useState(distance.toString());
-
-  const isGuest = () => {
-    const {userName} = userProfile;
-    return userName === '' || userName === undefined || userName === null
-      ? true
-      : false;
-  };
-
-  console.log('Options :: Guest Mode? : ', isGuest());
 
   const handleZipCodeChange = (newZip: string) => {
     setDisplayZip(newZip);
@@ -98,9 +94,14 @@ const Options: React.FC<OptionsProps> = ({route}) => {
   };
 
   const handleSignOut = () => {
-    if (!isGuest()) {
-      signOut()
-        .then(() => {
+    const {signInMethod} = userProfile;
+    switch (signInMethod) {
+      case SignInMethod.Apple:
+        console.log('SignOutViaApple');
+        break;
+      case SignInMethod.Google:
+        console.log('SignOutViaGoogle');
+        signOutGoogle().then(() => {
           dispatch(
             setProfile({
               ...userProfile,
@@ -110,12 +111,34 @@ const Options: React.FC<OptionsProps> = ({route}) => {
             }),
           );
           navigation.navigate(Routes.SignInUp);
-        })
-        .catch(error => {
-          console.error(error);
         });
-    } else {
-      navigation.navigate(Routes.SignInUp);
+        break;
+      case SignInMethod.Okta:
+        console.log('SignOutViaOkta');
+        signOutOkta().then(() => {
+          dispatch(
+            setProfile({
+              ...userProfile,
+              shouldOnboard: userProfile.shouldOnboard,
+              isRehydrated: false,
+              userName: '',
+            }),
+          );
+          navigation.navigate(Routes.SignInUp);
+        });
+        break;
+      case SignInMethod.Guest:
+        signOutGuest().then(() => {
+          dispatch(
+            setProfile({
+              ...userProfile,
+              shouldOnboard: userProfile.shouldOnboard,
+              isRehydrated: false,
+              userName: '',
+            }),
+          );
+          navigation.navigate(Routes.SignInUp);
+        });
     }
   };
 
@@ -190,11 +213,9 @@ const Options: React.FC<OptionsProps> = ({route}) => {
             </>
           )}
         </ScrollView>
-        {!isGuest() && (
-          <View style={styles.accountName}>
-            <Text>Account: {userProfile.userName}</Text>
-          </View>
-        )}
+        <View style={styles.accountName}>
+          <Text>Account: {userProfile.userName}</Text>
+        </View>
         <TouchableOpacity style={styles.button} onPress={handleSignOut}>
           <Text style={styles.buttonText}>Sign Out</Text>
         </TouchableOpacity>
