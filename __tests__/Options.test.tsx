@@ -23,13 +23,30 @@ const mockBreed: Breed = {
     },
   },
 };
+const mockBreed2: Breed = {
+  name: 'MockBreed2',
+  _links: {
+    type: {
+      href: 'href',
+    },
+  },
+};
+
 const mockSearchParameters: SearchParameters = {
   location: {
     zipCode: '90210',
   },
   distance: 5,
   tagsPreferred: ['Tag1', 'Tag2', 'Tag3'],
-  breedsPreferred: [mockBreed],
+  breedsPreferred: [mockBreed, mockBreed2],
+};
+
+const mockRouteParams: any = {
+  key: 'mockKey',
+  name: 'Options',
+  params: {
+    from: 'hello',
+  },
 };
 
 let renderedOptionsTree: any;
@@ -42,7 +59,7 @@ describe('Options', () => {
   it('renders correctly', () => {
     renderedOptionsTree = renderer.create(
       <Provider store={store}>
-        <Options route={{params: {from: 'hello'}}} />
+        <Options route={mockRouteParams} />
       </Provider>,
     );
     expect(renderedOptionsTree.toJSON()).toMatchSnapshot();
@@ -54,7 +71,7 @@ describe('Options', () => {
       .mockReturnValue(mockSearchParameters);
     renderedOptionsTree = renderer.create(
       <Provider store={store}>
-        <Options route={{params: {from: 'hello'}}} />
+        <Options route={mockRouteParams} />
       </Provider>,
     );
     expect(renderedOptionsTree.toJSON()).toMatchSnapshot();
@@ -63,7 +80,7 @@ describe('Options', () => {
   it('updates displayZip state correctly on zip code change', () => {
     renderedOptionsTree = renderer.create(
       <Provider store={store}>
-        <Options route={{params: {from: 'hello'}}} />
+        <Options route={mockRouteParams} />
       </Provider>,
     );
     const textInput = renderedOptionsTree.root.findByProps({
@@ -81,7 +98,7 @@ describe('Options', () => {
 
     renderedOptionsTree = renderer.create(
       <Provider store={store}>
-        <Options route={{params: {from: 'hello'}}} />
+        <Options route={mockRouteParams} />
       </Provider>,
     );
     const textInput = renderedOptionsTree.root.findByProps({
@@ -102,7 +119,7 @@ describe('Options', () => {
 
     renderedOptionsTree = renderer.create(
       <Provider store={store}>
-        <Options route={{params: {from: 'hello'}}} />
+        <Options route={mockRouteParams} />
       </Provider>,
     );
     const textInput = renderedOptionsTree.root.findByProps({
@@ -120,7 +137,7 @@ describe('Options', () => {
   it('updates displayDistance state correctly on zip code change', () => {
     renderedOptionsTree = renderer.create(
       <Provider store={store}>
-        <Options route={{params: {from: 'hello'}}} />
+        <Options route={mockRouteParams} />
       </Provider>,
     );
     const textInput = renderedOptionsTree.root.findByProps({
@@ -142,20 +159,20 @@ describe('Options', () => {
 
     renderedOptionsTree = renderer.create(
       <Provider store={store}>
-        <Options route={{params: {from: 'petTypes'}}} />
+        <Options route={mockRouteParams} />
       </Provider>,
     );
-
-    const preferredBreedButton = renderedOptionsTree.root.findByProps({
+    const preferredBreedButtons = renderedOptionsTree.root.findAllByProps({
       testID: 'breedsTagButton',
     });
+    const preferredBreedButton = preferredBreedButtons[0];
     preferredBreedButton.props.onPress();
 
     // Get the latest dispatched action
     const dispatchedAction = mockDispatch.mock.calls[0][0];
 
     expect(dispatchedAction.type).toBe('searchParameters/setSearchParameters');
-    expect(dispatchedAction.payload.breedsPreferred).toEqual([]);
+    expect(dispatchedAction.payload.breedsPreferred.length).toEqual(1);
   });
 
   it('handles the tags tag press properly and removes that tag', () => {
@@ -168,7 +185,7 @@ describe('Options', () => {
 
     renderedOptionsTree = renderer.create(
       <Provider store={store}>
-        <Options route={{params: {from: 'petTypes'}}} />
+        <Options route={mockRouteParams} />
       </Provider>,
     );
 

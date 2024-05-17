@@ -29,6 +29,8 @@ describe('Animals', () => {
         <Provider store={store}>
           <Animals
             route={{
+              key: 'mockKey',
+              name: 'Animals',
               params: {
                 petType: mockPetTypeDog,
                 selectedBreeds: mockBreeds,
@@ -46,6 +48,8 @@ describe('Animals', () => {
       <Provider store={store}>
         <Animals
           route={{
+            key: 'mockKey',
+            name: 'Animals',
             params: {
               petType: mockPetTypeDog,
               selectedBreeds: mockBreeds,
@@ -70,6 +74,8 @@ describe('Animals', () => {
       <Provider store={store}>
         <Animals
           route={{
+            key: 'mockKey',
+            name: 'Animals',
             params: {
               petType: mockPetTypeDog,
               selectedBreeds: mockBreeds,

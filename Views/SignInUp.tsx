@@ -12,11 +12,11 @@ import {createConfig, signInWithBrowser} from '@okta/okta-react-native';
 import base64 from 'base-64';
 import SplashScreen from 'react-native-splash-screen';
 import * as Keychain from 'react-native-keychain';
-import {useTypedNavigation} from '../types/NavigationTypes';
+import {useTypedNavigation, SignInUpProps} from '../types/NavigationTypes';
 import {Routes} from '../navigation/Routes';
 import {profile, setProfile} from '../reducers/profileReducer';
 
-const SignInUp: React.FC = ({initialLoadingProp = true}) => {
+const SignInUp: React.FC<SignInUpProps> = ({initialLoadingProp = true}) => {
   const navigation = useTypedNavigation();
   const dispatch = useDispatch();
   const userProfile = useSelector(profile);

@@ -14,13 +14,13 @@ import {
   selectSearchParameters,
   setSearchParameters,
 } from '../reducers/searchParamsReducer';
-import {useTypedNavigation} from '../types/NavigationTypes';
+import {useTypedNavigation, OptionsProps} from '../types/NavigationTypes';
 import Breed from '../models/Breed';
 import en from '../strings/en.json';
 import {Routes} from '../navigation/Routes';
 import {profile, setProfile} from '../reducers/profileReducer';
 
-const Options: React.FC = ({route}) => {
+const Options: React.FC<OptionsProps> = ({route}) => {
   const dispatch = useDispatch();
   const navigation = useTypedNavigation();
   const {from} = route.params;
