@@ -99,6 +99,7 @@ describe('apiService', () => {
       await apiService.getAccessToken();
 
       const mockType: PetType = {
+        displayName: 'Dog',
         name: 'Dog',
         coats: [],
         colors: [],
@@ -139,6 +140,7 @@ describe('apiService', () => {
       await apiService.getAccessToken();
 
       const mockType: PetType = {
+        displayName: 'Dog',
         name: 'Dog',
         coats: [],
         colors: [],
@@ -168,6 +170,7 @@ describe('apiService', () => {
       await apiService.getAccessToken();
 
       const mockType: PetType = {
+        displayName: 'Dog',
         name: 'Dog',
         coats: [],
         colors: [],
@@ -203,6 +206,7 @@ describe('apiService', () => {
         },
         distance: 500,
         tagsPreferred: [],
+        breedsPreferred: [],
       };
 
       const animalsResponse = await apiService.getAnimals(
@@ -229,6 +233,7 @@ describe('apiService', () => {
 
     it('should handle error when fetching animals', async () => {
       const mockType: PetType = {
+        displayName: 'Dog',
         name: 'Dog',
         coats: [],
         colors: [],
@@ -253,11 +258,12 @@ describe('apiService', () => {
         },
         distance: 500,
         tagsPreferred: [],
+        breedsPreferred: [],
       };
 
       const animalsResponse = await apiService.getAnimals(
         mockType,
-        mockBreed,
+        [mockBreed],
         searchParameters.location.zipCode,
         searchParameters.distance,
         1,

@@ -21,6 +21,8 @@ describe('AnimalDetails', () => {
         <Provider store={store}>
           <AnimalDetails
             route={{
+              key: 'mockKey',
+              name: 'Animal',
               params: {
                 selectedAnimal: selectedAnimalMock,
               },

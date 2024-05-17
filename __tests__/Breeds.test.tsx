@@ -34,6 +34,7 @@ describe('Breeds', () => {
   it('renders correctly', async () => {
     let renderedBreedsTree: any;
     let mockedPetType: PetType = {
+      displayName: 'Dog',
       name: 'Dog',
       coats: [],
       colors: [],
