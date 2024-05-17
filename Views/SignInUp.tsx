@@ -16,11 +16,11 @@ import {useTypedNavigation} from '../types/NavigationTypes';
 import {Routes} from '../navigation/Routes';
 import {profile, setProfile} from '../reducers/profileReducer';
 
-const SignInUp: React.FC = () => {
+const SignInUp: React.FC = ({initialLoadingProp = true}) => {
   const navigation = useTypedNavigation();
   const dispatch = useDispatch();
   const userProfile = useSelector(profile);
-  const [initialLoading, setInitialLoading] = useState(true);
+  const [initialLoading, setInitialLoading] = useState(initialLoadingProp);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -103,18 +103,6 @@ const SignInUp: React.FC = () => {
     navigation.navigate(Routes.PetTypes);
   };
 
-  if (initialLoading) {
-    return (
-      <View style={styles.container}>
-        <ActivityIndicator size="large" color="#007AFF" />
-      </View>
-    );
-  }
-
-  if (!loading) {
-    SplashScreen.hide();
-  }
-
   const renderLoadingIndicator = () => {
     return (
       <View style={styles.container}>
@@ -157,7 +145,13 @@ const SignInUp: React.FC = () => {
     );
   };
 
-  return loading ? renderLoadingIndicator() : renderSignInPage();
+  if (!loading) {
+    SplashScreen.hide();
+  }
+
+  return initialLoading || loading
+    ? renderLoadingIndicator()
+    : renderSignInPage();
 };
 
 const styles = StyleSheet.create({

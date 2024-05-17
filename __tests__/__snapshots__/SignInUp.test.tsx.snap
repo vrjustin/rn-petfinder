@@ -1,0 +1,236 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SignInUp renders correctly when initialLoading true 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "backgroundColor": "#ffffff",
+      "flex": 1,
+      "justifyContent": "center",
+      "padding": 20,
+    }
+  }
+>
+  <ActivityIndicator
+    animating={false}
+    color="#007AFF"
+    size="large"
+  />
+</View>
+`;
+
+exports[`SignInUp renders correctly when loading complete 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "backgroundColor": "#ffffff",
+      "flex": 1,
+      "justifyContent": "center",
+      "padding": 20,
+    }
+  }
+>
+  <Text
+    style={
+      {
+        "color": "#007AFF",
+        "fontSize": 24,
+        "fontWeight": "bold",
+        "marginBottom": 10,
+      }
+    }
+  >
+    My PetFinder
+  </Text>
+  <Text
+    style={
+      {
+        "color": "#007AFF",
+        "fontSize": 16,
+        "marginBottom": 30,
+      }
+    }
+  >
+    Adopt, Don't Shop!
+  </Text>
+  <Image
+    source={
+      {
+        "default": "",
+      }
+    }
+    style={
+      {
+        "height": 200,
+        "marginBottom": 20,
+        "width": 200,
+      }
+    }
+  />
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flex": 1,
+        "justifyContent": "space-between",
+        "width": "100%",
+      }
+    }
+  >
+    <Text
+      style={
+        {
+          "alignSelf": "flex-start",
+          "color": "#333",
+          "fontSize": 16,
+          "marginBottom": 20,
+          "marginTop": 16,
+          "paddingHorizontal": 10,
+          "textAlign": "center",
+        }
+      }
+    >
+      Welcome! Please sign in to access your account. If you don't have an account, you can create one from the Sign In screen. Continue as Guest if you just want to poke around anyway.
+    </Text>
+    <View
+      style={
+        {
+          "alignItems": "center",
+          "justifyContent": "flex-end",
+          "marginBottom": 32,
+          "width": "100%",
+        }
+      }
+    >
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "alignItems": "center",
+            "backgroundColor": "#007AFF",
+            "borderRadius": 5,
+            "marginBottom": 10,
+            "opacity": 1,
+            "paddingHorizontal": 30,
+            "paddingVertical": 15,
+            "width": "80%",
+          }
+        }
+      >
+        <Text
+          style={
+            {
+              "color": "#fff",
+              "fontSize": 16,
+              "fontWeight": "bold",
+              "textAlign": "center",
+            }
+          }
+        >
+          Sign In
+        </Text>
+      </View>
+      <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "alignItems": "center",
+            "backgroundColor": "#ccc",
+            "borderRadius": 5,
+            "opacity": 1,
+            "paddingHorizontal": 30,
+            "paddingVertical": 15,
+            "width": "80%",
+          }
+        }
+      >
+        <Text
+          style={
+            {
+              "color": "#333",
+              "fontSize": 16,
+              "fontWeight": "bold",
+              "textAlign": "center",
+            }
+          }
+        >
+          Continue as Guest
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`SignInUp renders correctly when loading true 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "backgroundColor": "#ffffff",
+      "flex": 1,
+      "justifyContent": "center",
+      "padding": 20,
+    }
+  }
+>
+  <ActivityIndicator
+    color="#007AFF"
+    size="large"
+  />
+</View>
+`;
