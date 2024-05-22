@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import Animal from '../models/Animal';
+import {SignInMethod} from '../services/authenticationServices';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import {AnimalProps, useTypedNavigation} from '../types/NavigationTypes';
 import {setAnimals, selectAnimals} from '../reducers/animalsReducer';
@@ -62,8 +63,12 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
   const dispatch = useDispatch();
 
   const isGuest = () => {
-    const {userName} = userProfile;
-    return userName === '' || userName === undefined || userName === null
+    const {userName, signInMethod} = userProfile;
+    return signInMethod === undefined ||
+      signInMethod === SignInMethod.Guest ||
+      userName === '' ||
+      userName === undefined ||
+      userName === null
       ? true
       : false;
   };

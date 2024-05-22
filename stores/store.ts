@@ -40,12 +40,15 @@ const store = configureStore({
 
 const useOnRehydrated = () => {
   console.log('Rehydration completed...');
-  const shouldOB = store.getState().profile.profile.shouldOnboard;
+  const userProfile = store.getState().profile.profile;
+  const {shouldOnboard, userName, signInMethod} = userProfile;
   store.dispatch(
     setProfile({
       ...profile,
-      shouldOnboard: shouldOB,
+      shouldOnboard: shouldOnboard,
       isRehydrated: true,
+      userName: userName,
+      signInMethod: signInMethod,
     }),
   );
 };

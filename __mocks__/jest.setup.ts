@@ -20,3 +20,17 @@ jest.mock('@okta/okta-react-native', () => ({
   signOut: jest.fn(),
   signInWithBrowser: jest.fn(),
 }));
+
+jest.mock('../services/authenticationServices.ts', () => ({
+  configureGoogleSignin: jest.fn(),
+  configureOkta: jest.fn(),
+  signOutOkta: jest.fn(),
+  signOutGoogle: jest.fn(),
+  signOutGuest: jest.fn(),
+  handleSignInViaGoogle: jest.fn(),
+  handleSignInViaGuest: jest.fn(),
+  handleSignIn: jest.fn(),
+  fetchToken: jest.fn(() => Promise.resolve(null)),
+}));
+
+jest.mock('@react-native-google-signin/google-signin', () => ({}));

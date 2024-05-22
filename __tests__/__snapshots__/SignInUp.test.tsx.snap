@@ -79,139 +79,298 @@ exports[`SignInUp renders correctly when loading complete 1`] = `
       }
     }
   >
-    <Text
-      style={
-        {
-          "alignSelf": "flex-start",
-          "color": "#333",
-          "fontSize": 16,
-          "marginBottom": 20,
-          "marginTop": 16,
-          "paddingHorizontal": 10,
-          "textAlign": "center",
-        }
-      }
-    >
-      Welcome! Please sign in to access your account. If you don't have an account, you can create one from the Sign In screen. Continue as Guest if you just want to poke around anyway.
-    </Text>
-    <View
-      style={
-        {
-          "alignItems": "center",
-          "justifyContent": "flex-end",
-          "marginBottom": 32,
-          "width": "100%",
-        }
-      }
-    >
-      <View
-        accessibilityState={
-          {
-            "busy": undefined,
-            "checked": undefined,
-            "disabled": undefined,
-            "expanded": undefined,
-            "selected": undefined,
-          }
-        }
-        accessibilityValue={
-          {
-            "max": undefined,
-            "min": undefined,
-            "now": undefined,
-            "text": undefined,
-          }
-        }
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        style={
-          {
-            "alignItems": "center",
-            "backgroundColor": "#007AFF",
-            "borderRadius": 5,
-            "marginBottom": 10,
-            "opacity": 1,
-            "paddingHorizontal": 30,
-            "paddingVertical": 15,
-            "width": "80%",
-          }
-        }
-      >
-        <Text
-          style={
-            {
-              "color": "#fff",
-              "fontSize": 16,
-              "fontWeight": "bold",
-              "textAlign": "center",
-            }
-          }
-        >
-          Sign In
-        </Text>
-      </View>
-      <View
-        accessibilityState={
-          {
-            "busy": undefined,
-            "checked": undefined,
-            "disabled": undefined,
-            "expanded": undefined,
-            "selected": undefined,
-          }
-        }
-        accessibilityValue={
-          {
-            "max": undefined,
-            "min": undefined,
-            "now": undefined,
-            "text": undefined,
-          }
-        }
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        onClick={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        style={
-          {
-            "alignItems": "center",
-            "backgroundColor": "#ccc",
-            "borderRadius": 5,
-            "opacity": 1,
-            "paddingHorizontal": 30,
-            "paddingVertical": 15,
-            "width": "80%",
-          }
-        }
-      >
+    <RCTScrollView>
+      <View>
         <Text
           style={
             {
               "color": "#333",
               "fontSize": 16,
-              "fontWeight": "bold",
+              "marginBottom": 20,
+              "marginTop": 16,
+              "paddingHorizontal": 10,
               "textAlign": "center",
             }
           }
         >
-          Continue as Guest
+          Welcome! Please sign in to access your account. If you don't have an account, you can create one from the Sign In screen. Continue as Guest if you just want to poke around anyway.
         </Text>
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "justifyContent": "flex-end",
+              "marginBottom": 32,
+              "width": "100%",
+            }
+          }
+        >
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "alignItems": "center",
+                "backgroundColor": "#007AFF",
+                "borderRadius": 5,
+                "marginBottom": 10,
+                "opacity": 1,
+                "paddingHorizontal": 30,
+                "paddingVertical": 15,
+                "width": "80%",
+              }
+            }
+          >
+            <View
+              style={
+                {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                selectable={false}
+                style={
+                  [
+                    {
+                      "color": "white",
+                      "fontSize": 20,
+                    },
+                    {
+                      "color": "white",
+                      "fontSize": 20,
+                      "paddingRight": 8,
+                    },
+                    {
+                      "fontFamily": "FontAwesome",
+                      "fontStyle": "normal",
+                      "fontWeight": "normal",
+                    },
+                    {},
+                  ]
+                }
+              >
+                
+              </Text>
+              <Text
+                style={
+                  {
+                    "color": "#fff",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "textAlign": "center",
+                  }
+                }
+              >
+                Sign In via Google
+              </Text>
+            </View>
+          </View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "alignItems": "center",
+                "backgroundColor": "#007AFF",
+                "borderRadius": 5,
+                "marginBottom": 10,
+                "opacity": 1,
+                "paddingHorizontal": 30,
+                "paddingVertical": 15,
+                "width": "80%",
+              }
+            }
+          >
+            <View
+              style={
+                {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                selectable={false}
+                style={
+                  [
+                    {
+                      "color": "white",
+                      "fontSize": 20,
+                    },
+                    {
+                      "color": "white",
+                      "fontSize": 20,
+                      "paddingRight": 8,
+                    },
+                    {
+                      "fontFamily": "FontAwesome",
+                      "fontStyle": "normal",
+                      "fontWeight": "normal",
+                    },
+                    {},
+                  ]
+                }
+              >
+                
+              </Text>
+              <Text
+                style={
+                  {
+                    "color": "#fff",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "textAlign": "center",
+                  }
+                }
+              >
+                Sign In via Okta
+              </Text>
+            </View>
+          </View>
+          <View
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "alignItems": "center",
+                "backgroundColor": "#ccc",
+                "borderRadius": 5,
+                "opacity": 1,
+                "paddingHorizontal": 30,
+                "paddingVertical": 15,
+                "width": "80%",
+              }
+            }
+          >
+            <View
+              style={
+                {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <Text
+                allowFontScaling={false}
+                selectable={false}
+                style={
+                  [
+                    {
+                      "color": "black",
+                      "fontSize": 20,
+                    },
+                    {
+                      "color": "black",
+                      "fontSize": 20,
+                      "paddingRight": 8,
+                    },
+                    {
+                      "fontFamily": "FontAwesome",
+                      "fontStyle": "normal",
+                      "fontWeight": "normal",
+                    },
+                    {},
+                  ]
+                }
+              >
+                
+              </Text>
+              <Text
+                style={
+                  {
+                    "color": "#333",
+                    "fontSize": 16,
+                    "fontWeight": "bold",
+                    "textAlign": "center",
+                  }
+                }
+              >
+                Continue as Guest
+              </Text>
+            </View>
+          </View>
+        </View>
       </View>
-    </View>
+    </RCTScrollView>
   </View>
 </View>
 `;
