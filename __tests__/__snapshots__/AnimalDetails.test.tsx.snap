@@ -28,7 +28,7 @@ exports[`AnimalDetails renders correctly 1`] = `
         resizeMode="contain"
         source={
           {
-            "uri": "https://example.com/large.jpg",
+            "uri": "https://example.com/large0.jpg",
           }
         }
         style={
@@ -154,10 +154,16 @@ exports[`AnimalDetails renders correctly 1`] = `
         data={
           [
             {
-              "full": "https://example.com/full.jpg",
-              "large": "https://example.com/large.jpg",
-              "medium": "https://example.com/medium.jpg",
-              "small": "https://example.com/small.jpg",
+              "full": "https://example.com/full0.jpg",
+              "large": "https://example.com/large0.jpg",
+              "medium": "https://example.com/medium0.jpg",
+              "small": "https://example.com/small0.jpg",
+            },
+            {
+              "full": "https://example.com/full1.jpg",
+              "large": "https://example.com/large1.jpg",
+              "medium": "https://example.com/medium1.jpg",
+              "small": "https://example.com/small1.jpg",
             },
           ]
         }
@@ -225,17 +231,83 @@ exports[`AnimalDetails renders correctly 1`] = `
                     "opacity": 1,
                   }
                 }
+                testID="AnimalDetailsGalleryItem-0"
               >
                 <Image
                   source={
                     {
-                      "uri": "https://example.com/small.jpg",
+                      "uri": "https://example.com/small0.jpg",
                     }
                   }
                   style={
                     {
                       "borderColor": "red",
                       "borderWidth": 2,
+                      "height": 100,
+                      "margin": 5,
+                      "width": 100,
+                    }
+                  }
+                />
+              </View>
+            </View>
+          </View>
+          <View
+            onFocusCapture={[Function]}
+            onLayout={[Function]}
+            style={
+              [
+                {
+                  "flexDirection": "row",
+                },
+                null,
+              ]
+            }
+          >
+            <View>
+              <View
+                accessibilityState={
+                  {
+                    "busy": undefined,
+                    "checked": undefined,
+                    "disabled": undefined,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onClick={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  {
+                    "opacity": 1,
+                  }
+                }
+                testID="AnimalDetailsGalleryItem-1"
+              >
+                <Image
+                  source={
+                    {
+                      "uri": "https://example.com/small1.jpg",
+                    }
+                  }
+                  style={
+                    {
                       "height": 100,
                       "margin": 5,
                       "width": 100,
@@ -449,6 +521,7 @@ exports[`AnimalDetails renders correctly 1`] = `
               "opacity": 1,
             }
           }
+          testID="AnimalDetailsTag-Friendly"
         >
           <View
             style={
@@ -506,6 +579,7 @@ exports[`AnimalDetails renders correctly 1`] = `
               "opacity": 1,
             }
           }
+          testID="AnimalDetailsTag-Playful"
         >
           <View
             style={

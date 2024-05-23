@@ -52,6 +52,7 @@ const Organizations = () => {
 
   const renderOrg = ({item}: {item: Organization}) => (
     <TouchableOpacity
+      testID={`Organizations-Org-${item.id}`}
       style={styles.orgContainer}
       onPress={() => Linking.openURL(item.url)}>
       <View style={styles.iconContainer}>

@@ -101,7 +101,9 @@ const Breeds: React.FC<BreedsProps> = ({route}) => {
   };
 
   const renderItem = ({item}: {item: Breed}) => (
-    <TouchableOpacity onPress={() => handleBreedSelection(item)}>
+    <TouchableOpacity
+      testID={`Breeds-Breed-${item.name}`}
+      onPress={() => handleBreedSelection(item)}>
       <View style={styles.item}>
         <FontAwesomeIcon
           name="paw"

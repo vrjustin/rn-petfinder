@@ -21,11 +21,9 @@ import {
   configureGoogleSignin,
   handleSignInViaGoogle,
   handleSignInViaGuest,
-  handleSignInViaApple,
 } from '../services/authenticationServices';
 
 const SignInUp: React.FC<SignInUpProps> = ({initialLoadingProp = true}) => {
-  const enableAppleSignIn = false; //After we have a paid apple dev account we can reenable.
   const navigation = useTypedNavigation();
   const dispatch = useDispatch();
   const userProfile = useSelector(profile);
@@ -69,17 +67,6 @@ const SignInUp: React.FC<SignInUpProps> = ({initialLoadingProp = true}) => {
     });
   };
 
-  const handleSignInApplePress = async () => {
-    console.log('handleSignInApplePress');
-    setLoading(true);
-    handleSignInViaApple(dispatch, userProfile).then(success => {
-      if (success) {
-        navigation.navigate(Routes.PetTypes);
-      }
-    });
-    setLoading(false);
-  };
-
   const handleGuestPress = () => {
     handleSignInViaGuest(dispatch, userProfile).then(success => {
       if (success) {
@@ -118,55 +105,43 @@ const SignInUp: React.FC<SignInUpProps> = ({initialLoadingProp = true}) => {
             </Text>
             <View style={styles.buttonContainer}>
               <TouchableOpacity
+                testID="SignInUp-Button-GoogleSignIn"
                 style={styles.button}
                 onPress={handleSignInGooglePress}>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <View style={styles.iconTextContainer}>
                   <FontAwesomeIcon
                     name={'google'}
                     size={20}
                     color={'white'}
-                    style={styles.icon}
+                    style={styles.iconWhite}
                   />
                   <Text style={styles.buttonText}>Sign In via Google</Text>
                 </View>
               </TouchableOpacity>
-              {enableAppleSignIn && (
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={handleSignInApplePress}>
-                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <FontAwesomeIcon
-                      name={'apple'}
-                      size={20}
-                      color={'white'}
-                      style={styles.icon}
-                    />
-                    <Text style={styles.buttonText}>Sign In via Apple</Text>
-                  </View>
-                </TouchableOpacity>
-              )}
               <TouchableOpacity
+                testID="SignInUp-Button-OktaSignIn"
                 style={styles.button}
                 onPress={handleSignInOktaPress}>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <View style={styles.iconTextContainer}>
                   <FontAwesomeIcon
                     name={'safari'}
                     size={20}
                     color={'white'}
-                    style={styles.icon}
+                    style={styles.iconWhite}
                   />
                   <Text style={styles.buttonText}>Sign In via Okta</Text>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
+                testID="SignInUp-Button-Guest"
                 style={styles.guestButton}
                 onPress={handleGuestPress}>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <View style={styles.iconTextContainer}>
                   <FontAwesomeIcon
                     name={'sign-in'}
                     size={20}
                     color={'black'}
-                    style={{fontSize: 20, color: 'black', paddingRight: 8}}
+                    style={styles.iconBlack}
                   />
                   <Text style={styles.guestButtonText}>Continue as Guest</Text>
                 </View>
@@ -246,10 +221,19 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
-  icon: {
+  iconWhite: {
     fontSize: 20,
     color: 'white',
     paddingRight: 8,
+  },
+  iconBlack: {
+    fontSize: 20,
+    color: 'black',
+    paddingRight: 8,
+  },
+  iconTextContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   guestButton: {
     backgroundColor: '#ccc',

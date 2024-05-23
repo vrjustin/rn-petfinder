@@ -21,7 +21,6 @@ import {profile, setProfile} from '../reducers/profileReducer';
 import {
   signOutOkta,
   signOutGoogle,
-  SignInMethod,
   signOutGuest,
 } from '../services/authenticationServices';
 
@@ -96,10 +95,10 @@ const Options: React.FC<OptionsProps> = ({route}) => {
   const handleSignOut = () => {
     const {signInMethod} = userProfile;
     switch (signInMethod) {
-      case SignInMethod.Apple:
+      case 'apple':
         console.log('SignOutViaApple');
         break;
-      case SignInMethod.Google:
+      case 'google':
         console.log('SignOutViaGoogle');
         signOutGoogle().then(() => {
           dispatch(
@@ -107,13 +106,14 @@ const Options: React.FC<OptionsProps> = ({route}) => {
               ...userProfile,
               shouldOnboard: userProfile.shouldOnboard,
               isRehydrated: false,
+              signInMethod: undefined,
               userName: '',
             }),
           );
           navigation.navigate(Routes.SignInUp);
         });
         break;
-      case SignInMethod.Okta:
+      case 'okta':
         console.log('SignOutViaOkta');
         signOutOkta().then(() => {
           dispatch(
@@ -121,19 +121,21 @@ const Options: React.FC<OptionsProps> = ({route}) => {
               ...userProfile,
               shouldOnboard: userProfile.shouldOnboard,
               isRehydrated: false,
+              signInMethod: undefined,
               userName: '',
             }),
           );
           navigation.navigate(Routes.SignInUp);
         });
         break;
-      case SignInMethod.Guest:
+      case 'guest':
         signOutGuest().then(() => {
           dispatch(
             setProfile({
               ...userProfile,
               shouldOnboard: userProfile.shouldOnboard,
               isRehydrated: false,
+              signInMethod: undefined,
               userName: '',
             }),
           );
@@ -216,7 +218,10 @@ const Options: React.FC<OptionsProps> = ({route}) => {
         <View style={styles.accountName}>
           <Text>Account: {userProfile.userName}</Text>
         </View>
-        <TouchableOpacity style={styles.button} onPress={handleSignOut}>
+        <TouchableOpacity
+          testID={'Options-SignOut-Button'}
+          style={styles.button}
+          onPress={handleSignOut}>
           <Text style={styles.buttonText}>Sign Out</Text>
         </TouchableOpacity>
       </View>

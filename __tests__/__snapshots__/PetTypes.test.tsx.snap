@@ -61,6 +61,7 @@ exports[`PetTypes renders correctly when petTypes are fetched 1`] = `
         "opacity": 1,
       }
     }
+    testID="PetTypes-OrganizationsButton"
   >
     <View
       style={
@@ -270,6 +271,7 @@ exports[`PetTypes renders correctly when petTypes are fetched 1`] = `
                   "opacity": 1,
                 }
               }
+              testID="PetTypes-PetType-Dog-button"
             >
               <View
                 style={
@@ -401,6 +403,7 @@ exports[`PetTypes renders correctly when petTypes are fetched 1`] = `
                   "opacity": 1,
                 }
               }
+              testID="PetTypes-PetType-Cat-button"
             >
               <View
                 style={
@@ -546,6 +549,7 @@ exports[`PetTypes renders correctly when petTypes are fetched 1`] = `
                   "opacity": 1,
                 }
               }
+              testID="PetTypes-PetType-Bird-button"
             >
               <View
                 style={

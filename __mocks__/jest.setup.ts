@@ -34,3 +34,7 @@ jest.mock('../services/authenticationServices.ts', () => ({
 }));
 
 jest.mock('@react-native-google-signin/google-signin', () => ({}));
+
+jest.mock('react-native-flipper', () => ({
+  addPlugin: jest.fn(),
+}));

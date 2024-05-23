@@ -1,36 +1,36 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import {fireEvent, render, waitFor} from '@testing-library/react-native';
 import {Provider} from 'react-redux';
 import * as reactRedux from 'react-redux';
 import store from '../stores/store';
 import SearchParameters from '../models/SearchParameters';
 import * as searchParamsReducer from '../reducers/searchParamsReducer';
-import Breed from '../models/Breed';
+import * as profileReducer from '../reducers/profileReducer';
 import Options from '../Views/Options';
+import {Routes} from '../navigation/Routes';
+import {
+  mockBreeds,
+  googleSignedInProfile,
+  oktaSignedInProfile,
+  guestSignedInProfile,
+  signedOutProfile,
+} from '../__mocks__/mocks';
 
+const mockNavigate = jest.fn();
+const mockSetOptions = jest.fn();
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({
-    navigate: jest.fn(),
-    setOptions: jest.fn(),
+    navigate: mockNavigate,
+    setOptions: mockSetOptions,
   }),
 }));
 
-const mockBreed: Breed = {
-  name: 'MockBreed',
-  _links: {
-    type: {
-      href: 'href',
-    },
-  },
-};
-const mockBreed2: Breed = {
-  name: 'MockBreed2',
-  _links: {
-    type: {
-      href: 'href',
-    },
-  },
-};
+jest.mock('../services/authenticationServices.ts', () => ({
+  signOutGoogle: jest.fn().mockResolvedValue(undefined),
+  signOutOkta: jest.fn().mockResolvedValue(undefined),
+  signOutGuest: jest.fn().mockResolvedValue(undefined),
+}));
 
 const mockSearchParameters: SearchParameters = {
   location: {
@@ -38,7 +38,7 @@ const mockSearchParameters: SearchParameters = {
   },
   distance: 5,
   tagsPreferred: ['Tag1', 'Tag2', 'Tag3'],
-  breedsPreferred: [mockBreed, mockBreed2],
+  breedsPreferred: mockBreeds,
 };
 
 const mockRouteParams: any = {
@@ -200,5 +200,73 @@ describe('Options', () => {
 
     expect(dispatchedAction.type).toBe('searchParameters/setSearchParameters');
     expect(dispatchedAction.payload.tagsPreferred).toEqual(['Tag2', 'Tag3']);
+  });
+
+  it('handles the Google signout properly', async () => {
+    jest
+      .spyOn(profileReducer, 'profile')
+      .mockReturnValue(googleSignedInProfile);
+    const mockDispatch = jest.fn();
+    jest.spyOn(reactRedux, 'useDispatch').mockReturnValue(mockDispatch);
+
+    const {getByTestId} = render(
+      <Provider store={store}>
+        <Options route={mockRouteParams} />
+      </Provider>,
+    );
+
+    const signOutButton = getByTestId(`Options-SignOut-Button`);
+    fireEvent.press(signOutButton);
+
+    await waitFor(() => {});
+
+    const dispatchedAction = mockDispatch.mock.calls[0][0];
+    expect(dispatchedAction.type).toBe('profile/setProfile');
+    expect(dispatchedAction.payload).toEqual(signedOutProfile);
+    expect(mockNavigate).toHaveBeenCalledWith(Routes.SignInUp);
+  });
+
+  it('handles the okta signout properly', async () => {
+    jest.spyOn(profileReducer, 'profile').mockReturnValue(oktaSignedInProfile);
+    const mockDispatch = jest.fn();
+    jest.spyOn(reactRedux, 'useDispatch').mockReturnValue(mockDispatch);
+
+    const {getByTestId} = render(
+      <Provider store={store}>
+        <Options route={mockRouteParams} />
+      </Provider>,
+    );
+
+    const signOutButton = getByTestId(`Options-SignOut-Button`);
+    fireEvent.press(signOutButton);
+
+    await waitFor(() => {});
+
+    const dispatchedAction = mockDispatch.mock.calls[0][0];
+    expect(dispatchedAction.type).toBe('profile/setProfile');
+    expect(dispatchedAction.payload).toEqual(signedOutProfile);
+    expect(mockNavigate).toHaveBeenCalledWith(Routes.SignInUp);
+  });
+
+  it('handles the guest signout properly', async () => {
+    jest.spyOn(profileReducer, 'profile').mockReturnValue(guestSignedInProfile);
+    const mockDispatch = jest.fn();
+    jest.spyOn(reactRedux, 'useDispatch').mockReturnValue(mockDispatch);
+
+    const {getByTestId} = render(
+      <Provider store={store}>
+        <Options route={mockRouteParams} />
+      </Provider>,
+    );
+
+    const signOutButton = getByTestId(`Options-SignOut-Button`);
+    fireEvent.press(signOutButton);
+
+    await waitFor(() => {});
+
+    const dispatchedAction = mockDispatch.mock.calls[0][0];
+    expect(dispatchedAction.type).toBe('profile/setProfile');
+    expect(dispatchedAction.payload).toEqual(signedOutProfile);
+    expect(mockNavigate).toHaveBeenCalledWith(Routes.SignInUp);
   });
 });
