@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import Animal from '../models/Animal';
-import {SignInMethod} from '../services/authenticationServices';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import {AnimalProps, useTypedNavigation} from '../types/NavigationTypes';
 import {setAnimals, selectAnimals} from '../reducers/animalsReducer';
@@ -39,6 +38,7 @@ const ContactOptions = ({onPress}: {onPress: () => void}) => {
   return (
     <>
       <FontAwesomeIcon
+        testID="AnimalDetails-ContactOptionsButton"
         name="mobile"
         size={20}
         color="#000"
@@ -64,8 +64,9 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
 
   const isGuest = () => {
     const {userName, signInMethod} = userProfile;
+    //unable to use the SignInMethod.Guest here for some reason. using string for now.
     return signInMethod === undefined ||
-      signInMethod === SignInMethod.Guest ||
+      signInMethod === 'guest' ||
       userName === '' ||
       userName === undefined ||
       userName === null
@@ -118,7 +119,7 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
               style={styles.idCardIcon}
             />
             <Text style={styles.ageText}>
-              {contact.address.city}, {contact.address.state}
+              {contact?.address.city}, {contact?.address.state}
             </Text>
           </View>
         </View>
@@ -126,27 +127,25 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
     };
 
     return (
-      <View
-        style={{
-          height: '50%',
-          overflow: 'hidden',
-        }}>
+      <View style={styles.heroImageContainer}>
         <ImageBackground
           source={
             photos.length > 0
               ? {uri: photos[currentImageIndex].large}
               : require('../resources/black-1869685_1280.jpg')
           }
-          style={{flex: 1}}
+          style={styles.heroImageBackgroundImageStyle}
           resizeMode="contain">
           {!isGuest() && (
-            <View style={{position: 'absolute', top: 8, right: 8}}>
-              <TouchableOpacity onPress={() => handleFavorite(selectedAnimal)}>
+            <View style={styles.favoriteButtonContainer}>
+              <TouchableOpacity
+                testID="AnimalDetails-FavoriteButton"
+                onPress={() => handleFavorite(selectedAnimal)}>
                 <FontAwesomeIcon
                   name={isFavorite ? 'heart' : 'heart-o'}
                   size={20}
                   color={'white'}
-                  style={{marginRight: 8}}
+                  style={styles.favoriteButtonIconStyle}
                 />
               </TouchableOpacity>
             </View>
@@ -209,7 +208,9 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
           keyExtractor={(item, index) => `${item.full}_${index}`}
           renderItem={({item, index}) => (
             <View>
-              <TouchableOpacity onPress={() => setCurrentImageIndex(index)}>
+              <TouchableOpacity
+                testID={`AnimalDetailsGalleryItem-${index}`}
+                onPress={() => setCurrentImageIndex(index)}>
                 <Image
                   style={
                     index === currentImageIndex
@@ -254,6 +255,7 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
             <View style={styles.tagContainerView}>
               {tags.map((tag, index) => (
                 <TouchableOpacity
+                  testID={`AnimalDetailsTag-${tag}`}
                   key={index}
                   onPress={() => handleTagPress(tag)}>
                   <View
@@ -281,6 +283,21 @@ const styles = StyleSheet.create({
   },
   contactIcon: {
     marginRight: 20,
+  },
+  heroImageContainer: {
+    height: '50%',
+    overflow: 'hidden',
+  },
+  heroImageBackgroundImageStyle: {
+    flex: 1,
+  },
+  favoriteButtonContainer: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+  },
+  favoriteButtonIconStyle: {
+    marginRight: 8,
   },
   image: {
     width: 100,

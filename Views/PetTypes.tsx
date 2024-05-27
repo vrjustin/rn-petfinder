@@ -26,6 +26,7 @@ const UserOptions = ({onPress}: {onPress: () => void}) => {
   return (
     <>
       <FontAwesomeIcon
+        testID="PetTypes-UserOptionsButton"
         name="gear"
         size={20}
         color="#000"
@@ -76,7 +77,7 @@ const PetTypes: React.FC = () => {
 
   const handleFavoriteSelectionNavigation = () => {
     const favType: PetType = {
-      displayName: '',
+      displayName: 'Favorite',
       name: 'Favorite',
       coats: [],
       colors: [],
@@ -94,7 +95,9 @@ const PetTypes: React.FC = () => {
   };
 
   const renderPetType = ({item}: {item: PetType}) => (
-    <TouchableOpacity onPress={() => handlePetTypeSelection(item)}>
+    <TouchableOpacity
+      testID={`PetTypes-PetType-${item.name}-button`}
+      onPress={() => handlePetTypeSelection(item)}>
       <View style={styles.gridItemContainer}>
         <ImageBackground
           source={
@@ -120,7 +123,9 @@ const PetTypes: React.FC = () => {
 
   const renderAdoptionOrgsTouchable = () => {
     return (
-      <TouchableOpacity onPress={handleAdoptionOrgsNavigation}>
+      <TouchableOpacity
+        testID={'PetTypes-OrganizationsButton'}
+        onPress={handleAdoptionOrgsNavigation}>
         <View style={styles.orgsTouchableContainer}>
           <FontAwesomeIcon
             name={'building'}
@@ -142,7 +147,9 @@ const PetTypes: React.FC = () => {
 
   const renderFavoritesTouchable = () => {
     return haveFavorites ? (
-      <TouchableOpacity onPress={handleFavoriteSelectionNavigation}>
+      <TouchableOpacity
+        testID={'PetTypes-Favorites-Button'}
+        onPress={handleFavoriteSelectionNavigation}>
         <View style={styles.favoritesTouchableContainer}>
           <FontAwesomeIcon
             name={'heart'}

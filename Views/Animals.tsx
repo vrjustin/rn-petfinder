@@ -18,7 +18,6 @@ import {
 } from '../reducers/animalsReducer';
 import {selectSearchParameters} from '../reducers/searchParamsReducer';
 import {profile} from '../reducers/profileReducer';
-import {SignInMethod} from '../services/authenticationServices';
 import Animal from '../models/Animal';
 import apiService from '../services/apiService';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
@@ -33,6 +32,7 @@ const UserOptions = ({onPress}: {onPress: () => void}) => {
   return (
     <>
       <FontAwesomeIcon
+        testID="Animals-UserOptionsButton"
         name="gear"
         size={20}
         color="#000"
@@ -62,7 +62,7 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
   const isGuest = () => {
     const {userName, signInMethod} = userProfile;
     return signInMethod === undefined ||
-      signInMethod === SignInMethod.Guest ||
+      signInMethod === 'guest' ||
       userName === '' ||
       userName === undefined ||
       userName === null
@@ -106,7 +106,7 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
         setCurrentPage(pagination.current_page);
         setTotalPages(pagination.total_pages);
       } catch (error) {
-        console.error('Failed top fetch Breeds data: ', error);
+        console.error('Failed to fetch Animals data: ', error);
       } finally {
         setIsLoading(false);
       }
@@ -139,6 +139,8 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
     currentPage,
     favorites,
   ]);
+  //linter says it needs navigation but when we do unit tests for Animals
+  //never complets..??
 
   const isFavorite = (animal: Animal): boolean => {
     if (favorites.some(a => a.id === animal.id)) {
@@ -187,7 +189,9 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
           <View style={styles.gridItem}>
             {!isGuest() && (
               <View style={styles.gridItemFavorite}>
-                <TouchableOpacity onPress={() => handleFavorite(item)}>
+                <TouchableOpacity
+                  testID={`Animals-GridItem-${item.id}-FavoriteButton`}
+                  onPress={() => handleFavorite(item)}>
                   <FontAwesomeIcon
                     name={isFavorite(item) ? 'heart' : 'heart-o'}
                     size={20}
@@ -237,13 +241,17 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
   const paginationHeader = () => {
     return (
       <View style={styles.paginationHeaderContainer}>
-        <TouchableOpacity onPress={prevPage}>
+        <TouchableOpacity
+          testID="AnimalsPagination-PrevButton"
+          onPress={prevPage}>
           <FontAwesomeIcon name="caret-left" size={30} style={styles.icon} />
         </TouchableOpacity>
         <Text style={styles.paginationText}>
           {currentPage} / {totalPages}
         </Text>
-        <TouchableOpacity onPress={nextPage}>
+        <TouchableOpacity
+          testID="AnimalsPagination-NextButton"
+          onPress={nextPage}>
           <FontAwesomeIcon name="caret-right" size={30} style={styles.icon} />
         </TouchableOpacity>
       </View>

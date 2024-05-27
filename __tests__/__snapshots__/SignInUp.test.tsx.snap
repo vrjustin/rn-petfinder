@@ -1,26 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SignInUp renders correctly when initialLoading true 1`] = `
-<View
-  style={
-    {
-      "alignItems": "center",
-      "backgroundColor": "#ffffff",
-      "flex": 1,
-      "justifyContent": "center",
-      "padding": 20,
-    }
-  }
->
-  <ActivityIndicator
-    animating={false}
-    color="#007AFF"
-    size="large"
-  />
-</View>
-`;
-
-exports[`SignInUp renders correctly when loading complete 1`] = `
+exports[`SignInUp renders correctly when initialLoading false 1`] = `
 <View
   style={
     {
@@ -145,6 +125,7 @@ exports[`SignInUp renders correctly when loading complete 1`] = `
                 "width": "80%",
               }
             }
+            testID="SignInUp-Button-GoogleSignIn"
           >
             <View
               style={
@@ -233,6 +214,7 @@ exports[`SignInUp renders correctly when loading complete 1`] = `
                 "width": "80%",
               }
             }
+            testID="SignInUp-Button-OktaSignIn"
           >
             <View
               style={
@@ -320,6 +302,7 @@ exports[`SignInUp renders correctly when loading complete 1`] = `
                 "width": "80%",
               }
             }
+            testID="SignInUp-Button-Guest"
           >
             <View
               style={
@@ -372,5 +355,25 @@ exports[`SignInUp renders correctly when loading complete 1`] = `
       </View>
     </RCTScrollView>
   </View>
+</View>
+`;
+
+exports[`SignInUp renders correctly when initialLoading true 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "backgroundColor": "#ffffff",
+      "flex": 1,
+      "justifyContent": "center",
+      "padding": 20,
+    }
+  }
+>
+  <ActivityIndicator
+    animating={false}
+    color="#007AFF"
+    size="large"
+  />
 </View>
 `;

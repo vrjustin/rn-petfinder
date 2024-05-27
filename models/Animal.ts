@@ -27,7 +27,7 @@ interface Animal {
     secondary: string | null;
     tertiary: string | null;
   };
-  contact: {
+  contact?: {
     address: {
       address1: string;
       address2: string | null;

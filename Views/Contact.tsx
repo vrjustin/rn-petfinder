@@ -25,6 +25,7 @@ const Contact = ({route}) => {
       <View style={styles.contactContainer}>
         {hasValidAddress && (
           <TouchableOpacity
+            testID="Contact-GetDirectionsButton"
             style={styles.actionButton}
             onPress={() =>
               Linking.openURL(
@@ -44,6 +45,7 @@ const Contact = ({route}) => {
         )}
         {email && (
           <TouchableOpacity
+            testID="Contact-EmailButton"
             style={styles.actionButton}
             onPress={() => {
               try {
@@ -61,9 +63,9 @@ const Contact = ({route}) => {
             <Text style={styles.actionButtonText}>{en.Email}</Text>
           </TouchableOpacity>
         )}
-
         {phone && (
           <TouchableOpacity
+            testID="Contact-CallPhoneButton"
             style={styles.actionButton}
             onPress={() => Linking.openURL(`tel:${phone}`)}>
             <Text style={styles.actionButtonText}>{en.Call}</Text>
