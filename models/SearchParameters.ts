@@ -5,6 +5,14 @@ interface SearchParameters {
   distance: number;
   tagsPreferred: string[];
   breedsPreferred: Breed[];
+  orgsPagination: {
+    currentPage: number;
+    totalPages: number;
+  };
+  animalsPagination: {
+    currentPage: number;
+    totalPages: number;
+  };
 }
 
 export default SearchParameters;

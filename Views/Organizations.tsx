@@ -13,7 +13,10 @@ import {
   setOrganizations,
   selectOrganizations,
 } from '../reducers/organizationsReducer';
-import {selectSearchParameters} from '../reducers/searchParamsReducer';
+import {
+  selectSearchParameters,
+  setSearchParameters,
+} from '../reducers/searchParamsReducer';
 import apiService from '../services/apiService';
 import Organization from '../models/Organization';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
@@ -23,9 +26,8 @@ const Organizations = () => {
   const orgs = useSelector(selectOrganizations);
   const globalStyles = GlobalStyles();
   const searchParameters = useSelector(selectSearchParameters);
-  const {location, distance} = searchParameters;
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  const {location, distance, orgsPagination} = searchParameters;
+  const {currentPage, totalPages} = orgsPagination;
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -39,8 +41,15 @@ const Organizations = () => {
         );
         const {organizations, pagination} = orgsResponse;
         dispatch(setOrganizations(organizations));
-        setCurrentPage(pagination.current_page);
-        setTotalPages(pagination.total_pages);
+        dispatch(
+          setSearchParameters({
+            ...searchParameters,
+            orgsPagination: {
+              currentPage: pagination.current_page,
+              totalPages: pagination.total_pages,
+            },
+          }),
+        );
       } catch (error) {
         console.error('Failed to fetch organizations: ', error);
       } finally {
@@ -99,20 +108,40 @@ const Organizations = () => {
     if (isLoading) {
       return;
     }
-    setCurrentPage(prev => Math.max(prev - 1, 1));
+    const previous = Math.max(currentPage - 1, 1);
+    dispatch(
+      setSearchParameters({
+        ...searchParameters,
+        orgsPagination: {
+          currentPage: previous,
+          totalPages: totalPages,
+        },
+      }),
+    );
   };
 
   const nextPage = () => {
     if (isLoading) {
       return;
     }
-    setCurrentPage(prev => Math.min(prev + 1, totalPages));
+    const next = Math.min(currentPage + 1, totalPages);
+    dispatch(
+      setSearchParameters({
+        ...searchParameters,
+        orgsPagination: {
+          currentPage: next,
+          totalPages: totalPages,
+        },
+      }),
+    );
   };
 
   const paginationHeader = () => {
     return (
       <View style={styles.paginationHeaderContainer}>
-        <TouchableOpacity onPress={prevPage}>
+        <TouchableOpacity
+          testID="Organizations-PrevPage-Button"
+          onPress={prevPage}>
           <FontAwesomeIcon
             name="caret-left"
             size={30}
@@ -122,7 +151,9 @@ const Organizations = () => {
         <Text style={styles.paginationText}>
           {currentPage} / {totalPages}
         </Text>
-        <TouchableOpacity onPress={nextPage}>
+        <TouchableOpacity
+          testID="Organizations-NextPage-Button"
+          onPress={nextPage}>
           <FontAwesomeIcon
             name="caret-right"
             size={30}

@@ -207,6 +207,14 @@ describe('apiService', () => {
         distance: 500,
         tagsPreferred: [],
         breedsPreferred: [],
+        orgsPagination: {
+          currentPage: 1,
+          totalPages: 1,
+        },
+        animalsPagination: {
+          currentPage: 1,
+          totalPages: 1,
+        },
       };
 
       const animalsResponse = await apiService.getAnimals(
@@ -259,6 +267,14 @@ describe('apiService', () => {
         distance: 500,
         tagsPreferred: [],
         breedsPreferred: [],
+        orgsPagination: {
+          currentPage: 1,
+          totalPages: 1,
+        },
+        animalsPagination: {
+          currentPage: 1,
+          totalPages: 1,
+        },
       };
 
       const animalsResponse = await apiService.getAnimals(

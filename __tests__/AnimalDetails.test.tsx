@@ -30,6 +30,14 @@ const mockSearchParameters: SearchParameters = {
   distance: 5,
   tagsPreferred: ['Friendly'],
   breedsPreferred: [],
+  orgsPagination: {
+    currentPage: 1,
+    totalPages: 1,
+  },
+  animalsPagination: {
+    currentPage: 1,
+    totalPages: 1,
+  },
 };
 
 const mockProfile: Profile = {

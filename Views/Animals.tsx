@@ -16,7 +16,10 @@ import {
   toggleFavorite,
   selectFavorites,
 } from '../reducers/animalsReducer';
-import {selectSearchParameters} from '../reducers/searchParamsReducer';
+import {
+  selectSearchParameters,
+  setSearchParameters,
+} from '../reducers/searchParamsReducer';
 import {profile} from '../reducers/profileReducer';
 import Animal from '../models/Animal';
 import apiService from '../services/apiService';
@@ -52,9 +55,9 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
   const favorites = useSelector(selectFavorites);
   const searchParameters = useSelector(selectSearchParameters);
   const userProfile = useSelector(profile);
-  const {location, distance, tagsPreferred} = searchParameters;
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  const {location, distance, tagsPreferred, animalsPagination} =
+    searchParameters;
+  const {currentPage, totalPages} = animalsPagination;
   const [isLoading, setIsLoading] = useState(false);
   const selectedBreeds = searchParameters.breedsPreferred;
   const globalStyles = GlobalStyles();
@@ -103,8 +106,15 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
             filteredAnimals.length > 0 ? filteredAnimals : animalsData,
           ),
         );
-        setCurrentPage(pagination.current_page);
-        setTotalPages(pagination.total_pages);
+        dispatch(
+          setSearchParameters({
+            ...searchParameters,
+            animalsPagination: {
+              currentPage: pagination.current_page,
+              totalPages: pagination.total_pages,
+            },
+          }),
+        );
       } catch (error) {
         console.error('Failed to fetch Animals data: ', error);
       } finally {
@@ -214,7 +224,7 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
                   style={styles.icon}
                 />
                 <Text style={styles.gridTextAge}>
-                  {item.contact.address.city},{item.contact.address.state}
+                  {item.contact?.address.city},{item.contact?.address.state}
                 </Text>
               </View>
             </View>
@@ -228,14 +238,32 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
     if (isLoading) {
       return;
     }
-    setCurrentPage(prev => Math.max(prev - 1, 1));
+    const prev = Math.max(currentPage - 1, 1);
+    dispatch(
+      setSearchParameters({
+        ...searchParameters,
+        animalsPagination: {
+          currentPage: prev,
+          totalPages: animalsPagination.totalPages,
+        },
+      }),
+    );
   };
 
   const nextPage = () => {
     if (isLoading) {
       return;
     }
-    setCurrentPage(prev => Math.min(prev + 1, totalPages));
+    const next = Math.min(currentPage + 1, totalPages);
+    dispatch(
+      setSearchParameters({
+        ...searchParameters,
+        animalsPagination: {
+          currentPage: next,
+          totalPages: animalsPagination.totalPages,
+        },
+      }),
+    );
   };
 
   const paginationHeader = () => {
