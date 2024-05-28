@@ -3,6 +3,7 @@ import Breed from '../models/Breed';
 import Profile from '../models/Profile';
 import {PetType} from '../models/PetType';
 import Organization from '../models/Organization';
+import SearchParameters from '../models/SearchParameters';
 import {
   AnimalResults,
   OrganizationsResultsResponse,
@@ -34,7 +35,24 @@ export const guestSignedInProfile: Profile = {
   isRehydrated: true,
   userName: 'guest',
   signInMethod: 'guest',
-}
+};
+
+export const mockSearchParams: SearchParameters = {
+  location: {
+    zipCode: '90210',
+  },
+  distance: 5,
+  tagsPreferred: ['Friendly'],
+  breedsPreferred: [],
+  orgsPagination: {
+    currentPage: 6,
+    totalPages: 10,
+  },
+  animalsPagination: {
+    currentPage: 3,
+    totalPages: 5,
+  },
+};
 
 export const selectedAnimalMock: Animal = {
   id: 1,

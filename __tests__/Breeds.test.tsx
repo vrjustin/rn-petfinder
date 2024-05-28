@@ -11,7 +11,6 @@ import SearchParameters from '../models/SearchParameters';
 import {BreedsScreenRouteProp} from '../types/NavigationTypes';
 import {mockBreeds, mockPetTypeDog} from '../__mocks__/mocks';
 import apiService from '../services/apiService';
-import {Routes} from '../navigation/Routes';
 
 const mockNavigate = jest.fn();
 const mockSetOptions = jest.fn();
@@ -102,6 +101,14 @@ describe('Breeds', () => {
       distance: 5,
       tagsPreferred: ['Friendly'],
       breedsPreferred: [mockBreeds[0]],
+      orgsPagination: {
+        currentPage: 1,
+        totalPages: 1,
+      },
+      animalsPagination: {
+        currentPage: 1,
+        totalPages: 1,
+      },
     };
     jest
       .spyOn(searchParamsReducer, 'selectSearchParameters')

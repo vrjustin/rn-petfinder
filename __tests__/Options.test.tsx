@@ -39,6 +39,14 @@ const mockSearchParameters: SearchParameters = {
   distance: 5,
   tagsPreferred: ['Tag1', 'Tag2', 'Tag3'],
   breedsPreferred: mockBreeds,
+  orgsPagination: {
+    currentPage: 1,
+    totalPages: 1,
+  },
+  animalsPagination: {
+    currentPage: 1,
+    totalPages: 1,
+  },
 };
 
 const mockRouteParams: any = {

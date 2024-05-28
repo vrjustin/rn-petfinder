@@ -45,6 +45,14 @@ const mockSearchParameters: SearchParameters = {
   distance: 5,
   tagsPreferred: ['Friendly'],
   breedsPreferred: [],
+  orgsPagination: {
+    currentPage: 1,
+    totalPages: 1,
+  },
+  animalsPagination: {
+    currentPage: 2,
+    totalPages: 4,
+  },
 };
 
 const mockProfile: Profile = {
@@ -277,6 +285,9 @@ describe('Animals', () => {
     );
     const mockDispatch = jest.fn();
     jest.spyOn(reactRedux, 'useDispatch').mockReturnValue(mockDispatch);
+    jest
+      .spyOn(searchParamsReducer, 'selectSearchParameters')
+      .mockReturnValue(mockSearchParameters);
 
     await act(async () => {
       renderedAnimalsTree = renderer.create(
@@ -311,6 +322,9 @@ describe('Animals', () => {
     );
     const mockDispatch = jest.fn();
     jest.spyOn(reactRedux, 'useDispatch').mockReturnValue(mockDispatch);
+    jest
+      .spyOn(searchParamsReducer, 'selectSearchParameters')
+      .mockReturnValue(mockSearchParameters);
 
     await act(async () => {
       renderedAnimalsTree = renderer.create(

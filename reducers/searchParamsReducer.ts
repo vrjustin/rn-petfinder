@@ -14,6 +14,14 @@ const initialState: SearchParametersState = {
     distance: 500, //in miles
     tagsPreferred: [],
     breedsPreferred: [],
+    orgsPagination: {
+      currentPage: 1,
+      totalPages: 1,
+    },
+    animalsPagination: {
+      currentPage: 1,
+      totalPages: 1,
+    },
   },
 };
 
