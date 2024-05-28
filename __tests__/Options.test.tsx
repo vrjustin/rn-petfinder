@@ -4,17 +4,19 @@ import {fireEvent, render, waitFor} from '@testing-library/react-native';
 import {Provider} from 'react-redux';
 import * as reactRedux from 'react-redux';
 import store from '../stores/store';
-import SearchParameters from '../models/SearchParameters';
 import * as searchParamsReducer from '../reducers/searchParamsReducer';
 import * as profileReducer from '../reducers/profileReducer';
 import Options from '../Views/Options';
 import {Routes} from '../navigation/Routes';
 import {
-  mockBreeds,
   googleSignedInProfile,
   oktaSignedInProfile,
+  appleSignedInProfile,
   guestSignedInProfile,
   signedOutProfile,
+  mockSearchParams,
+  mockSearchParamsWithBreeds,
+  mockSearchParamsSingleBreed,
 } from '../__mocks__/mocks';
 
 const mockNavigate = jest.fn();
@@ -31,23 +33,6 @@ jest.mock('../services/authenticationServices.ts', () => ({
   signOutOkta: jest.fn().mockResolvedValue(undefined),
   signOutGuest: jest.fn().mockResolvedValue(undefined),
 }));
-
-const mockSearchParameters: SearchParameters = {
-  location: {
-    zipCode: '90210',
-  },
-  distance: 5,
-  tagsPreferred: ['Tag1', 'Tag2', 'Tag3'],
-  breedsPreferred: mockBreeds,
-  orgsPagination: {
-    currentPage: 1,
-    totalPages: 1,
-  },
-  animalsPagination: {
-    currentPage: 1,
-    totalPages: 1,
-  },
-};
 
 const mockRouteParams: any = {
   key: 'mockKey',
@@ -76,7 +61,7 @@ describe('Options', () => {
   it('renders correctly when preferredTags and breeds are present', () => {
     jest
       .spyOn(searchParamsReducer, 'selectSearchParameters')
-      .mockReturnValue(mockSearchParameters);
+      .mockReturnValue(mockSearchParams);
     renderedOptionsTree = renderer.create(
       <Provider store={store}>
         <Options route={mockRouteParams} />
@@ -85,7 +70,10 @@ describe('Options', () => {
     expect(renderedOptionsTree.toJSON()).toMatchSnapshot();
   });
 
-  it('updates displayZip state correctly on zip code change', () => {
+  it('updates displayZip state correctly on zip code change & does not dispatch if zip is less than 5 chars.', () => {
+    const mockDispatch = jest.fn();
+    jest.spyOn(reactRedux, 'useDispatch').mockReturnValue(mockDispatch);
+
     renderedOptionsTree = renderer.create(
       <Provider store={store}>
         <Options route={mockRouteParams} />
@@ -98,6 +86,11 @@ describe('Options', () => {
 
     const postChangeText = textInput.props.value;
     expect(postChangeText).toEqual('12345');
+
+    textInput.props.onChangeText('1234');
+    textInput.props.onBlur();
+
+    expect(mockDispatch).not.toHaveBeenCalled();
   });
 
   it('updates location zipCode state correctly on zip code blur', () => {
@@ -157,10 +150,10 @@ describe('Options', () => {
     expect(postChangeText).toEqual('2');
   });
 
-  it('handles the preferred breeds tag press properly and removes that tag', () => {
+  it('handles the preferred breeds tag press properly and removes that tag', async () => {
     jest
       .spyOn(searchParamsReducer, 'selectSearchParameters')
-      .mockReturnValue(mockSearchParameters);
+      .mockReturnValue(mockSearchParamsWithBreeds);
 
     const mockDispatch = jest.fn();
     jest.spyOn(reactRedux, 'useDispatch').mockReturnValue(mockDispatch);
@@ -170,23 +163,46 @@ describe('Options', () => {
         <Options route={mockRouteParams} />
       </Provider>,
     );
+
     const preferredBreedButtons = renderedOptionsTree.root.findAllByProps({
       testID: 'breedsTagButton',
     });
     const preferredBreedButton = preferredBreedButtons[0];
     preferredBreedButton.props.onPress();
 
-    // Get the latest dispatched action
     const dispatchedAction = mockDispatch.mock.calls[0][0];
 
     expect(dispatchedAction.type).toBe('searchParameters/setSearchParameters');
     expect(dispatchedAction.payload.breedsPreferred.length).toEqual(1);
   });
 
+  it('handles the preferred breeds tag press properly and does not dispatch if last breed in breedsPreferred', async () => {
+    jest
+      .spyOn(searchParamsReducer, 'selectSearchParameters')
+      .mockReturnValue(mockSearchParamsSingleBreed);
+
+    const mockDispatch = jest.fn();
+    jest.spyOn(reactRedux, 'useDispatch').mockReturnValue(mockDispatch);
+
+    renderedOptionsTree = renderer.create(
+      <Provider store={store}>
+        <Options route={mockRouteParams} />
+      </Provider>,
+    );
+
+    const preferredBreedButtons = renderedOptionsTree.root.findAllByProps({
+      testID: 'breedsTagButton',
+    });
+    const preferredBreedButton = preferredBreedButtons[0];
+    preferredBreedButton.props.onPress();
+
+    expect(mockDispatch).not.toHaveBeenCalled();
+  });
+
   it('handles the tags tag press properly and removes that tag', () => {
     jest
       .spyOn(searchParamsReducer, 'selectSearchParameters')
-      .mockReturnValue(mockSearchParameters);
+      .mockReturnValue(mockSearchParams);
 
     const mockDispatch = jest.fn();
     jest.spyOn(reactRedux, 'useDispatch').mockReturnValue(mockDispatch);
@@ -203,11 +219,13 @@ describe('Options', () => {
     const firstTag = tagButtons[0];
     firstTag.props.onPress();
 
-    // Get the latest dispatched action
     const dispatchedAction = mockDispatch.mock.calls[0][0];
 
     expect(dispatchedAction.type).toBe('searchParameters/setSearchParameters');
-    expect(dispatchedAction.payload.tagsPreferred).toEqual(['Tag2', 'Tag3']);
+    expect(dispatchedAction.payload.tagsPreferred).toEqual([
+      'Happy',
+      'Go Lucky',
+    ]);
   });
 
   it('handles the Google signout properly', async () => {
@@ -254,6 +272,29 @@ describe('Options', () => {
     expect(dispatchedAction.type).toBe('profile/setProfile');
     expect(dispatchedAction.payload).toEqual(signedOutProfile);
     expect(mockNavigate).toHaveBeenCalledWith(Routes.SignInUp);
+  });
+
+  it('handles the apple signout properly', async () => {
+    jest.spyOn(profileReducer, 'profile').mockReturnValue(appleSignedInProfile);
+    const mockDispatch = jest.fn();
+    jest.spyOn(reactRedux, 'useDispatch').mockReturnValue(mockDispatch);
+    console.error = jest.fn();
+
+    const {getByTestId} = render(
+      <Provider store={store}>
+        <Options route={mockRouteParams} />
+      </Provider>,
+    );
+
+    const signOutButton = getByTestId(`Options-SignOut-Button`);
+    fireEvent.press(signOutButton);
+
+    await waitFor(() => {});
+
+    expect(mockDispatch).not.toHaveBeenCalled();
+    expect(console.error).toHaveBeenCalledWith(
+      'SignOutViaApple Not Implemented Yet',
+    );
   });
 
   it('handles the guest signout properly', async () => {

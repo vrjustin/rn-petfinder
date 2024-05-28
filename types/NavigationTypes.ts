@@ -7,7 +7,11 @@ import Breed from '../models/Breed';
 type RootStackParamList = {
   PetTypes: undefined;
   Breeds: {petType: PetType};
-  Animals: {petType: PetType; selectedBreeds: Breed[]};
+  Animals: {
+    petType: PetType;
+    selectedBreeds: Breed[];
+    initialIsLoading?: boolean;
+  };
   Animal: {selectedAnimal: Animal};
   Options: {from: string};
 };
@@ -34,6 +38,10 @@ export type OptionsProps = {
 };
 
 export type SignInUpProps = {
+  initialLoadingProp?: boolean;
+};
+
+export type OrganizationsProps = {
   initialLoadingProp?: boolean;
 };
 

@@ -6,6 +6,11 @@ import {waitFor, render, fireEvent} from '@testing-library/react-native';
 import {
   mockPetTypeDog,
   mockPetTypeCat,
+  mockPetTypeRabbit,
+  mockPetTypeSmallAndFurry,
+  mockPetTypeHorse,
+  mockPetTypeScalesFinsAndOthers,
+  mockPetTypeBarnyard,
   mockPetTypeBird,
   mockPetTypeFavorites,
   selectedAnimalMock,
@@ -34,7 +39,16 @@ let renderedPetTypesTree: any;
 describe('PetTypes', () => {
   it('renders correctly when no petTypes local and is loading', () => {
     (apiService.getPetTypes as jest.Mock).mockResolvedValueOnce({
-      types: [mockPetTypeDog, mockPetTypeCat, mockPetTypeBird],
+      types: [
+        mockPetTypeDog,
+        mockPetTypeCat,
+        mockPetTypeBird,
+        mockPetTypeRabbit,
+        mockPetTypeSmallAndFurry,
+        mockPetTypeHorse,
+        mockPetTypeScalesFinsAndOthers,
+        mockPetTypeBarnyard,
+      ],
     });
 
     renderedPetTypesTree = renderer.create(

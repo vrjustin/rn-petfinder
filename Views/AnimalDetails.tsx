@@ -229,7 +229,6 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
 
   useLayoutEffect(() => {
     const handleContactPress = () => {
-      console.log('Contact Info Pressed');
       navigation.navigate(Routes.Contact, {selectedAnimal: selectedAnimal});
     };
     navigation.setOptions({

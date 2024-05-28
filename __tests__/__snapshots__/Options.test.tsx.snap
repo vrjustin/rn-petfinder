@@ -250,143 +250,6 @@ exports[`Options renders correctly when preferredTags and breeds are present 1`]
             }
           }
         >
-          Preferred Breeds:
-        </Text>
-        <View
-          style={
-            {
-              "flexDirection": "row",
-              "flexWrap": "wrap",
-              "padding": 8,
-            }
-          }
-        >
-          <View
-            accessibilityState={
-              {
-                "busy": undefined,
-                "checked": undefined,
-                "disabled": undefined,
-                "expanded": undefined,
-                "selected": undefined,
-              }
-            }
-            accessibilityValue={
-              {
-                "max": undefined,
-                "min": undefined,
-                "now": undefined,
-                "text": undefined,
-              }
-            }
-            accessible={true}
-            collapsable={false}
-            focusable={true}
-            onClick={[Function]}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
-            style={
-              {
-                "opacity": 1,
-              }
-            }
-            testID="breedsTagButton"
-          >
-            <View
-              style={
-                {
-                  "backgroundColor": "red",
-                  "borderRadius": 8,
-                  "marginBottom": 8,
-                  "marginRight": 8,
-                  "paddingHorizontal": 8,
-                  "paddingVertical": 4,
-                }
-              }
-            >
-              <Text
-                style={
-                  {
-                    "color": "white",
-                  }
-                }
-              >
-                Poodle
-              </Text>
-            </View>
-          </View>
-          <View
-            accessibilityState={
-              {
-                "busy": undefined,
-                "checked": undefined,
-                "disabled": undefined,
-                "expanded": undefined,
-                "selected": undefined,
-              }
-            }
-            accessibilityValue={
-              {
-                "max": undefined,
-                "min": undefined,
-                "now": undefined,
-                "text": undefined,
-              }
-            }
-            accessible={true}
-            collapsable={false}
-            focusable={true}
-            onClick={[Function]}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
-            style={
-              {
-                "opacity": 1,
-              }
-            }
-            testID="breedsTagButton"
-          >
-            <View
-              style={
-                {
-                  "backgroundColor": "red",
-                  "borderRadius": 8,
-                  "marginBottom": 8,
-                  "marginRight": 8,
-                  "paddingHorizontal": 8,
-                  "paddingVertical": 4,
-                }
-              }
-            >
-              <Text
-                style={
-                  {
-                    "color": "white",
-                  }
-                }
-              >
-                German Shephard Dog
-              </Text>
-            </View>
-          </View>
-        </View>
-        <Text
-          style={
-            {
-              "color": "#333",
-              "fontSize": 18,
-              "marginBottom": 8,
-            }
-          }
-        >
           Preferred Tags:
         </Text>
         <View
@@ -452,7 +315,7 @@ exports[`Options renders correctly when preferredTags and breeds are present 1`]
                   }
                 }
               >
-                Tag1
+                Friendly
               </Text>
             </View>
           </View>
@@ -510,7 +373,7 @@ exports[`Options renders correctly when preferredTags and breeds are present 1`]
                   }
                 }
               >
-                Tag2
+                Happy
               </Text>
             </View>
           </View>
@@ -568,7 +431,7 @@ exports[`Options renders correctly when preferredTags and breeds are present 1`]
                   }
                 }
               >
-                Tag3
+                Go Lucky
               </Text>
             </View>
           </View>

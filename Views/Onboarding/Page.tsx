@@ -40,7 +40,6 @@ const Page = ({idx, pageTitle, subTitle = '', lastPageHandler = () => {}}) => {
       case 3:
         return '#28AEC7';
     }
-    return 'red';
   };
 
   return (

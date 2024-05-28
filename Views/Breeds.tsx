@@ -43,6 +43,7 @@ const Breeds: React.FC<BreedsProps> = ({route}) => {
     const headerRight =
       breedsPreferred.length > 0 ? (
         <FontAwesomeIcon
+          testID="Breeds-Navigate-to-Animals-Button"
           onPress={handleNavigateToAnimals}
           name="caret-right"
           size={30}

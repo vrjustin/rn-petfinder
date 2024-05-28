@@ -312,6 +312,7 @@ exports[`Animals renders correctly 1`] = `
                     "opacity": 1,
                   }
                 }
+                testID="Animals-AnimalButton-1"
               >
                 <View
                   style={
@@ -701,9 +702,9 @@ exports[`Animals renders correctly when in favorites mode 1`] = `
         }
       }
     >
-      2
+      3
        / 
-      4
+      5
     </Text>
     <View
       accessibilityState={
@@ -919,6 +920,7 @@ exports[`Animals renders correctly when in favorites mode 1`] = `
                     "opacity": 1,
                   }
                 }
+                testID="Animals-AnimalButton-1"
               >
                 <View
                   style={

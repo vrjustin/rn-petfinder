@@ -96,7 +96,7 @@ const Options: React.FC<OptionsProps> = ({route}) => {
     const {signInMethod} = userProfile;
     switch (signInMethod) {
       case 'apple':
-        console.log('SignOutViaApple');
+        console.error('SignOutViaApple Not Implemented Yet');
         break;
       case 'google':
         console.log('SignOutViaGoogle');

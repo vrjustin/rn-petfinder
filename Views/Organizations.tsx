@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import GlobalStyles from './Styles/GlobalStyles';
 import {useSelector, useDispatch} from 'react-redux';
+import {OrganizationsProps} from '../types/NavigationTypes';
 import {
   setOrganizations,
   selectOrganizations,
@@ -21,14 +22,16 @@ import apiService from '../services/apiService';
 import Organization from '../models/Organization';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
-const Organizations = () => {
+const Organizations: React.FC<OrganizationsProps> = ({
+  initialLoadingProp = false,
+}) => {
   const dispatch = useDispatch();
   const orgs = useSelector(selectOrganizations);
   const globalStyles = GlobalStyles();
   const searchParameters = useSelector(selectSearchParameters);
   const {location, distance, orgsPagination} = searchParameters;
   const {currentPage, totalPages} = orgsPagination;
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(initialLoadingProp);
 
   useEffect(() => {
     const fetchOrganizations = async () => {
@@ -53,7 +56,7 @@ const Organizations = () => {
       } catch (error) {
         console.error('Failed to fetch organizations: ', error);
       } finally {
-        setIsLoading(false);
+        setIsLoading(initialLoadingProp ? true : false);
       }
     };
     fetchOrganizations();

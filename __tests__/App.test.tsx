@@ -14,6 +14,18 @@ import {it} from '@jest/globals';
 import renderer, {act} from 'react-test-renderer';
 import {Provider} from 'react-redux';
 
+jest.mock('../services/authenticationServices.ts', () => ({
+  configureGoogleSignin: jest.fn(),
+  configureOkta: jest.fn(),
+  signOutOkta: jest.fn(),
+  signOutGoogle: jest.fn(),
+  signOutGuest: jest.fn(),
+  handleSignInViaGoogle: jest.fn(),
+  handleSignInViaGuest: jest.fn(),
+  handleSignIn: jest.fn(),
+  fetchToken: jest.fn(() => Promise.resolve(null)),
+}));
+
 jest.mock('../Views/PetTypes.tsx');
 
 let renderedAppTree: any;

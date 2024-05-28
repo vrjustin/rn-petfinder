@@ -21,6 +21,18 @@ jest.mock('@react-navigation/native', () => ({
   }),
 }));
 
+jest.mock('../services/authenticationServices.ts', () => ({
+  configureGoogleSignin: jest.fn(),
+  configureOkta: jest.fn(),
+  signOutOkta: jest.fn(),
+  signOutGoogle: jest.fn(),
+  signOutGuest: jest.fn(),
+  handleSignInViaGoogle: jest.fn(),
+  handleSignInViaGuest: jest.fn(),
+  handleSignIn: jest.fn(),
+  fetchToken: jest.fn(() => Promise.resolve(null)),
+}));
+
 let renderedSignInUpTree: any;
 
 describe('SignInUp', () => {

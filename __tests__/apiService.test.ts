@@ -1,22 +1,42 @@
-import axios from 'axios';
+import axios, {AxiosError} from 'axios';
 import apiService from '../services/apiService';
 import {PetType} from '../models/PetType';
 import Breed from '../models/Breed';
 import SearchParameters from '../models/SearchParameters';
+import {
+  mockOrganizationsResultsResponse,
+  mockPetTypeDog,
+  mockBreeds,
+  mockSearchParams,
+} from '../__mocks__/mocks';
 
 describe('apiService', () => {
-  beforeEach(() => {
+  const mockAccessToken = 'my-mocked-token';
+  const mockTokenResponse = {
+    data: {access_token: mockAccessToken},
+  };
+  const createAxiosError = (msg: string, status: number): AxiosError => {
+    const error = new Error(msg) as AxiosError;
+    error.isAxiosError = true;
+    error.response = {
+      status: status,
+      statusText: 'Unauthorized',
+      headers: {},
+      config: {},
+      data: {},
+    } as any;
+    error.toJSON = () => ({});
+    return error;
+  };
+
+  beforeEach(async () => {
+    await apiService.clearAccessToken();
     jest.clearAllMocks();
   });
 
   describe('getAccessToken', () => {
     it('should fetch access token', async () => {
-      const mockAccessToken = 'my-mocked-token';
-      const mockResponse = {
-        data: {access_token: mockAccessToken},
-      };
-
-      (axios.post as jest.Mock).mockResolvedValue(mockResponse);
+      (axios.post as jest.Mock).mockResolvedValue(mockTokenResponse);
       const accessToken = await apiService.getAccessToken();
 
       expect(accessToken).toEqual(mockAccessToken);
@@ -42,13 +62,7 @@ describe('apiService', () => {
 
   describe('getPetTypes', () => {
     it('should fetch pet types', async () => {
-      const mockAccessToken = 'my-mocked-token';
-      const mockTokenResponse = {
-        data: {access_token: mockAccessToken},
-      };
-
       (axios.post as jest.Mock).mockResolvedValue(mockTokenResponse);
-      await apiService.getAccessToken();
 
       const mockPetTypes = [
         {id: 1, name: 'Dog'},
@@ -71,13 +85,7 @@ describe('apiService', () => {
     });
 
     it('should handle error when fetching pet types', async () => {
-      const mockAccessToken = 'my-mocked-token';
-      const mockTokenResponse = {
-        data: {access_token: mockAccessToken},
-      };
-
       (axios.post as jest.Mock).mockResolvedValue(mockTokenResponse);
-      await apiService.getAccessToken();
 
       const mockError = new Error('Failed to fetch pet types');
       (axios.get as jest.Mock).mockRejectedValue(mockError);
@@ -90,13 +98,7 @@ describe('apiService', () => {
 
   describe('getPetBreeds', () => {
     it('should fetch pet breeds', async () => {
-      const mockAccessToken = 'my-mocked-token';
-      const mockTokenResponse = {
-        data: {access_token: mockAccessToken},
-      };
-
       (axios.post as jest.Mock).mockResolvedValue(mockTokenResponse);
-      await apiService.getAccessToken();
 
       const mockType: PetType = {
         displayName: 'Dog',
@@ -131,13 +133,7 @@ describe('apiService', () => {
     });
 
     it('should handle error when fetching pet breeds', async () => {
-      const mockAccessToken = 'my-mocked-token';
-      const mockTokenResponse = {
-        data: {access_token: mockAccessToken},
-      };
-
       (axios.post as jest.Mock).mockResolvedValue(mockTokenResponse);
-      await apiService.getAccessToken();
 
       const mockType: PetType = {
         displayName: 'Dog',
@@ -159,15 +155,39 @@ describe('apiService', () => {
     });
   });
 
+  describe('getOrganizations', () => {
+    it('should fetch organizations', async () => {
+      (axios.post as jest.Mock).mockResolvedValue(mockTokenResponse);
+      (axios.get as jest.Mock).mockResolvedValue(
+        mockOrganizationsResultsResponse,
+      );
+
+      const orgsData = await apiService.getOrganizations('90210', 5, 1);
+
+      expect(orgsData).toEqual(mockOrganizationsResultsResponse.data);
+      expect(axios.get).toHaveBeenCalledWith(
+        `https://api.petfinder.com/v2/organizations?location=90210&distance=5&page=1`,
+        {
+          headers: {
+            Authorization: `Bearer ${mockAccessToken}`,
+          },
+        },
+      );
+    });
+
+    it('should handle error when fetching organizations', async () => {
+      const mockError = new Error('Failed to fetch organizations');
+      (axios.get as jest.Mock).mockRejectedValue(mockError);
+
+      const orgsResponse = await apiService.getOrganizations('90210', 5, 1);
+
+      expect(orgsResponse.organizations).toEqual([]);
+    });
+  });
+
   describe('getAnimals', () => {
     it('should fetch animals', async () => {
-      const mockAccessToken = 'my-mocked-token';
-      const mockTokenResponse = {
-        data: {access_token: mockAccessToken},
-      };
-
       (axios.post as jest.Mock).mockResolvedValue(mockTokenResponse);
-      await apiService.getAccessToken();
 
       const mockType: PetType = {
         displayName: 'Dog',
@@ -240,48 +260,18 @@ describe('apiService', () => {
     });
 
     it('should handle error when fetching animals', async () => {
-      const mockType: PetType = {
-        displayName: 'Dog',
-        name: 'Dog',
-        coats: [],
-        colors: [],
-        genders: [],
-        _links: {
-          self: {href: ''},
-          breeds: {href: ''},
-        },
-      };
-      const mockBreed: Breed = {
-        name: 'Labrador',
-        _links: {
-          type: {href: ''},
-        },
-      };
-      const mockError = new Error('Failed to fetch animals');
+      const mockError = createAxiosError('Failed to fetch animals', 401);
       (axios.get as jest.Mock).mockRejectedValue(mockError);
-
-      const searchParameters: SearchParameters = {
-        location: {
-          zipCode: '90210',
-        },
-        distance: 500,
-        tagsPreferred: [],
-        breedsPreferred: [],
-        orgsPagination: {
-          currentPage: 1,
-          totalPages: 1,
-        },
-        animalsPagination: {
-          currentPage: 1,
-          totalPages: 1,
-        },
-      };
+      (axios.isAxiosError as unknown as jest.Mock).mockImplementationOnce(
+        error => error.isAxiosError,
+      );
+      (axios.post as jest.Mock).mockResolvedValue(mockTokenResponse);
 
       const animalsResponse = await apiService.getAnimals(
-        mockType,
-        [mockBreed],
-        searchParameters.location.zipCode,
-        searchParameters.distance,
+        mockPetTypeDog,
+        mockBreeds,
+        mockSearchParams.location.zipCode,
+        mockSearchParams.distance,
         1,
       );
       const {animalsData} = animalsResponse;

@@ -48,7 +48,7 @@ const UserOptions = ({onPress}: {onPress: () => void}) => {
 
 const Animals: React.FC<AnimalsProps> = ({route}) => {
   const [isGridView, setIsGridView] = useState(true);
-  const {petType} = route.params;
+  const {petType, initialIsLoading = false} = route.params;
   const navigation = useTypedNavigation();
   const dispatch = useDispatch();
   const animals = useSelector(selectAnimals);
@@ -58,7 +58,7 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
   const {location, distance, tagsPreferred, animalsPagination} =
     searchParameters;
   const {currentPage, totalPages} = animalsPagination;
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(initialIsLoading);
   const selectedBreeds = searchParameters.breedsPreferred;
   const globalStyles = GlobalStyles();
 
@@ -118,7 +118,7 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
       } catch (error) {
         console.error('Failed to fetch Animals data: ', error);
       } finally {
-        setIsLoading(false);
+        setIsLoading(initialIsLoading ? true : false);
       }
     };
     if (petType.name === 'Favorite' && favorites.length > 0) {
@@ -160,7 +160,7 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
   };
 
   const handleAnimalSelection = (animal: Animal) => {
-    navigation.navigate('AnimalDetails', {selectedAnimal: animal});
+    navigation.navigate(Routes.AnimalDetails, {selectedAnimal: animal});
   };
 
   const handleFavorite = async (animal: Animal) => {
@@ -176,7 +176,9 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
   };
 
   const renderItem = ({item}: {item: Animal}) => (
-    <TouchableOpacity onPress={() => handleAnimalSelection(item)}>
+    <TouchableOpacity
+      testID={`Animals-AnimalListButton-${item.id}`}
+      onPress={() => handleAnimalSelection(item)}>
       <View style={styles.item}>
         <Text style={styles.text}>
           {item.name} :: {item.id}
@@ -186,7 +188,9 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
   );
 
   const gridItem = ({item}: {item: Animal}) => (
-    <TouchableOpacity onPress={() => handleAnimalSelection(item)}>
+    <TouchableOpacity
+      testID={`Animals-AnimalButton-${item.id}`}
+      onPress={() => handleAnimalSelection(item)}>
       <View style={styles.gridItemContainer}>
         <ImageBackground
           source={

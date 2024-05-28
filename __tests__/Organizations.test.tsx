@@ -31,6 +31,9 @@ describe('Organizations', () => {
   });
 
   it('handles prevPage properly reducing currentPage by 1 down to min of 1', async () => {
+    (apiService.getOrganizations as jest.Mock).mockResolvedValue(
+      mockOrganizationsResultsResponse,
+    );
     const mockDispatch = jest.fn();
     jest.spyOn(reactRedux, 'useDispatch').mockReturnValue(mockDispatch);
 
@@ -44,21 +47,41 @@ describe('Organizations', () => {
     );
 
     await waitFor(() => ({}));
-
     const prevButton = getByTestId('Organizations-PrevPage-Button');
     fireEvent.press(prevButton);
 
-    // console.log('------');
-    // console.log(mockDispatch.mock.calls);
-    // console.log(mockDispatch.mock.calls[0]);
-    // console.log(mockDispatch.mock.calls[1][0].payload);
-    // console.log('---------');
-    const dispatchedAction = mockDispatch.mock.calls[0][0];
+    const dispatchedAction = mockDispatch.mock.calls[2][0];
     expect(dispatchedAction.type).toBe('searchParameters/setSearchParameters');
     expect(dispatchedAction.payload.orgsPagination.currentPage).toEqual(5);
   });
 
+  it('handles prevPage properly and does not dispatch if isLoading is true', async () => {
+    (apiService.getOrganizations as jest.Mock).mockResolvedValue(
+      mockOrganizationsResultsResponse,
+    );
+    const mockDispatch = jest.fn();
+    jest.spyOn(reactRedux, 'useDispatch').mockReturnValue(mockDispatch);
+
+    jest
+      .spyOn(searchParamsReducer, 'selectSearchParameters')
+      .mockReturnValue(mockSearchParams);
+    const {getByTestId} = render(
+      <Provider store={store}>
+        <Organizations initialLoadingProp={true} />
+      </Provider>,
+    );
+
+    await waitFor(() => ({}));
+    const prevButton = getByTestId('Organizations-PrevPage-Button');
+    fireEvent.press(prevButton);
+
+    expect(mockDispatch.mock.calls.length).toBe(2);
+  });
+
   it('handles nextPage properly increasing currentPage by 1 up to max of total pages', async () => {
+    (apiService.getOrganizations as jest.Mock).mockResolvedValue(
+      mockOrganizationsResultsResponse,
+    );
     const mockDispatch = jest.fn();
     jest.spyOn(reactRedux, 'useDispatch').mockReturnValue(mockDispatch);
 
@@ -72,13 +95,35 @@ describe('Organizations', () => {
     );
 
     await waitFor(() => ({}));
-
     const prevButton = getByTestId('Organizations-NextPage-Button');
     fireEvent.press(prevButton);
 
-    const dispatchedAction = mockDispatch.mock.calls[0][0];
+    const dispatchedAction = mockDispatch.mock.calls[2][0];
     expect(dispatchedAction.type).toBe('searchParameters/setSearchParameters');
     expect(dispatchedAction.payload.orgsPagination.currentPage).toEqual(7);
+  });
+
+  it('handles nextPage properly and does not dispatch if isLoading is true', async () => {
+    (apiService.getOrganizations as jest.Mock).mockResolvedValue(
+      mockOrganizationsResultsResponse,
+    );
+    const mockDispatch = jest.fn();
+    jest.spyOn(reactRedux, 'useDispatch').mockReturnValue(mockDispatch);
+
+    jest
+      .spyOn(searchParamsReducer, 'selectSearchParameters')
+      .mockReturnValue(mockSearchParams);
+    const {getByTestId} = render(
+      <Provider store={store}>
+        <Organizations initialLoadingProp={true} />
+      </Provider>,
+    );
+
+    await waitFor(() => ({}));
+    const prevButton = getByTestId('Organizations-NextPage-Button');
+    fireEvent.press(prevButton);
+
+    expect(mockDispatch.mock.calls.length).toBe(2);
   });
 
   it('renders correctly', async () => {

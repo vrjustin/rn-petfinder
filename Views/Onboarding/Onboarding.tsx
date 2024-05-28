@@ -5,7 +5,11 @@ import Page from './Page';
 
 const Onboarding = ({onFinishOnboarding}) => {
   return (
-    <PagerView style={styles.pagerView} initialPage={0} useNext={false}>
+    <PagerView
+      testID="Onboarding-PagerView"
+      style={styles.pagerView}
+      initialPage={0}
+      useNext={false}>
       <Page
         idx={1}
         pageTitle={'Welcome to PetFinder'}
