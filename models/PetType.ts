@@ -32,7 +32,7 @@ export const petTypeImages: Record<string, string> = {
   Barnyard: llamaImage,
 };
 
-export const mapTypeNameToLocaleName = (name: string): string => {
+export const mapTypeNameToLocaleName = (name: string): string | undefined => {
   switch (name) {
     case 'Dog':
       return petTypesLocaleResolver.Dog;

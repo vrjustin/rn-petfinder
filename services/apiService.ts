@@ -60,6 +60,10 @@ const getAccessToken = async (): Promise<string | null> => {
   }
 };
 
+const clearAccessToken = async () => {
+  jwt_access_token = null;
+};
+
 const getOrganizations = async (
   location: string,
   searchDistance: number,
@@ -81,7 +85,7 @@ const getOrganizations = async (
       );
     return response.data;
   } catch (error) {
-    console.log('Failed to get Organizations: ', error);
+    console.error('Failed to get Organizations: ', error);
     return {
       organizations: [],
       pagination: {
@@ -151,7 +155,6 @@ const getAnimals = async (
     const localAnimalsJson = await AsyncStorage.getItem('animals');
     const storedAnimals = localAnimalsJson ? JSON.parse(localAnimalsJson) : [];
     const typeName = type.name.toLowerCase();
-    // const breedName = breed.name.toLowerCase();
     const breedNamesString = breeds
       .map(breed => breed.name.toLowerCase())
       .join(',');
@@ -191,6 +194,7 @@ const getAnimals = async (
 
 export default {
   getAccessToken,
+  clearAccessToken,
   getPetTypes,
   getPetBreeds,
   getAnimals,

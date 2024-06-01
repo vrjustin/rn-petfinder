@@ -1,3 +1,5 @@
+require('dotenv').config({path: '.env.test'});
+
 jest.mock('axios');
 
 jest.mock('@react-native-async-storage/async-storage', () => ({
@@ -15,22 +17,8 @@ jest.mock('react-native-splash-screen', () => ({
   hide: jest.fn(),
 }));
 
-jest.mock('@okta/okta-react-native', () => ({
-  createConfig: jest.fn(),
-  signOut: jest.fn(),
-  signInWithBrowser: jest.fn(),
-}));
-
-jest.mock('../services/authenticationServices.ts', () => ({
-  configureGoogleSignin: jest.fn(),
-  configureOkta: jest.fn(),
-  signOutOkta: jest.fn(),
-  signOutGoogle: jest.fn(),
-  signOutGuest: jest.fn(),
-  handleSignInViaGoogle: jest.fn(),
-  handleSignInViaGuest: jest.fn(),
-  handleSignIn: jest.fn(),
-  fetchToken: jest.fn(() => Promise.resolve(null)),
+jest.mock('@invertase/react-native-apple-authentication', () => ({
+  appleAuth: jest.fn(),
 }));
 
 jest.mock('@react-native-google-signin/google-signin', () => ({}));

@@ -7,10 +7,14 @@ import store from '../stores/store';
 import renderer, {act} from 'react-test-renderer';
 import {waitFor, render, fireEvent} from '@testing-library/react-native';
 import Breeds from '../Views/Breeds';
-import SearchParameters from '../models/SearchParameters';
 import {BreedsScreenRouteProp} from '../types/NavigationTypes';
-import {mockBreeds, mockPetTypeDog} from '../__mocks__/mocks';
+import {
+  mockBreeds,
+  mockPetTypeDog,
+  mockSearchParamsWithBreeds,
+} from '../__mocks__/mocks';
 import apiService from '../services/apiService';
+import {Routes} from '../navigation/Routes';
 
 const mockNavigate = jest.fn();
 const mockSetOptions = jest.fn();
@@ -28,6 +32,10 @@ jest.mock('../services/apiService', () => ({
 let renderedBreedsTree: any;
 
 describe('Breeds', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('renders correctly', async () => {
     (apiService.getPetBreeds as jest.Mock).mockResolvedValueOnce(mockBreeds);
 
@@ -94,25 +102,10 @@ describe('Breeds', () => {
     jest
       .spyOn(petBreedsReducer, 'selectPetBreeds')
       .mockReturnValue([mockBreeds[0]]);
-    const mockSearchParameters: SearchParameters = {
-      location: {
-        zipCode: '90210',
-      },
-      distance: 5,
-      tagsPreferred: ['Friendly'],
-      breedsPreferred: [mockBreeds[0]],
-      orgsPagination: {
-        currentPage: 1,
-        totalPages: 1,
-      },
-      animalsPagination: {
-        currentPage: 1,
-        totalPages: 1,
-      },
-    };
+
     jest
       .spyOn(searchParamsReducer, 'selectSearchParameters')
-      .mockReturnValue(mockSearchParameters);
+      .mockReturnValue(mockSearchParamsWithBreeds);
 
     const {getByTestId} = render(
       <Provider store={store}>
@@ -123,10 +116,41 @@ describe('Breeds', () => {
     );
 
     await waitFor(() => ({}));
-    const poodleBreedButton = getByTestId(`Breeds-Breed-Poodle`);
+    const poodleBreedButton = getByTestId('Breeds-Breed-Poodle');
     fireEvent.press(poodleBreedButton);
     const dispatchedAction = mockDispatch.mock.calls[2][0];
     expect(dispatchedAction.type).toBe('searchParameters/setSearchParameters');
-    expect(dispatchedAction.payload.breedsPreferred).toEqual([]);
+    expect(dispatchedAction.payload.breedsPreferred[0].name).toEqual(
+      'German Shephard Dog',
+    );
+  });
+
+  it('navigates to Animals screen upon press of handleNavigateToAnimals', async () => {
+    jest
+      .spyOn(searchParamsReducer, 'selectSearchParameters')
+      .mockReturnValue(mockSearchParamsWithBreeds);
+
+    render(
+      <Provider store={store}>
+        <Breeds
+          route={{params: {petType: mockPetTypeDog}} as BreedsScreenRouteProp}
+        />
+      </Provider>,
+    );
+
+    await waitFor(() => expect(mockSetOptions).toHaveBeenCalled());
+
+    const headerRight = mockSetOptions.mock.calls[0][0].headerRight;
+    const {getByTestId: getByTestIdHeader} = render(headerRight());
+    await waitFor(() => ({}));
+    const animalsButton = getByTestIdHeader(
+      'Breeds-Navigate-to-Animals-Button',
+    );
+    fireEvent.press(animalsButton);
+
+    expect(mockNavigate).toHaveBeenCalledWith(Routes.Animals, {
+      petType: mockPetTypeDog,
+      selectedBreeds: mockSearchParamsWithBreeds.breedsPreferred,
+    });
   });
 });

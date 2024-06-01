@@ -6,12 +6,14 @@ import renderer, {act} from 'react-test-renderer';
 import {fireEvent, render, waitFor} from '@testing-library/react-native';
 import AnimalDetails from '../Views/AnimalDetails';
 import {Routes} from '../navigation/Routes';
-import {selectedAnimalMock} from '../__mocks__/mocks';
-import SearchParameters from '../models/SearchParameters';
+import {
+  selectedAnimalMock,
+  mockSearchParams,
+  googleSignedInProfile,
+} from '../__mocks__/mocks';
 import * as searchParamsReducer from '../reducers/searchParamsReducer';
 import * as profileReducer from '../reducers/profileReducer';
 import * as animalsReducer from '../reducers/animalsReducer';
-import Profile from '../models/Profile';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const mockNavigate = jest.fn();
@@ -22,30 +24,6 @@ jest.mock('@react-navigation/native', () => ({
     setOptions: mockSetOptions,
   }),
 }));
-
-const mockSearchParameters: SearchParameters = {
-  location: {
-    zipCode: '90210',
-  },
-  distance: 5,
-  tagsPreferred: ['Friendly'],
-  breedsPreferred: [],
-  orgsPagination: {
-    currentPage: 1,
-    totalPages: 1,
-  },
-  animalsPagination: {
-    currentPage: 1,
-    totalPages: 1,
-  },
-};
-
-const mockProfile: Profile = {
-  shouldOnboard: false,
-  isRehydrated: true,
-  userName: 'Test-User',
-  signInMethod: 'google',
-};
 
 let renderedAnimalDetailsTree: any;
 
@@ -138,7 +116,7 @@ describe('AnimalDetails', () => {
     jest.spyOn(reactRedux, 'useDispatch').mockReturnValue(mockDispatch);
     jest
       .spyOn(searchParamsReducer, 'selectSearchParameters')
-      .mockReturnValue(mockSearchParameters);
+      .mockReturnValue(mockSearchParams);
 
     const {getByTestId} = render(
       <Provider store={store}>
@@ -160,13 +138,18 @@ describe('AnimalDetails', () => {
 
     const dispatchedAction = mockDispatch.mock.calls[0][0];
     expect(dispatchedAction.type).toBe('searchParameters/setSearchParameters');
-    expect(dispatchedAction.payload.tagsPreferred).toEqual([]);
+    expect(dispatchedAction.payload.tagsPreferred).toEqual([
+      'Happy',
+      'Go Lucky',
+    ]);
   });
 
   it('handles favorite properly for selectedAnimal', async () => {
     const mockDispatch = jest.fn();
     jest.spyOn(reactRedux, 'useDispatch').mockReturnValue(mockDispatch);
-    jest.spyOn(profileReducer, 'profile').mockReturnValue(mockProfile);
+    jest
+      .spyOn(profileReducer, 'profile')
+      .mockReturnValue(googleSignedInProfile);
     jest
       .spyOn(animalsReducer, 'selectAnimals')
       .mockReturnValue([selectedAnimalMock]);

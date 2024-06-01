@@ -11,10 +11,10 @@ import {setProfile} from '../reducers/profileReducer';
 import {Dispatch} from 'redux';
 import Profile from '../models/Profile';
 
-const clientId = process.env.OKTA_CLIENT_ID || '';
-const redirectUri = process.env.OKTA_REDIRECT_URI || '';
-const endSessionRedirectUri = process.env.OKTA_END_SESSION_REDIRECT_URI || '';
-const discoveryUri = process.env.OKTA_DISCOVERY_URI || '';
+const clientId = process.env.OKTA_CLIENT_ID!;
+const redirectUri = process.env.OKTA_REDIRECT_URI!;
+const endSessionRedirectUri = process.env.OKTA_END_SESSION_REDIRECT_URI!;
+const discoveryUri = process.env.OKTA_DISCOVERY_URI!;
 const googleWebClientId = process.env.GOOGLE_CLIENT_ID;
 
 export enum SignInMethod {
@@ -57,7 +57,7 @@ export const signOutGoogle = async () => {
     await GoogleSignin.signOut();
     removeToken();
   } catch (error) {
-    console.error(error);
+    console.error('Failed to signOut of Google: ', error);
   }
 };
 
@@ -72,8 +72,7 @@ export const handleSignInViaGoogle = async (
   try {
     await GoogleSignin.hasPlayServices();
     const result = await GoogleSignin.signIn();
-    console.log('userInfo is: ', result.user);
-    const idToken = result.idToken || '';
+    const idToken = result.idToken!;
     const userName = result.user.email;
     dispatch(
       setProfile({
@@ -87,7 +86,7 @@ export const handleSignInViaGoogle = async (
     await Keychain.setGenericPassword('user', idToken);
     return true;
   } catch (error) {
-    console.error(error);
+    console.error('Failed to signIn Google: ', error);
     return false;
   }
 };
@@ -101,13 +100,10 @@ export const handleSignInViaApple = async (
       requestedOperation: appleAuth.Operation.LOGIN,
       requestedScopes: [appleAuth.Scope.FULL_NAME, appleAuth.Scope.EMAIL],
     });
-    console.log('handleSignInViaApple response is: ', requestResponse);
     const credentialState = await appleAuth.getCredentialStateForUser(
       requestResponse.user,
     );
-    console.log('handleSignInViaApple credentialState is: ', credentialState);
     if (credentialState === appleAuth.State.AUTHORIZED) {
-      console.log('User is authorized...');
       dispatch(
         setProfile({
           ...userProfile,
@@ -120,8 +116,9 @@ export const handleSignInViaApple = async (
       await Keychain.setGenericPassword('user', 'FIX_THIS_APPLE');
       return true;
     }
+    return false;
   } catch (error) {
-    console.error(error);
+    console.error('Failed to signIn via appleAuth: ', error);
     return false;
   }
 };
@@ -163,7 +160,8 @@ export const handleSignIn = async (
     await Keychain.setGenericPassword('user', result.access_token);
     return true;
   } catch (error) {
-    console.error('Sign in failed', error);
+    console.error('Sign in via Okta failed: ', error);
+    return false;
   }
 };
 

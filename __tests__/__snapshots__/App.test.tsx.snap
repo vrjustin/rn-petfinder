@@ -15,6 +15,7 @@ exports[`renders correctly 1`] = `
       "justifyContent": "center",
     }
   }
+  testID="Onboarding-PagerView"
   useLegacy={true}
 >
   <View

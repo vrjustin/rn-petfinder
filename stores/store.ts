@@ -1,11 +1,12 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import {persistReducer, persistStore} from 'redux-persist';
+import {useOnRehydrated} from '../hooks/useOnRehydrated';
 import petTypesReducer from '../reducers/petTypesReducer';
 import petBreedsReducer from '../reducers/petBreedsReducer';
 import animalsReducer from '../reducers/animalsReducer';
 import searchParamsReducer from '../reducers/searchParamsReducer';
 import organizationsReducer from '../reducers/organizationsReducer';
-import profileReducer, {profile, setProfile} from '../reducers/profileReducer';
+import profileReducer from '../reducers/profileReducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const createDebugger = require('redux-flipper').default;
@@ -37,21 +38,6 @@ const store = configureStore({
         )
       : getDefaultMiddleware({serializableCheck: false}),
 });
-
-const useOnRehydrated = () => {
-  console.log('Rehydration completed...');
-  const userProfile = store.getState().profile.profile;
-  const {shouldOnboard, userName, signInMethod} = userProfile;
-  store.dispatch(
-    setProfile({
-      ...profile,
-      shouldOnboard: shouldOnboard,
-      isRehydrated: true,
-      userName: userName,
-      signInMethod: signInMethod,
-    }),
-  );
-};
 
 persistStore(store, null, useOnRehydrated);
 

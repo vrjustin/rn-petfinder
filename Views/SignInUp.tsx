@@ -77,7 +77,7 @@ const SignInUp: React.FC<SignInUpProps> = ({initialLoadingProp = true}) => {
 
   const renderLoadingIndicator = () => {
     return (
-      <View style={styles.container}>
+      <View testID="SignInUp-LoadingIndicator" style={styles.container}>
         <ActivityIndicator
           size={'large'}
           color={'#007AFF'}
@@ -89,7 +89,7 @@ const SignInUp: React.FC<SignInUpProps> = ({initialLoadingProp = true}) => {
 
   const renderSignInPage = () => {
     return (
-      <View style={styles.container}>
+      <View testID="SignInUp-Container" style={styles.container}>
         <Text style={styles.title}>My PetFinder</Text>
         <Text style={styles.tagline}>Adopt, Don't Shop!</Text>
         <Image

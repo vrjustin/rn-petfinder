@@ -30,28 +30,18 @@ export const oktaSignedInProfile: Profile = {
   signInMethod: 'okta',
 };
 
+export const appleSignedInProfile: Profile = {
+  shouldOnboard: false,
+  isRehydrated: true,
+  userName: 'apple-test-user',
+  signInMethod: 'apple',
+};
+
 export const guestSignedInProfile: Profile = {
   shouldOnboard: false,
   isRehydrated: true,
   userName: 'guest',
   signInMethod: 'guest',
-};
-
-export const mockSearchParams: SearchParameters = {
-  location: {
-    zipCode: '90210',
-  },
-  distance: 5,
-  tagsPreferred: ['Friendly'],
-  breedsPreferred: [],
-  orgsPagination: {
-    currentPage: 6,
-    totalPages: 10,
-  },
-  animalsPagination: {
-    currentPage: 3,
-    totalPages: 5,
-  },
 };
 
 export const selectedAnimalMock: Animal = {
@@ -202,6 +192,66 @@ export const mockPetTypeCat: PetType = {
   },
 };
 
+export const mockPetTypeRabbit: PetType = {
+  displayName: 'Rabbit',
+  name: 'Rabbit',
+  coats: [],
+  colors: [],
+  genders: [],
+  _links: {
+    self: {href: ''},
+    breeds: {href: ''},
+  },
+};
+
+export const mockPetTypeSmallAndFurry: PetType = {
+  displayName: 'Small & Furry',
+  name: 'Small & Furry',
+  coats: [],
+  colors: [],
+  genders: [],
+  _links: {
+    self: {href: ''},
+    breeds: {href: ''},
+  },
+};
+
+export const mockPetTypeHorse: PetType = {
+  displayName: 'Horse',
+  name: 'Horse',
+  coats: [],
+  colors: [],
+  genders: [],
+  _links: {
+    self: {href: ''},
+    breeds: {href: ''},
+  },
+};
+
+export const mockPetTypeScalesFinsAndOthers: PetType = {
+  displayName: 'Scales, Fins & Other',
+  name: 'Scales, Fins & Other',
+  coats: [],
+  colors: [],
+  genders: [],
+  _links: {
+    self: {href: ''},
+    breeds: {href: ''},
+  },
+};
+
+export const mockPetTypeBarnyard: PetType = {
+  displayName: 'Barnyard',
+  name: 'Barnyard',
+  coats: [],
+  colors: [],
+  genders: [],
+  _links: {
+    self: {href: ''},
+    breeds: {href: ''},
+  },
+};
+
 export const mockPetTypeBird: PetType = {
   displayName: 'Bird',
   name: 'Bird',
@@ -240,6 +290,57 @@ export const mockBreeds: Breed[] = [
     },
   },
 ];
+
+export const mockSearchParams: SearchParameters = {
+  location: {
+    zipCode: '90210',
+  },
+  distance: 5,
+  tagsPreferred: ['Friendly', 'Happy', 'Go Lucky'],
+  breedsPreferred: [],
+  orgsPagination: {
+    currentPage: 6,
+    totalPages: 10,
+  },
+  animalsPagination: {
+    currentPage: 3,
+    totalPages: 5,
+  },
+};
+
+export const mockSearchParamsSingleBreed: SearchParameters = {
+  location: {
+    zipCode: '90210',
+  },
+  distance: 5,
+  tagsPreferred: ['Friendly', 'Happy', 'Go Lucky'],
+  breedsPreferred: [mockBreeds[0]],
+  orgsPagination: {
+    currentPage: 6,
+    totalPages: 10,
+  },
+  animalsPagination: {
+    currentPage: 3,
+    totalPages: 5,
+  },
+};
+
+export const mockSearchParamsWithBreeds: SearchParameters = {
+  location: {
+    zipCode: '90210',
+  },
+  distance: 5,
+  tagsPreferred: ['Friendly'],
+  breedsPreferred: mockBreeds,
+  orgsPagination: {
+    currentPage: 6,
+    totalPages: 10,
+  },
+  animalsPagination: {
+    currentPage: 3,
+    totalPages: 5,
+  },
+};
 
 export const mockOrganization: Organization = {
   id: '1',
