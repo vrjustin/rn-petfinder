@@ -14,13 +14,12 @@ import {useSelector, useDispatch} from 'react-redux';
 import Animal from '../models/Animal';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import {AnimalProps, useTypedNavigation} from '../types/NavigationTypes';
-import {setAnimals, selectAnimals} from '../reducers/animalsReducer';
+import {selectFavorites, toggleFavorite} from '../reducers/animalsReducer';
 import {
   setSearchParameters,
   selectSearchParameters,
 } from '../reducers/searchParamsReducer';
 import {profile} from '../reducers/profileReducer';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Routes} from '../navigation/Routes';
 import en from '../strings/en.json';
 
@@ -55,12 +54,18 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
     selectedAnimal;
   const userProfile = useSelector(profile);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isFavorite, setIsFavorite] = useState(selectedAnimal.isFavorite);
-  const animals = useSelector(selectAnimals);
+  const favorites = useSelector(selectFavorites);
   const searchParameters = useSelector(selectSearchParameters);
   const {tagsPreferred} = searchParameters;
   const navigation = useTypedNavigation();
   const dispatch = useDispatch();
+
+  const isFavorite = (animal: Animal): boolean => {
+    if (favorites.some(a => a.id === animal.id)) {
+      return true;
+    }
+    return false;
+  };
 
   const isGuest = () => {
     const {userName, signInMethod} = userProfile;
@@ -94,13 +99,7 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
 
   const handleFavorite = async (animal: Animal) => {
     console.log('Favoriting Animal: ', animal.name);
-    const isFavoriteValToggle = !animal.isFavorite;
-    const updatedAnimals = animals.map(a =>
-      a.id === animal.id ? {...a, isFavorite: isFavoriteValToggle} : a,
-    );
-    setIsFavorite(isFavoriteValToggle);
-    dispatch(setAnimals(updatedAnimals));
-    await AsyncStorage.setItem('animals', JSON.stringify(updatedAnimals));
+    dispatch(toggleFavorite(animal));
   };
 
   const renderHero = () => {
@@ -142,7 +141,7 @@ const AnimalDetails: React.FC<AnimalProps> = ({route}) => {
                 testID="AnimalDetails-FavoriteButton"
                 onPress={() => handleFavorite(selectedAnimal)}>
                 <FontAwesomeIcon
-                  name={isFavorite ? 'heart' : 'heart-o'}
+                  name={isFavorite(selectedAnimal) ? 'heart' : 'heart-o'}
                   size={20}
                   color={'white'}
                   style={styles.favoriteButtonIconStyle}
