@@ -107,7 +107,6 @@ export const selectedAnimalMock: Animal = {
   },
   species: 'Dog',
   tags: ['Friendly', 'Playful'],
-  isFavorite: false,
 };
 
 export const selectedAnimalMockNoContact: Animal = {
@@ -155,7 +154,6 @@ export const selectedAnimalMockNoContact: Animal = {
   },
   species: 'Dog',
   tags: ['Friendly', 'Playful'],
-  isFavorite: false,
 };
 
 export const mockAnimalResults: AnimalResults = {

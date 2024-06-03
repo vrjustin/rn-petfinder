@@ -53,7 +53,6 @@ interface Animal {
   };
   species: string;
   tags: string[];
-  isFavorite: boolean;
 }
 
 export default Animal;

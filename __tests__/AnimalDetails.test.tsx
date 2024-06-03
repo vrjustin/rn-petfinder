@@ -171,13 +171,7 @@ describe('AnimalDetails', () => {
     fireEvent.press(favoriteButton);
 
     const dispatchedAction = mockDispatch.mock.calls[0][0];
-    expect(dispatchedAction.type).toBe('animals/setAnimals');
-    const favoritedAnimalAfterDispatch = dispatchedAction.payload[0];
-    expect(favoritedAnimalAfterDispatch.isFavorite).toBe(true);
-    expect(AsyncStorage.setItem).toHaveBeenCalledWith(
-      'animals',
-      JSON.stringify(dispatchedAction.payload),
-    );
+    expect(dispatchedAction.type).toBe('animals/toggleFavorite');
   });
 
   it('sets the currentImageIndex onPress of gallery item', async () => {

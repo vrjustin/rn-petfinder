@@ -216,7 +216,6 @@ exports[`Animals renders correctly 1`] = `
               "description": "A fluffy dog",
               "gender": "Female",
               "id": 1,
-              "isFavorite": false,
               "name": "Fluffy",
               "organization_id": "org1",
               "photos": [
@@ -824,7 +823,6 @@ exports[`Animals renders correctly when in favorites mode 1`] = `
               "description": "A fluffy dog",
               "gender": "Female",
               "id": 1,
-              "isFavorite": false,
               "name": "Fluffy",
               "organization_id": "org1",
               "photos": [
