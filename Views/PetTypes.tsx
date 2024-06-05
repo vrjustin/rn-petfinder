@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   Dimensions,
+  SafeAreaView,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {setPetTypes, selectPetTypes} from '../reducers/petTypesReducer';
@@ -174,6 +175,7 @@ const PetTypes: React.FC = () => {
   }
 
   return (
+    <SafeAreaView style={{flex: 1}}>
     <View style={globalStyles.container}>
       <Text style={globalStyles.header}>{en.HomeHeader}</Text>
       {renderFavoritesTouchable()}
@@ -187,6 +189,7 @@ const PetTypes: React.FC = () => {
         />
       </View>
     </View>
+    </SafeAreaView>
   );
 };
 
@@ -197,14 +200,12 @@ const styles = StyleSheet.create({
   itemBackground: {
     flex: 1,
     margin: 10,
-    height: 150,
     justifyContent: 'center',
     borderRadius: 10,
-    overflow: 'hidden',
   },
   orgsTouchableContainer: {
     backgroundColor: 'grey',
-    height: 38,
+    height: 52,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -218,7 +219,7 @@ const styles = StyleSheet.create({
   },
   favoritesTouchableContainer: {
     backgroundColor: 'pink',
-    height: 38,
+    height: 52,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -252,6 +253,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   icon: {
+    fontSize: 24,
     marginRight: 10,
   },
   gridItemImage: {

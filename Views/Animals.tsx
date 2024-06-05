@@ -317,7 +317,11 @@ const Animals: React.FC<AnimalsProps> = ({route}) => {
           </TouchableOpacity>
         </View>
       </View>
-      {totalPages > 1 ? paginationHeader() : <></>}
+      {totalPages > 1 && petType.name !== 'Favorite' ? (
+        paginationHeader()
+      ) : (
+        <></>
+      )}
       {animals.length > 0 ? (
         <>
           {isGridView ? (
